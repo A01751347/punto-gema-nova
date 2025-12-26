@@ -63,7 +63,7 @@ export default function Footer() {
         <footer className="bg-cream-light border-t border-cream">
             <div className="container mx-auto py-12">
                 {/* Newsletter Section */}
-                <div className="mb-12 text-center">
+                <div className="mb-12 text-center mt-8">
                     <h3 className="text-2xl font-semibold text-text-primary mb-2">
                         Recibe rutinas y lanzamientos
                     </h3>

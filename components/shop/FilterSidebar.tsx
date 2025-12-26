@@ -51,14 +51,20 @@ export default function FilterSidebar({ categories, concerns }: FilterSidebarPro
                                 Ver todo
                             </button>
                         </li>
-                        {categories.map((cat) => (
-                            <li key={cat.id}>
+                        {[
+                            'Acné',
+                            'Anti-Edad',
+                            'Barrera Cutánea',
+                            'Hidratación',
+                            'Manchas'
+                        ].map((cat) => (
+                            <li key={cat}>
                                 <button
-                                    onClick={() => handleFilterChange('category', cat.name)} // Using name as slug for now, better to use slug if available
-                                    className={`text-sm hover:text-primary transition-colors text-left ${currentCategory === cat.name ? 'text-primary font-medium' : 'text-text-secondary'
+                                    onClick={() => handleFilterChange('category', cat)}
+                                    className={`text-sm hover:text-primary transition-colors text-left ${currentCategory === cat ? 'text-primary font-medium' : 'text-text-secondary'
                                         }`}
                                 >
-                                    {cat.name}
+                                    {cat}
                                 </button>
                             </li>
                         ))}

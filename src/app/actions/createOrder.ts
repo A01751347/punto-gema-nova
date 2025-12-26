@@ -77,10 +77,13 @@ export async function createOrder(prevState: any, formData: FormData) {
         }
     }
 
-    // Mock shipping/tax
-    const shippingCost = subtotal > 999 ? 0 : 150;
-    const tax = subtotal * 0.16;
-    const total = subtotal + tax + shippingCost;
+    // Prices are tax inclusive
+    const grossProductTotal = subtotal;
+    const shippingCost = grossProductTotal > 999 ? 0 : 150;
+
+    const netSubtotal = grossProductTotal / 1.16;
+    const tax = grossProductTotal - netSubtotal;
+    const total = grossProductTotal + shippingCost;
 
     let orderId = '';
 
@@ -129,7 +132,18 @@ export async function createOrder(prevState: any, formData: FormData) {
                         cognitoId: `guest_${Date.now()}_${Math.random()}`, // Fake ID for now
                         firstName: firstName as string,
                         lastName: lastName as string,
-                        role: 'CUSTOMER'
+                        role: 'CUSTOMER',
+                        phone: phone as string,
+                    }
+                });
+            } else {
+                // Update existing user with latest contact info
+                await tx.user.update({
+                    where: { id: user.id },
+                    data: {
+                        firstName: firstName as string,
+                        lastName: lastName as string,
+                        phone: phone as string,
                     }
                 });
             }
@@ -158,7 +172,7 @@ export async function createOrder(prevState: any, formData: FormData) {
                     shippingAddressId: newAddress.id,
                     shippingMethod: 'Standard',
                     shippingCost: shippingCost,
-                    subtotal: subtotal,
+                    subtotal: netSubtotal, // Storing NET subtotal
                     tax: tax,
                     total: total,
                     paymentMethod: 'credit_card', // form.paymentMethod

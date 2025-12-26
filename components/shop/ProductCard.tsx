@@ -36,9 +36,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                 )}
 
                 <div className="absolute bottom-0 left-0 w-full p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <Button className="w-full bg-white text-primary hover:bg-primary hover:text-white border border-transparent shadow-lg text-sm">
+                    <span className="w-full inline-flex items-center justify-center font-medium rounded-lg px-6 py-3 bg-white text-[#2c4a52] hover:bg-[#2c4a52] hover:text-white shadow-lg text-sm transition-colors duration-200">
                         Ver Detalles
-                    </Button>
+                    </span>
                 </div>
             </div>
 

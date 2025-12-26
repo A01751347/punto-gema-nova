@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Nuestra Historia | YUTNÜÜ',
@@ -8,12 +9,20 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <main className="bg-white min-h-screen pt-24 pb-20">
+        <main className="bg-white min-h-screen pt-0 pb-20">
 
             {/* Hero Section */}
             <section className="relative px-4 py-20 md:py-32 overflow-hidden">
-                <div className="absolute inset-0 bg-[#2c4a52] -z-20" />
-                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-l from-black/20 to-transparent -z-10" />
+                <div className="absolute inset-0">
+                    <Image
+                        src="/images/banner-tuna.png"
+                        alt="Paisaje de Tuna"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </div>
+                <div className="absolute inset-0 bg-[#1e343a]/90" />
 
                 <div className="container mx-auto max-w-5xl relative z-10 text-center text-white">
                     <span className="text-[#d4af37] font-bold tracking-widest uppercase text-xs mb-4 block">
@@ -47,12 +56,18 @@ export default function AboutPage() {
                                 </p>
                             </div>
                         </div>
-                        <div className="aspect-[3/4] bg-cream-light rounded-t-full rounded-b-3xl relative overflow-hidden group">
-                            {/* Placeholder for an image of desert/cactus */}
-                            <div className="absolute inset-0 bg-[#8c9e8e]/20 group-hover:bg-[#8c9e8e]/10 transition-colors" />
-                            <div className="absolute bottom-8 left-8 right-8">
-                                <span className="block text-4xl mb-2 text-[#2c4a52]">🌵</span>
-                                <p className="text-sm text-[#2c4a52] font-medium">Cosecha Silvestre Responsable</p>
+
+
+                        <div className="aspect-[3/4] bg-cream-light rounded-t-full rounded-b-3xl relative overflow-hidden group shadow-xl">
+                            <Image
+                                src="/images/tuna.png"
+                                alt="Cosecha de Tuna"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                            <div className="absolute bottom-6 left-0 right-0 text-center">
+                                <span className="text-white/90 text-sm font-medium tracking-widest uppercase">Cosecha Silvestre Responsable</span>
                             </div>
                         </div>
                     </div>

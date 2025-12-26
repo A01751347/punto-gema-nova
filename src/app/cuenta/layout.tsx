@@ -36,7 +36,7 @@ export default function AccountLayout({
 
     return (
         <div className="min-h-screen bg-gray-50/50 pt-24 pb-12">
-            <div className="container mx-auto px-4 max-w-6xl">
+            <div className="container mx-auto mt-8 px-4 max-w-7xl">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     {/* Sidebar Navigation */}
                     <div className="lg:col-span-1">

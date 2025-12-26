@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import {
     Droplet,
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RoutinesPage() {
     return (
-        <main className="bg-white min-h-screen pt-24 pb-20">
+        <main className="bg-white min-h-screen pt-0 pb-20">
 
             {/* Hero Section */}
             <section className="relative px-4 py-20 md:py-32 bg-primary text-white overflow-hidden">
@@ -208,15 +209,21 @@ export default function RoutinesPage() {
                         </div>
 
                         <div className="relative">
-                            <div className="aspect-square bg-white rounded-[3rem] shadow-xl p-8 flex items-center justify-center border border-gray-100 relative overflow-hidden">
-                                {/* Artistic representation using CSS/SVG instead of generic image */}
-                                <div className="absolute inset-0 bg-gradient-to-tr from-[#d4af37]/20 to-transparent" />
-                                <div className="text-center relative z-10">
-                                    <div className="mb-4 inline-flex p-4 rounded-full bg-accent/10 text-accent">
-                                        <Feather size={48} strokeWidth={1} />
+                            <div className="aspect-square rounded-[3rem] shadow-xl relative overflow-hidden group">
+                                <Image
+                                    src="https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg"
+                                    alt="Aceite Capilar YUTNÜÜ"
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-10">
+                                    <div className="mb-4 inline-flex p-4 rounded-full bg-white/10 backdrop-blur-sm text-[#d4af37] border border-white/20 hover:scale-110 transition-transform">
+                                        <Feather size={32} strokeWidth={1.5} />
                                     </div>
-                                    <h3 className="font-serif text-2xl text-primary mb-2">Aceite Capilar</h3>
-                                    <p className="text-sm text-gray-500 uppercase tracking-wide">YUTNÜÜ Cosmetics</p>
+                                    <h3 className="font-serif text-3xl text-white mb-2 shadow-sm">Aceite Capilar</h3>
+                                    <p className="text-sm text-[#d4af37] font-bold uppercase tracking-widest drop-shadow-md">YUTNÜÜ Cosmetics</p>
                                 </div>
                             </div>
                         </div>

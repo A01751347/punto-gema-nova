@@ -171,9 +171,9 @@ export default function SciencePage() {
                             }
                         ].map((item, idx) => (
                             <div key={idx} className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
-                                <span className="text-4xl font-serif text-white/20 mb-6 block">{item.icon}</span>
-                                <h3 className="text-xl font-medium mb-4">{item.title}</h3>
-                                <p className="text-white/70 font-light leading-relaxed text-sm">
+                                <span className="text-4xl font-serif text-accent mb-6 block">{item.icon}</span>
+                                <h3 className="text-xl font-medium mb-4 text-white">{item.title}</h3>
+                                <p className="text-white/95 font-light leading-relaxed text-sm">
                                     {item.desc}
                                 </p>
                             </div>
@@ -185,14 +185,14 @@ export default function SciencePage() {
                             <div className="w-2 h-2 rounded-full bg-accent" />
                             <div>
                                 <strong className="block text-white mb-1 text-sm">Actividad Antiinflamatoria</strong>
-                                <p className="text-xs text-white/60">Modula la respuesta inflamatoria vía β-sitosterol.</p>
+                                <p className="text-white/90 text-xs">Modula la respuesta inflamatoria vía β-sitosterol.</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4 p-6 rounded-xl bg-white/5 border border-white/5">
                             <div className="w-2 h-2 rounded-full bg-secondary" />
                             <div>
                                 <strong className="block text-white mb-1 text-sm">Perfil Sensorial Dry-Touch</strong>
-                                <p className="text-xs text-white/60">Absorción rápida, no comedogénico.</p>
+                                <p className="text-white/90 text-xs">Absorción rápida, no comedogénico.</p>
                             </div>
                         </div>
                     </div>
@@ -217,8 +217,8 @@ export default function SciencePage() {
 
                         <div className="bg-primary p-8 rounded-2xl text-white transform md:translate-y-8">
                             <span className="text-4xl mb-4 block">🌵</span>
-                            <h3 className="font-bold mb-2">Sostenibilidad</h3>
-                            <p className="text-sm text-white/80 leading-relaxed">
+                            <h3 className="font-bold mb-2 text-white">Sostenibilidad</h3>
+                            <p className="text-sm text-white/95 leading-relaxed">
                                 Valorizamos semillas que antes eran desechadas, creando un ciclo de economía circular perfecto.
                             </p>
                         </div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     return (
-        <main className="bg-white min-h-screen pt-24 pb-20">
+        <main className="bg-white min-h-screen pt-0 pb-20">
 
             {/* Hero with Map/Texture background */}
             <section className="relative px-4 py-20 bg-[#2c4a52] text-white overflow-hidden">

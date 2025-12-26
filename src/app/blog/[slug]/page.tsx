@@ -19,7 +19,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
 
     return (
-        <article className="bg-white min-h-screen pt-24 pb-20">
+        <article className="bg-white min-h-screen pt-0 pb-20">
             {/* Detailed SEO Metadata would go here */}
 
             <div className="container mx-auto max-w-4xl px-4">

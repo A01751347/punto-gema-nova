@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { CartItem as CartItemType, useCart } from '@/lib/cart/CartContext';
+import { Image as ImageIcon } from 'lucide-react';
 
 interface CartItemProps {
     item: CartItemType;
@@ -17,13 +18,15 @@ export default function CartItem({ item, isCompact = false }: CartItemProps) {
             {/* Image */}
             <div className={`relative bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden ${isCompact ? 'w-20 h-24' : 'w-24 h-32 md:w-32 md:h-40'}`}>
                 {item.image ? (
-                    // Placeholder for now as we don't have real images
-                    <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
-                        {item.name}
-                    </div>
+                    <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                    />
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">
-                        Sin Imagen
+                    <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-300">
+                        <ImageIcon size={isCompact ? 24 : 32} />
                     </div>
                 )}
             </div>

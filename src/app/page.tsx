@@ -319,12 +319,13 @@ export default async function Home() {
                 "
               </span>
               <p className="text-lg text-text-primary font-light italic leading-relaxed mb-6 relative z-10">
-                Después de probar marcas de lujo y farmacia, es la primera vez que veo cambios
-                en la textura de mi piel sin irritación. La transparencia de los ingredientes
-                me da mucha paz.
+                El Aceite de Tuna es un descubrimiento absoluto. Tenía miedo de usar aceites en mi cara mixta,
+                pero este se absorbe al instante. Mi piel amanece luminosa y equilibrada.
               </p>
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-10 h-10 bg-gray-200 rounded-full" />
+                <div className="w-10 h-10 bg-[#2c4a52] rounded-full flex items-center justify-center text-white font-bold text-xs">
+                  AS
+                </div>
                 <div className="space-y-1">
                   <p className="font-medium text-text-primary leading-none">Ana Sofía M.</p>
                   <p className="text-xs text-text-secondary uppercase tracking-wider">
@@ -339,11 +340,13 @@ export default async function Home() {
                 "
               </span>
               <p className="text-lg text-text-primary font-light italic leading-relaxed mb-6 relative z-10">
-                El suero de Niacinamida cambió mi relación con el acné. No solo controla la grasa,
-                sino que mi piel se siente hidratada, no acartonada como con otros productos.
+                Llevo años buscando algo para nutrir mi cabello sin dejarlo pesado.
+                El Aceite Capilar ha fortalecido mis puntas como nada antes. El aroma es increíblemente natural.
               </p>
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-10 h-10 bg-gray-200 rounded-full" />
+                <div className="w-10 h-10 bg-[#2c4a52] rounded-full flex items-center justify-center text-white font-bold text-xs">
+                  CR
+                </div>
                 <div className="space-y-1">
                   <p className="font-medium text-text-primary leading-none">Carlos R.</p>
                   <p className="text-xs text-text-secondary uppercase tracking-wider">

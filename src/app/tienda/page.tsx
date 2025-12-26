@@ -57,7 +57,7 @@ export default async function ShopPage({
     const categories = await getCategories();
 
     return (
-        <div className="bg-white min-h-screen pt-24 pb-20">
+        <div className="bg-white min-h-screen pt-0 pb-20">
             {/* Header */}
             <div className="bg-cream-light py-16 md:py-24 mb-12">
                 <div className="container mx-auto px-4 text-center">

@@ -17,7 +17,7 @@ export default async function BlogPage() {
     const gridPosts = posts.length > 0 ? posts.slice(1) : [];
 
     return (
-        <main className="bg-white min-h-screen pt-24 pb-20">
+        <main className="bg-white min-h-screen pt-0 pb-20">
 
             {/* Header */}
             <section className="px-4 py-16 md:py-24 text-center">

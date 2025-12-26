@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     const allIngredients = product.ingredients.map(pi => ({ name: pi.ingredient.name }));
 
     return (
-        <div className="bg-white min-h-screen pt-24 pb-20">
+        <div className="bg-white min-h-screen pt-0 pb-20">
             <div className="container mx-auto px-4 md:px-8">
 
                 {/* Top Section: Gallery + Info */}

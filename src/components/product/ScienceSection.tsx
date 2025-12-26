@@ -21,8 +21,8 @@ export default function ScienceSection({ mechanism, expectedResults, ingredients
                     <div className="space-y-12">
                         {mechanism && (
                             <div>
-                                <h3 className="text-2xl font-serif mb-4 text-white/90">Mecanismo de acción</h3>
-                                <p className="text-white/70 font-light leading-relaxed">
+                                <h3 className="text-2xl font-serif mb-4 text-white">Mecanismo de acción</h3>
+                                <p className="text-white/95 font-light leading-relaxed">
                                     {mechanism}
                                 </p>
                             </div>
@@ -30,8 +30,8 @@ export default function ScienceSection({ mechanism, expectedResults, ingredients
 
                         {expectedResults && (
                             <div className="border-l-2 border-white/20 pl-6">
-                                <h3 className="text-2xl font-serif mb-4 text-white/90">Resultados Esperados</h3>
-                                <p className="text-white/70 font-light leading-relaxed">
+                                <h3 className="text-2xl font-serif mb-4 text-white">Resultados Esperados</h3>
+                                <p className="text-white/95 font-light leading-relaxed">
                                     {expectedResults}
                                 </p>
                             </div>
@@ -40,22 +40,22 @@ export default function ScienceSection({ mechanism, expectedResults, ingredients
 
                     {/* Key Actives Deep Dive */}
                     <div>
-                        <h3 className="text-sm font-bold tracking-widest uppercase text-white/50 mb-8">
+                        <h3 className="text-sm font-bold tracking-widest uppercase text-white/80 mb-8">
                             Activos Principales
                         </h3>
                         <div className="space-y-8">
                             {ingredients.map((ing, idx) => (
                                 <div key={idx} className="group">
-                                    <h4 className="text-xl font-medium mb-2 group-hover:text-cream transition-colors">
+                                    <h4 className="text-xl font-medium mb-2 text-white group-hover:text-accent transition-colors">
                                         {ing.name}
                                     </h4>
-                                    <p className="text-white/60 text-sm font-light leading-relaxed mb-3">
+                                    <p className="text-white/90 text-sm font-light leading-relaxed mb-3">
                                         {ing.description}
                                     </p>
                                     {ing.benefits.length > 0 && (
                                         <div className="flex flex-wrap gap-2">
                                             {ing.benefits.map((b, i) => (
-                                                <span key={i} className="text-xs py-1 px-2 border border-white/10 rounded-full text-white/50">
+                                                <span key={i} className="text-xs py-1 px-2 border border-white/20 rounded-full text-white/80">
                                                     {b}
                                                 </span>
                                             ))}
