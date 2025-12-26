@@ -92,7 +92,7 @@ export default function OrderDetailPage() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
             <div className="mb-6">
                 <Link href="/cuenta/pedidos" className="inline-flex items-center text-sm text-gray-500 hover:text-[#2c4a52] transition-colors mb-4">
                     <ChevronLeft size={16} className="mr-1" /> Volver a mis pedidos
@@ -104,9 +104,9 @@ export default function OrderDetailPage() {
                     </div>
                     <div>
                         <span className={`px-3 py-1 text-[10px] rounded-full font-bold uppercase tracking-wider border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
-                                order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                    order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
-                                        'bg-yellow-50 text-yellow-700 border-yellow-200'
+                            order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
+                                    'bg-yellow-50 text-yellow-700 border-yellow-200'
                             }`}>
                             {order.status === 'PENDING' ? 'Pendiente' : order.status}
                         </span>

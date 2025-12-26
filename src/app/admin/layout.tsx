@@ -50,32 +50,36 @@ export default function AdminLayout({
     return (
         <div className="min-h-screen bg-gray-50 flex font-sans">
             {/* Sidebar */}
-            <aside className="w-64 bg-[#1e343a] text-white hidden md:flex flex-col flex-shrink-0 shadow-xl z-20">
-                <div className="p-8 border-b border-white/10">
-                    <h2 className="text-xl font-serif tracking-wider text-[#d4af37]">YUTNÜÜ Panel</h2>
-                    <p className="text-xs text-gray-400 mt-1 uppercase tracking-widest">Administración</p>
+            <aside className="w-64 bg-[#F2EFE9] border-r border-[#E6E0D9] hidden md:flex flex-col flex-shrink-0 shadow-lg z-20">
+
+                <div className="p-8 border-b border-[#2c4a52]/10">
+                    <h2 className="text-xl font-bold tracking-wider text-[#2c4a52] uppercase">YUTNÜÜ Panel</h2>
+                    <p className="text-xs text-[#2c4a52]/60 mt-1 uppercase tracking-widest">Administración</p>
                 </div>
-                <nav className="flex-1 mt-6 px-4 space-y-1">
+                <nav className="flex-1 mt-6 px-4 space-y-2">
                     {menuItems.map((item) => {
                         const active = pathname === item.href; // Exact match for dashboard
                         const isActiveGroup = pathname.startsWith(item.href) && item.href !== '/admin';
+                        const isSelected = active || isActiveGroup;
 
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-sm font-medium ${active || isActiveGroup
-                                        ? 'bg-[#d4af37] text-[#1e343a] shadow-lg translate-x-1'
-                                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-sm font-bold uppercase tracking-wider
+                                ${isSelected
+                                        ? 'bg-[#2c4a52] text-white shadow-md translate-x-1'
+                                        : 'text-[#2c4a52]/70 hover:text-[#2c4a52] hover:bg-white'
                                     }`}
+
                             >
                                 {item.label}
                             </Link>
                         );
                     })}
                 </nav>
-                <div className="absolute bottom-0 p-6 w-64 border-t border-white/10">
-                    <Link href="/" className="text-sm text-gray-400 hover:text-white flex items-center gap-2">
+                <div className="absolute bottom-0 p-6 w-64 border-t border-[#2c4a52]/10">
+                    <Link href="/" className="text-xs font-bold uppercase tracking-wider text-[#2c4a52]/60 hover:text-[#2c4a52] flex items-center gap-2">
                         <span>&larr;</span> Volver a la Tienda
                     </Link>
                 </div>

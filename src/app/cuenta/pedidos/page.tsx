@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth/auth-context';
 import { getUserOrdersAction } from '@/app/actions/order-actions';
 import Link from 'next/link';
-import Button from '@/components/ui/Button';
+import { Package, Clock, ArrowRight, ShoppingBag } from 'lucide-react';
 
 // Define minimal type for order list
 interface OrderPreview {
@@ -27,9 +27,6 @@ export default function OrdersPage() {
                 const { success, orders } = await getUserOrdersAction(user.email);
                 if (success && orders) {
                     setOrders(orders as unknown as OrderPreview[]);
-                    // Note: Date objects from server actions might be strings if passed directly, 
-                    // but Prisma returns Date objects. Next.js serialization might convert them.
-                    // We'll handle date formatting safely.
                 }
             }
             setIsLoading(false);
@@ -40,28 +37,33 @@ export default function OrdersPage() {
 
     if (isLoading) {
         return (
-            <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-32 bg-gray-50 rounded-xl animate-pulse"></div>
-                ))}
+            <div className="space-y-4 animate-pulse">
+                <div className="h-8 bg-gray-100 rounded w-1/4 mb-6"></div>
+                <div className="space-y-4">
+                    {[1, 2, 3].map((i) => (
+                        <div key={i} className="h-24 bg-gray-50 rounded-xl border border-gray-100"></div>
+                    ))}
+                </div>
             </div>
         );
     }
 
     if (orders.length === 0) {
         return (
-            <div className="min-h-[400px] flex flex-col items-center justify-center text-center">
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 text-gray-400">
-                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
+            <div className="min-h-[400px] flex flex-col items-center justify-center text-center bg-white rounded-xl border border-gray-200 p-8 shadow-sm">
+                <div className="w-16 h-16 bg-[#F2EFE9] rounded-full flex items-center justify-center mb-4 text-[#2c4a52]">
+                    <Package size={32} />
                 </div>
-                <h2 className="text-xl font-serif text-text-primary mb-2">Aún no tienes pedidos</h2>
-                <p className="text-text-secondary mb-6 max-w-sm">
+                <h2 className="text-lg font-bold text-[#2c4a52] mb-2 uppercase tracking-wider">Aún no tienes pedidos</h2>
+                <p className="text-gray-500 mb-6 max-w-sm text-sm">
                     Explora nuestros productos y crea tu primera rutina de cuidado de la piel.
                 </p>
-                <Link href="/tienda">
-                    <Button>Ir a la Tienda</Button>
+                <Link
+                    href="/tienda"
+                    className="bg-[#2c4a52] hover:bg-[#1a2c32] text-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
+                >
+                    <ShoppingBag size={16} />
+                    Ir a la Tienda
                 </Link>
             </div>
         );
@@ -69,45 +71,55 @@ export default function OrdersPage() {
 
     return (
         <div>
-            <h1 className="text-2xl font-serif text-text-primary mb-6">Mis Pedidos</h1>
+            <div className="flex items-center gap-2 mb-8 border-b border-gray-100 pb-4">
+                <Package size={20} className="text-[#2c4a52]" />
+                <h1 className="text-xl font-bold text-[#2c4a52] uppercase tracking-wider">Mis Pedidos</h1>
+            </div>
+
             <div className="space-y-4">
                 {orders.map((order) => {
                     const date = new Date(order.createdAt).toLocaleDateString('es-MX', {
                         year: 'numeric',
-                        month: 'long',
+                        month: 'short',
                         day: 'numeric'
                     });
 
                     return (
-                        <div key={order.id} className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-soft transition-all">
+                        <div key={order.id} className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-all group">
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <span className="font-mono text-sm text-text-secondary">#{order.orderNumber}</span>
-                                        <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${order.status === 'DELIVERED' ? 'bg-green-100 text-green-700' :
-                                                order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-700' :
-                                                    order.status === 'CANCELLED' ? 'bg-red-100 text-red-700' :
-                                                        'bg-yellow-100 text-yellow-700'
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-bold text-[#2c4a52] text-sm">#{order.orderNumber}</span>
+                                        <span className={`px-2 py-0.5 text-[10px] rounded-full font-bold uppercase tracking-wider border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
+                                                order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                                    order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
+                                                        'bg-yellow-50 text-yellow-700 border-yellow-200'
                                             }`}>
                                             {order.status === 'PENDING' ? 'Pendiente' : order.status}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-text-secondary mb-1">
+                                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                                        <Clock size={12} />
                                         {date}
-                                    </p>
-                                    <p className="text-sm text-text-secondary">
-                                        {order.items.length > 0 ? order.items[0].name : 'Productos'}
-                                        {/* Simplified item preview logic */}
+                                    </div>
+                                    <p className="text-sm text-gray-600">
+                                        {order.items.length > 0 ? (
+                                            <span className="line-clamp-1">{order.items[0].name} {order.items.length > 1 && `+ ${order.items.length - 1} más`}</span>
+                                        ) : (
+                                            'Productos'
+                                        )}
                                     </p>
                                 </div>
-                                <div className="flex items-center justify-between md:justify-end gap-6">
-                                    <p className="font-medium text-lg">
+                                <div className="flex items-center justify-between md:justify-end gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-gray-100">
+                                    <p className="font-bold text-lg text-[#2c4a52]">
                                         ${order.total.toFixed(2)}
                                     </p>
-                                    <Link href={`/cuenta/pedidos/${order.id}`}>
-                                        <Button variant="outline" size="sm">
-                                            Ver Detalles
-                                        </Button>
+                                    <Link
+                                        href={`/cuenta/pedidos/${order.id}`}
+                                        className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#2c4a52] hover:text-[#4a727d] transition-colors group-hover:underline decoration-1 underline-offset-4"
+                                    >
+                                        Ver Detalles
+                                        <ArrowRight size={14} />
                                     </Link>
                                 </div>
                             </div>
