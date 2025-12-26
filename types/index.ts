@@ -3,21 +3,17 @@ export interface User {
     id: string;
     cognitoId: string;
     email: string;
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
+    firstName?: string | null;
+    lastName?: string | null;
+    phone?: string | null;
     role: UserRole;
-    skinType?: string;
+    skinType?: string | null;
     skinConcerns?: string[];
     createdAt: Date;
     updatedAt: Date;
 }
 
-export enum UserRole {
-    CUSTOMER = 'CUSTOMER',
-    ADMIN = 'ADMIN',
-    EDITOR = 'EDITOR',
-}
+export type UserRole = 'CUSTOMER' | 'ADMIN' | 'EDITOR';
 
 // Product types
 export interface Product {

@@ -13,7 +13,7 @@ export default function AdminBannersPage() {
     const loadBanners = async () => {
         if (user?.email) {
             const { success, banners } = await getAdminBannersAction(user.email);
-            if (success) setBanners(banners);
+            if (success && banners) setBanners(banners);
         }
         setIsLoading(false);
     };

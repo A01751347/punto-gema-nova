@@ -72,6 +72,7 @@ export async function createPost(prevState: any, formData: FormData) {
 
     if (!validatedFields.success) {
         return {
+            success: false,
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Error en los campos. Revisa el formulario.',
         };
@@ -91,6 +92,7 @@ export async function createPost(prevState: any, formData: FormData) {
     } catch (error) {
         console.error('Database Error:', error);
         return {
+            success: false,
             message: 'Error al crear la base de datos. El slug podría estar duplicado.',
         };
     }
@@ -111,6 +113,7 @@ export async function updatePost(id: string, prevState: any, formData: FormData)
 
     if (!validatedFields.success) {
         return {
+            success: false,
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Error en los campos.',
         };
@@ -132,6 +135,7 @@ export async function updatePost(id: string, prevState: any, formData: FormData)
         return { success: true, message: 'Artículo actualizado exitosamente' };
     } catch (error) {
         return {
+            success: false,
             message: 'Error al actualizar.',
         };
     }

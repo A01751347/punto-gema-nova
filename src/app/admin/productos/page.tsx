@@ -13,7 +13,7 @@ export default function AdminProductsPage() {
     const loadProducts = async () => {
         if (user?.email) {
             const { success, products } = await getAdminProductsAction(user.email);
-            if (success) setProducts(products);
+            if (success && products) setProducts(products);
         }
         setIsLoading(false);
     };

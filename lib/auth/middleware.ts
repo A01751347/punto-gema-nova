@@ -70,7 +70,7 @@ export async function requireAdmin(request: NextRequest): Promise<{
         return authResult;
     }
 
-    if (authResult.user?.role !== UserRole.ADMIN) {
+    if (authResult.user?.role !== 'ADMIN') {
         return { authorized: false, error: 'Admin access required' };
     }
 

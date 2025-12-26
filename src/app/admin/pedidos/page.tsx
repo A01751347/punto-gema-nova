@@ -13,7 +13,7 @@ export default function AdminOrdersPage() {
     const loadOrders = async () => {
         if (user?.email) {
             const { success, orders } = await getAllOrdersAction(user.email);
-            if (success) setOrders(orders);
+            if (success && orders) setOrders(orders);
         }
         setIsLoading(false);
     };

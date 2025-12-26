@@ -40,7 +40,7 @@ export async function createOrder(prevState: any, formData: FormData) {
     // 2. Parse Cart Data (Sent as a hidden JSON field for simplicity in this server action approach)
     // In a more robust app, we might validate prices against DB again here.
     const cartItemsJson = formData.get('cartItems') as string;
-    let cartItems = [];
+    let cartItems: { id: string; quantity: number }[] = [];
     try {
         cartItems = JSON.parse(cartItemsJson);
         if (!Array.isArray(cartItems) || cartItems.length === 0) {
@@ -60,7 +60,7 @@ export async function createOrder(prevState: any, formData: FormData) {
     });
 
     let subtotal = 0;
-    const orderItemsData = [];
+    const orderItemsData: { productId: string; name: string; sku: string; price: number; quantity: number }[] = [];
 
     for (const item of cartItems) {
         const product = dbProducts.find(p => p.id === item.id);

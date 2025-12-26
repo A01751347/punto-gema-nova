@@ -13,7 +13,7 @@ export default function AdminCouponsPage() {
     const loadCoupons = async () => {
         if (user?.email) {
             const { success, coupons } = await getAdminCouponsAction(user.email);
-            if (success) setCoupons(coupons);
+            if (success && coupons) setCoupons(coupons);
         }
         setIsLoading(false);
     };

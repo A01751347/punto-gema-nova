@@ -13,7 +13,7 @@ export default function AdminCustomersPage() {
         const loadCustomers = async () => {
             if (user?.email) {
                 const { success, customers } = await getAdminCustomersAction(user.email);
-                if (success) setCustomers(customers);
+                if (success && customers) setCustomers(customers);
             }
             setIsLoading(false);
         };
