@@ -37,17 +37,17 @@ export default async function Home() {
       <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden bg-cream-light">
         <div className="container mx-auto px-4 relative z-10 py-24 md:py-32">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="space-y-8 md:space-y-10">
-              <span className="inline-block py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in">
+            <div className="flex flex-col items-center text-center gap-y-8 md:gap-y-10">
+              <span className="inline-flex items-center justify-center py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in">
                 Ciencia + Naturaleza
               </span>
 
-              <h1 className="text-5xl md:text-7xl font-serif font-medium mb-0 leading-[1.08] md:leading-[1.05] animate-slide-up">
+              <h1 className="text-5xl md:text-7xl font-serif font-medium leading-[1.08] md:leading-[1.05] animate-slide-up">
                 Cosmética clínica,<br />
                 <span className="italic text-primary">alma botánica.</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto font-light leading-relaxed animate-slide-up">
+              <p className="text-lg md:text-xl text-text-secondary max-w-2xl font-light leading-relaxed animate-slide-up">
                 Formulaciones de alto rendimiento que respetan la biología de tu piel.
                 Sin promesas vacías, solo ingredientes que funcionan.
               </p>
@@ -58,6 +58,7 @@ export default async function Home() {
                     Ver Colección
                   </Button>
                 </Link>
+
                 <Link href="/ciencia">
                   <Button
                     size="lg"
@@ -70,6 +71,7 @@ export default async function Home() {
               </div>
             </div>
           </div>
+
         </div>
 
         {/* Subtle Background Elements */}
@@ -80,56 +82,89 @@ export default async function Home() {
       {/* Value Proposition */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20 space-y-5">
-            <h2 className="text-3xl md:text-4xl font-serif text-text-primary">
+          {/* Header */}
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-serif text-text-primary animate-fade-in">
               No es magia, es dermocosmética.
             </h2>
-            <p className="text-text-secondary text-lg font-light leading-relaxed">
-              En una industria llena de mitos, elegimos la transparencia.
-              Cada fórmula de YUTNÜÜ contiene la concentración exacta de activos
-              necesaria para ver cambios reales, validada por estudios clínicos.
+
+            <p className="mt-6 text-text-secondary text-lg font-light leading-relaxed animate-slide-up">
+              En una industria llena de mitos, elegimos la transparencia. Cada fórmula de YUTNÜÜ contiene la
+              concentración exacta de activos necesaria para ver cambios reales, validada por estudios clínicos.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 md:mb-8 rounded-full bg-cream flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <span className="text-3xl font-serif text-primary">1</span>
-              </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-medium text-text-primary">Evidencia Clínica</h3>
-                <p className="text-text-secondary font-light leading-relaxed">
-                  Utilizamos activos con estudios in-vivo e in-vitro que demuestran su eficacia.
-                  Nada es "relleno".
-                </p>
-              </div>
-            </div>
+          {/* BIG separation */}
+          <div className="mt-20 md:mt-28 lg:mt-32">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
+              {/* Card 1 */}
+              <div className="text-center group md:translate-y-0 animate-slide-up">
+                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
+                        transition-all duration-500 ease-out
+                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
+                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
+                          transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
+                    <span className="text-3xl font-serif text-primary">1</span>
+                  </div>
 
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 md:mb-8 rounded-full bg-cream flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <span className="text-3xl font-serif text-primary">2</span>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
+                      Evidencia Clínica
+                    </h3>
+                    <p className="text-text-secondary font-light leading-relaxed">
+                      Utilizamos activos con estudios in-vivo e in-vitro que demuestran su eficacia. Nada es
+                      &quot;relleno&quot;.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-medium text-text-primary">Trazabilidad Total</h3>
-                <p className="text-text-secondary font-light leading-relaxed">
-                  Sabemos exactamente de dónde viene cada extracto botánico y cómo fue procesado.
-                </p>
-              </div>
-            </div>
 
-            <div className="text-center group">
-              <div className="w-20 h-20 mx-auto mb-6 md:mb-8 rounded-full bg-cream flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                <span className="text-3xl font-serif text-primary">3</span>
+              {/* Card 2 (stagger down) */}
+              <div className="text-center group md:translate-y-10 animate-slide-up [animation-delay:120ms]">
+                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
+                        transition-all duration-500 ease-out
+                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
+                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
+                          transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-2">
+                    <span className="text-3xl font-serif text-primary">2</span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
+                      Trazabilidad Total
+                    </h3>
+                    <p className="text-text-secondary font-light leading-relaxed">
+                      Sabemos exactamente de dónde viene cada extracto botánico y cómo fue procesado.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-medium text-text-primary">Biocompatibilidad</h3>
-                <p className="text-text-secondary font-light leading-relaxed">
-                  Fórmulas pH-balanceadas diseñadas para fortalecer, no agredir, tu barrera cutánea.
-                </p>
+
+              {/* Card 3 (stagger up) */}
+              <div className="text-center group md:-translate-y-2 animate-slide-up [animation-delay:240ms]">
+                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
+                        transition-all duration-500 ease-out
+                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
+                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
+                          transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1">
+                    <span className="text-3xl font-serif text-primary">3</span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
+                      Biocompatibilidad
+                    </h3>
+                    <p className="text-text-secondary font-light leading-relaxed">
+                      Fórmulas pH-balanceadas diseñadas para fortalecer, no agredir, tu barrera cutánea.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+
       </section>
 
       {/* Featured Products */}
