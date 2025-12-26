@@ -221,49 +221,85 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Science Deep Dive */}
-      <section className="py-20 md:py-28 bg-primary text-white overflow-hidden relative">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-            <div className="space-y-10">
-              <h2 className="text-4xl md:text-5xl font-serif leading-[1.1]">
-                Ciencia visible,<br />resultados tangibles.
-              </h2>
+      {/* Science Deep Dive - Redesigned */}
+      <section className="py-24 md:py-32 bg-[#2c4a52] text-white overflow-hidden relative isolate">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#8c9e8e]/10 rounded-full blur-3xl -z-10" />
 
-              <div className="space-y-8">
-                <div className="border-l border-white/20 pl-6 space-y-2">
-                  <h4 className="text-2xl font-light">95%</h4>
-                  <p className="text-white/70 font-light leading-relaxed">
-                    de suavidad inmediata gracias al ácido hialurónico de bajo peso molecular.
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
+
+            {/* Text Content */}
+            <div className="lg:col-span-7 space-y-10">
+              <div>
+                <span className="text-[#8c9e8e] font-bold tracking-widest uppercase text-sm mb-3 block">
+                  Dermocosmética Botánica
+                </span>
+                <h2 className="text-4xl md:text-6xl font-serif leading-[1.05] mb-6">
+                  Ciencia visible,<br />
+                  <span className="italic text-[#d4af37]">resultados tangibles.</span>
+                </h2>
+                <p className="text-lg text-white/80 font-light max-w-xl leading-relaxed">
+                  No formulamos con "poesía", formulamos con química. La riqueza nutricia del nopal supera a los estándares de la industria.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-white/10 pt-8">
+                <div className="space-y-2">
+                  <h4 className="text-5xl font-serif text-[#d4af37]">150%</h4>
+                  <p className="font-medium text-white text-lg">Más Vitamina E</p>
+                  <p className="text-white/60 text-sm font-light leading-relaxed">
+                    que el aceite de argán. Máxima potencia antioxidante para combatir el fotoenvejecimiento.
                   </p>
                 </div>
-                <div className="border-l border-white/20 pl-6 space-y-2">
-                  <h4 className="text-2xl font-light">30 Días</h4>
-                  <p className="text-white/70 font-light leading-relaxed">
-                    para ver reducción visible en manchas solares con nuestro complejo de Vitamina C.
+                <div className="space-y-2">
+                  <h4 className="text-5xl font-serif text-[#d4af37]">80%+</h4>
+                  <p className="font-medium text-white text-lg">Ácidos Grasos Insaturados</p>
+                  <p className="text-white/60 text-sm font-light leading-relaxed">
+                    Nutrición celular profunda que restaura activamente la barrera cutánea dañada.
                   </p>
                 </div>
               </div>
 
-              <div>
+              <div className="pt-4">
                 <Link href="/ciencia">
                   <Button
                     variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-primary"
+                    className="h-14 px-8 text-lg border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#2c4a52] transition-all duration-300"
                   >
-                    Leer Estudios Clínicos
+                    Conoce el Oro Líquido
                   </Button>
                 </Link>
               </div>
             </div>
 
-            <div className="h-[360px] md:h-[500px] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 flex items-center justify-center relative">
-              <span className="text-white/30 font-serif italic text-3xl">
-                Visualización Molecular
-              </span>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 md:w-64 md:h-64 border border-white/20 rounded-full animate-pulse" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 md:w-96 md:h-96 border border-white/10 rounded-full" />
+            {/* Visual/Image Area */}
+            <div className="lg:col-span-5 relative">
+              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 relative group">
+                {/* Abstract Representation of Oil/Cell */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/20 to-transparent opacity-50" />
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border border-white/20 flex items-center justify-center relative">
+                    <div className="w-32 h-32 md:w-40 md:h-40 bg-[#d4af37] rounded-full blur-[60px] opacity-40 animate-pulse" />
+                    <div className="absolute inset-0 border border-white/10 rounded-full animate-spin-slow" style={{ animationDuration: '20s' }} />
+
+                    <div className="text-center relative z-10">
+                      <span className="block text-2xl md:text-3xl font-serif italic text-[#d4af37] mb-1">Opuntia</span>
+                      <span className="text-[10px] tracking-[0.2em] uppercase text-[#d4af37]/80">Ficus-Indica</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#2c4a52] to-transparent">
+                  <p className="text-white/90 text-sm font-light text-center border-t border-white/10 pt-4">
+                    "Un perfil lipídico único en el reino vegetal."
+                  </p>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -318,10 +354,10 @@ export default async function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Final CTA */}
-      <section className="py-20 md:py-24 bg-cream text-center">
+      < section className="py-20 md:py-24 bg-cream text-center" >
         <div className="container mx-auto px-4 space-y-8">
           <h2 className="text-3xl md:text-5xl font-serif text-text-primary leading-[1.12]">
             Tu piel sabe la diferencia.
@@ -332,7 +368,7 @@ export default async function Home() {
             </Button>
           </Link>
         </div>
-      </section>
-    </div>
+      </section >
+    </div >
   );
 }

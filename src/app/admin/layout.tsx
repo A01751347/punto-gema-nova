@@ -38,29 +38,35 @@ export default function AdminLayout({
     }
 
     const menuItems = [
-        { label: 'Dashboard', href: '/admin' },
-        { label: 'Pedidos', href: '/admin/pedidos' },
-        { label: 'Productos', href: '/admin/productos' },
-        { label: 'Clientes', href: '/admin/clientes' },
-        { label: 'Banners', href: '/admin/marketing/banners' },
-        { label: 'Cupones', href: '/admin/cupones' },
+        { label: 'Tablero', href: '/admin', icon: 'LayoutDashboard' },
+        { label: 'Ventas', href: '/admin/pedidos', icon: 'ShoppingBag' },
+        { label: 'Inventario', href: '/admin/productos', icon: 'Package' },
+        { label: 'Usuarios', href: '/admin/clientes', icon: 'Users' },
+        { label: 'Bitácora', href: '/admin/blog', icon: 'BookOpen' }, // Added Blog
+        { label: 'Tienda', href: '/admin/marketing/banners', icon: 'Store' },
+        { label: 'Descuentos', href: '/admin/cupones', icon: 'Tag' },
     ];
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="min-h-screen bg-gray-50 flex font-sans">
             {/* Sidebar */}
-            <aside className="w-64 bg-primary-dark text-white hidden md:block flex-shrink-0">
-                <div className="p-6">
-                    <h2 className="text-xl font-bold tracking-wider">ADMIN</h2>
+            <aside className="w-64 bg-[#1e343a] text-white hidden md:flex flex-col flex-shrink-0 shadow-xl z-20">
+                <div className="p-8 border-b border-white/10">
+                    <h2 className="text-xl font-serif tracking-wider text-[#d4af37]">YUTNÜÜ Panel</h2>
+                    <p className="text-xs text-gray-400 mt-1 uppercase tracking-widest">Administración</p>
                 </div>
-                <nav className="mt-6 px-4 space-y-2">
+                <nav className="flex-1 mt-6 px-4 space-y-1">
                     {menuItems.map((item) => {
-                        const active = pathname === item.href;
+                        const active = pathname === item.href; // Exact match for dashboard
+                        const isActiveGroup = pathname.startsWith(item.href) && item.href !== '/admin';
+
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`block px-4 py-3 rounded-lg transition-colors ${active ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-sm font-medium ${active || isActiveGroup
+                                        ? 'bg-[#d4af37] text-[#1e343a] shadow-lg translate-x-1'
+                                        : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 {item.label}
