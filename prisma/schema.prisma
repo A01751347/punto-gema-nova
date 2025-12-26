@@ -1,0 +1,485 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model (linked to AWS Cognito)
+model User {
+  id            String    @id @default(uuid())
+  cognitoId     String    @unique
+  email         String    @unique
+  firstName     String?
+  lastName      String?
+  phone         String?
+  role          UserRole  @default(CUSTOMER)
+  skinType      String?   // dry, oily, combination, sensitive, normal
+  skinConcerns  String[]  // array of concerns
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  orders        Order[]
+  addresses     Address[]
+  reviews       Review[]
+  quizResults   QuizResult[]
+  
+  @@map("users")
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  EDITOR
+}
+
+// Product model
+model Product {
+  id                String    @id @default(uuid())
+  slug              String    @unique
+  name              String
+  tagline           String?
+  description       String
+  price             Float
+  compareAtPrice    Float?    // original price for discounts
+  size              String    // e.g., "30ml", "50ml"
+  sku               String    @unique
+  stock             Int       @default(0)
+  lowStockThreshold Int       @default(10)
+  isActive          Boolean   @default(true)
+  isFeatured        Boolean   @default(false)
+  isNew             Boolean   @default(false)
+  isBestseller      Boolean   @default(false)
+  
+  // Product details
+  benefits          String[]  // key benefits
+  howToUse          String    // usage instructions
+  whenToUse         String?   // AM/PM/Both
+  suitableFor       String[]  // skin types
+  notSuitableFor    String[]  // contraindications
+  
+  // Scientific backing
+  mechanism         String?   // how it works
+  expectedResults   String?   // timeline and expectations
+  
+  // Media
+  images            String[]  // S3 URLs
+  videoUrl          String?   // S3 URL for demo video
+  
+  // SEO
+  metaTitle         String?
+  metaDescription   String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Relations
+  categories        ProductCategory[]
+  ingredients       ProductIngredient[]
+  orderItems        OrderItem[]
+  reviews           Review[]
+  routineProducts   RoutineProduct[]
+  bundleProducts    BundleProduct[]
+  
+  @@map("products")
+}
+
+// Category model
+model Category {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String?
+  icon        String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  
+  // Relations
+  products    ProductCategory[]
+  
+  @@map("categories")
+}
+
+// Many-to-many relation between Product and Category
+model ProductCategory {
+  productId   String
+  categoryId  String
+  
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@id([productId, categoryId])
+  @@map("product_categories")
+}
+
+// Ingredient model
+model Ingredient {
+  id              String    @id @default(uuid())
+  slug            String    @unique
+  name            String
+  description     String
+  benefits        String[]
+  typicalConcentration String?
+  precautions     String?
+  
+  // Relations
+  products        ProductIngredient[]
+  references      IngredientReference[]
+  
+  @@map("ingredients")
+}
+
+// Many-to-many relation between Product and Ingredient
+model ProductIngredient {
+  productId     String
+  ingredientId  String
+  concentration String?   // e.g., "5%", "10-15%"
+  isKeyIngredient Boolean @default(false)
+  
+  product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  ingredient    Ingredient  @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  
+  @@id([productId, ingredientId])
+  @@map("product_ingredients")
+}
+
+// Scientific references
+model Reference {
+  id          String    @id @default(uuid())
+  title       String
+  summary     String
+  url         String?
+  authors     String?
+  publication String?
+  year        Int?
+  category    String?   // anti-aging, hydration, etc.
+  
+  // Relations
+  ingredients IngredientReference[]
+  
+  @@map("references")
+}
+
+// Many-to-many relation between Ingredient and Reference
+model IngredientReference {
+  ingredientId  String
+  referenceId   String
+  
+  ingredient    Ingredient  @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  reference     Reference   @relation(fields: [referenceId], references: [id], onDelete: Cascade)
+  
+  @@id([ingredientId, referenceId])
+  @@map("ingredient_references")
+}
+
+// Address model
+model Address {
+  id          String    @id @default(uuid())
+  userId      String
+  firstName   String
+  lastName    String
+  company     String?
+  address1    String
+  address2    String?
+  city        String
+  state       String
+  postalCode  String
+  country     String    @default("MX")
+  phone       String
+  isDefault   Boolean   @default(false)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Order[]
+  
+  @@map("addresses")
+}
+
+// Order model
+model Order {
+  id              String      @id @default(uuid())
+  orderNumber     String      @unique
+  userId          String?
+  guestEmail      String?
+  
+  // Shipping
+  shippingAddressId String?
+  shippingAddress   Address?  @relation(fields: [shippingAddressId], references: [id])
+  shippingMethod    String
+  shippingCost      Float
+  
+  // Pricing
+  subtotal        Float
+  discount        Float       @default(0)
+  tax             Float       @default(0)
+  total           Float
+  
+  // Payment
+  paymentMethod   String      // paypal, mercadopago
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentId       String?     // external payment ID
+  
+  // Order status
+  status          OrderStatus @default(PENDING)
+  trackingNumber  String?
+  
+  // Coupon
+  couponCode      String?
+  
+  // Notes
+  customerNotes   String?
+  adminNotes      String?
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  // Relations
+  user            User?       @relation(fields: [userId], references: [id])
+  items           OrderItem[]
+  
+  @@map("orders")
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+// Order item model
+model OrderItem {
+  id          String    @id @default(uuid())
+  orderId     String
+  productId   String
+  
+  name        String    // snapshot of product name
+  sku         String    // snapshot of SKU
+  price       Float     // snapshot of price
+  quantity    Int
+  
+  createdAt   DateTime  @default(now())
+  
+  // Relations
+  order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id])
+  
+  @@map("order_items")
+}
+
+// Review model
+model Review {
+  id          String    @id @default(uuid())
+  productId   String
+  userId      String
+  
+  rating      Int       // 1-5
+  title       String?
+  comment     String
+  images      String[]  // S3 URLs for customer photos
+  isVerified  Boolean   @default(false)
+  isApproved  Boolean   @default(false)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("reviews")
+}
+
+// Skincare routine model
+model Routine {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String
+  skinType    String?   // target skin type
+  concerns    String[]  // target concerns
+  timeframe   String?   // "2 weeks", "1 month", etc.
+  
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  products    RoutineProduct[]
+  
+  @@map("routines")
+}
+
+// Many-to-many relation between Routine and Product
+model RoutineProduct {
+  routineId   String
+  productId   String
+  step        Int       // order in routine
+  timeOfDay   String    // AM, PM, Both
+  instructions String?
+  
+  routine     Routine   @relation(fields: [routineId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@id([routineId, productId])
+  @@map("routine_products")
+}
+
+// Product bundle model
+model Bundle {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  name        String
+  description String
+  price       Float
+  compareAtPrice Float?
+  isActive    Boolean   @default(true)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  products    BundleProduct[]
+  
+  @@map("bundles")
+}
+
+// Many-to-many relation between Bundle and Product
+model BundleProduct {
+  bundleId    String
+  productId   String
+  quantity    Int       @default(1)
+  
+  bundle      Bundle    @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@id([bundleId, productId])
+  @@map("bundle_products")
+}
+
+// Skin quiz model
+model QuizResult {
+  id          String    @id @default(uuid())
+  userId      String?
+  
+  // Quiz answers (stored as JSON)
+  skinType    String
+  concerns    String[]
+  currentRoutine String?
+  preferences Json?     // texture, fragrance, etc.
+  
+  // Recommendations
+  recommendedProducts String[]  // product IDs
+  recommendedRoutine  String?   // routine ID
+  
+  createdAt   DateTime  @default(now())
+  
+  // Relations
+  user        User?     @relation(fields: [userId], references: [id])
+  
+  @@map("quiz_results")
+}
+
+// Coupon model
+model Coupon {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  description String?
+  
+  discountType String   // percentage, fixed
+  discountValue Float
+  
+  minPurchase Float?
+  maxDiscount Float?
+  
+  usageLimit  Int?
+  usageCount  Int       @default(0)
+  
+  startsAt    DateTime?
+  expiresAt   DateTime?
+  isActive    Boolean   @default(true)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("coupons")
+}
+
+// Blog post model
+model BlogPost {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  excerpt     String?
+  content     String
+  featuredImage String?
+  
+  category    String?
+  tags        String[]
+  
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  
+  // SEO
+  metaTitle   String?
+  metaDescription String?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("blog_posts")
+}
+
+// Newsletter subscriber model
+model NewsletterSubscriber {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  firstName   String?
+  isActive    Boolean   @default(true)
+  
+  createdAt   DateTime  @default(now())
+  
+  @@map("newsletter_subscribers")
+}
+
+// Banner/content model for homepage
+model Banner {
+  id          String    @id @default(uuid())
+  title       String
+  subtitle    String?
+  ctaText     String?
+  ctaLink     String?
+  
+  imageUrl    String?   // S3 URL
+  videoUrl    String?   // S3 URL
+  
+  position    String    // hero, featured, etc.
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("banners")
+}
