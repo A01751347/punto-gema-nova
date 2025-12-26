@@ -97,3 +97,18 @@ export async function getUserDbAction(email: string) {
         return { success: false, error: error.message };
     }
 }
+
+export async function updateUserAction(email: string, data: { firstName: string; lastName: string }) {
+    try {
+        const user = await prisma.user.update({
+            where: { email },
+            data: {
+                firstName: data.firstName,
+                lastName: data.lastName,
+            }
+        });
+        return { success: true, user };
+    } catch (error: any) {
+        return { success: false, error: error.message };
+    }
+}

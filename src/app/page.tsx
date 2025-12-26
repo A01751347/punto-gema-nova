@@ -29,56 +29,73 @@ async function getFeaturedProducts() {
   }
 }
 
+import HeroCarousel from "@/components/home/HeroCarousel";
+
+async function getHomeBanners() {
+  try {
+    const banners = await prisma.banner.findMany({
+      where: { isActive: true, position: 'hero' },
+      orderBy: { sortOrder: 'asc' }
+    });
+    return banners;
+  } catch (e) {
+    return [];
+  }
+}
+
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
+  const heroBanners = await getHomeBanners();
 
   return (
     <div className="bg-white text-text-primary">
-      {/* Hero Section - Clean, High Impact */}
-      <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden bg-cream-light">
-        <div className="container mx-auto px-4 relative z-10 py-24 md:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex flex-col items-center text-center gap-y-8 md:gap-y-10">
-              <span className="inline-flex items-center justify-center py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in">
-                Ciencia + Naturaleza
-              </span>
+      {/* Hero Section - Dynamic Carousel or Fallback */}
+      {heroBanners.length > 0 ? (
+        <HeroCarousel banners={heroBanners} />
+      ) : (
+        <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden bg-cream-light">
+          <div className="absolute top-0 left-0 w-full h-[30vh] bg-gradient-to-b from-white to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white to-transparent pointer-events-none" />
 
-              <h1 className="text-5xl md:text-7xl font-serif font-medium leading-[1.08] md:leading-[1.05] animate-slide-up">
-                Cosmética clínica,<br />
-                <span className="italic text-primary">alma botánica.</span>
-              </h1>
+          <div className="container mx-auto px-4 relative z-10 py-24 md:py-32">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="flex flex-col items-center text-center gap-y-8 md:gap-y-10">
+                <span className="inline-flex items-center justify-center py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in bg-white/80 backdrop-blur-sm">
+                  Ciencia + Naturaleza
+                </span>
 
-              <p className="text-lg md:text-xl text-text-secondary max-w-2xl font-light leading-relaxed animate-slide-up">
-                Formulaciones de alto rendimiento que respetan la biología de tu piel.
-                Sin promesas vacías, solo ingredientes que funcionan.
-              </p>
+                <h1 className="text-5xl md:text-7xl font-serif font-medium leading-[1.08] md:leading-[1.05] animate-slide-up text-gray-900 drop-shadow-sm">
+                  Cosmética clínica,<br />
+                  <span className="italic text-primary">alma botánica.</span>
+                </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-slide-up">
-                <Link href="/tienda">
-                  <Button size="lg" className="min-w-[200px] h-14 text-lg">
-                    Ver Colección
-                  </Button>
-                </Link>
+                <p className="text-lg md:text-xl text-text-secondary max-w-2xl font-light leading-relaxed animate-slide-up bg-white/60 backdrop-blur-sm p-4 rounded-xl">
+                  Formulaciones de alto rendimiento que respetan la biología de tu piel.
+                  Sin promesas vacías, solo ingredientes que funcionan.
+                </p>
 
-                <Link href="/ciencia">
-                  <Button
-                    size="lg"
-                    variant="ghost"
-                    className="min-w-[200px] h-14 text-lg border border-primary/20 hover:bg-white hover:border-transparent"
-                  >
-                    Nuestra Ciencia
-                  </Button>
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-slide-up">
+                  <Link href="/tienda">
+                    <Button size="lg" className="min-w-[200px] h-14 text-lg shadow-lg">
+                      Ver Colección
+                    </Button>
+                  </Link>
+
+                  <Link href="/ciencia">
+                    <Button
+                      size="lg"
+                      variant="ghost"
+                      className="min-w-[200px] h-14 text-lg border border-primary/20 hover:bg-white hover:border-transparent bg-white/50 backdrop-blur-md"
+                    >
+                      Nuestra Ciencia
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-
-        </div>
-
-        {/* Subtle Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-[30vh] bg-gradient-to-b from-white to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white to-transparent pointer-events-none" />
-      </section>
+        </section>
+      )}
 
       {/* Value Proposition */}
       <section className="py-20 md:py-28 bg-white">

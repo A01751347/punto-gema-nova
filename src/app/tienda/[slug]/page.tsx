@@ -6,9 +6,9 @@ import ScienceSection from '@/components/product/ScienceSection';
 import IngredientsList from '@/components/product/IngredientsList';
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 // Force dynamic rendering to ensure fresh data if valid stock changes concern us,
@@ -32,7 +32,8 @@ async function getProduct(slug: string) {
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-    const product = await getProduct(params.slug);
+    const { slug } = await params;
+    const product = await getProduct(slug);
 
     if (!product) {
         notFound();

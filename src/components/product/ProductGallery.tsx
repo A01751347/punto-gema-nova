@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 interface ProductGalleryProps {
@@ -8,7 +8,13 @@ interface ProductGalleryProps {
 }
 
 export default function ProductGallery({ images }: ProductGalleryProps) {
-    const [activeImage, setActiveImage] = useState(images[0] || '');
+    const [activeImage, setActiveImage] = useState(images?.[0] || '');
+
+    useEffect(() => {
+        if (images && images.length > 0) {
+            setActiveImage(images[0]);
+        }
+    }, [images]);
 
     // Fallback if no images
     if (!images || images.length === 0) {
@@ -25,13 +31,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
             <div className="aspect-[4/5] relative bg-white rounded-xl overflow-hidden border border-gray-100">
                 {/* Placeholder logic for now since we don't have real S3 images yet in many cases */}
                 <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
-                    {activeImage ? (
-                        // In a real scenario, use Next/Image with the S3 URL
-                        // <Image src={activeImage} alt="Product" fill className="object-cover" />
-                        <span>Imagen: {activeImage}</span>
-                    ) : (
-                        <span>Vista Principal</span>
-                    )}
+                    <img src={activeImage} alt="Product" className="w-full h-full object-cover" />
                 </div>
             </div>
 
@@ -45,8 +45,8 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
                             className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${activeImage === img ? 'border-primary' : 'border-transparent hover:border-gray-200'
                                 }`}
                         >
-                            <div className="w-full h-full bg-gray-50 flex items-center justify-center text-xs text-gray-400">
-                                Img {idx + 1}
+                            <div className="w-full h-full bg-gray-50 flex items-center justify-center text-xs text-gray-400 overflow-hidden">
+                                <img src={img} alt={`Thumb ${idx}`} className="w-full h-full object-cover" />
                             </div>
                         </button>
                     ))}

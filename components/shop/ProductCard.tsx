@@ -18,8 +18,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Link href={`/tienda/${product.slug}`} className="group cursor-pointer block">
             <div className="aspect-[4/5] bg-white overflow-hidden mb-5 md:mb-6 relative hover:shadow-xl transition-all duration-500 rounded-xl">
                 <div className="w-full h-full bg-gray-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-700">
-                    {/* Placeholder for now */}
-                    <span className="text-gray-400 font-light">Imagen de Producto</span>
+                    {product.images && product.images.length > 0 ? (
+                        <img
+                            src={product.images[0]}
+                            alt={product.name}
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <span className="text-gray-400 font-light">Imagen de Producto</span>
+                    )}
                 </div>
 
                 {product.isNew && (
