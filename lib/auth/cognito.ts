@@ -22,6 +22,8 @@ const client = new CognitoIdentityProviderClient({
 
 const USER_POOL_ID = process.env.AWS_COGNITO_USER_POOL_ID!;
 const CLIENT_ID = process.env.AWS_COGNITO_CLIENT_ID!;
+// Public clients do not use a secret
+const CLIENT_SECRET = undefined;
 
 export interface AuthTokens {
     accessToken: string;
@@ -40,12 +42,13 @@ export interface CognitoUser {
 
 /**
  * Sign in user with email and password
+ * Uses standard USER_PASSWORD_AUTH flow for Public Clients (No Secret)
  */
 export async function signIn(email: string, password: string): Promise<AuthTokens> {
     try {
         const command = new InitiateAuthCommand({
-            AuthFlow: 'USER_PASSWORD_AUTH',
             ClientId: CLIENT_ID,
+            AuthFlow: 'USER_PASSWORD_AUTH',
             AuthParameters: {
                 USERNAME: email,
                 PASSWORD: password,

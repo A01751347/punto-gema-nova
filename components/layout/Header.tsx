@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/auth/auth-context';
 import { usePathname } from 'next/navigation';
+import { useCart } from '@/lib/cart/CartContext';
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const { user, isAuthenticated, logout } = useAuth();
+    const { totalItems, toggleCart } = useCart();
     const pathname = usePathname();
 
     const navigation = [
@@ -27,7 +29,7 @@ export default function Header() {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
-                        <div className="text-2xl font-bold text-primary">YUTNÜÜ</div>
+                        <div className="text-2xl font-bold text-primary">YUTNÜU</div>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -149,9 +151,10 @@ export default function Header() {
                             </Link>
                         )}
 
+
                         {/* Cart */}
-                        <Link
-                            href="/carrito"
+                        <button
+                            onClick={toggleCart}
                             className="relative p-2 text-text-secondary hover:text-primary transition-colors"
                             aria-label="Carrito"
                         >
@@ -169,10 +172,12 @@ export default function Header() {
                                 />
                             </svg>
                             {/* Cart count badge */}
-                            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                                0
-                            </span>
-                        </Link>
+                            {totalItems > 0 && (
+                                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                    {totalItems}
+                                </span>
+                            )}
+                        </button>
 
                         {/* Mobile menu button */}
                         <button

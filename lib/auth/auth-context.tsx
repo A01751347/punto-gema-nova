@@ -1,8 +1,22 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { signIn, signUp, getUser, AuthTokens, CognitoUser } from '@/lib/auth/cognito';
+import { loginAction, registerAction, getUserAction, getUserDbAction } from '@/app/actions/auth-actions';
 import { User, UserRole } from '@/types';
+// Types needed locally
+export interface AuthTokens {
+    accessToken: string;
+    idToken: string;
+    refreshToken: string;
+    expiresIn: number;
+}
+export interface CognitoUser {
+    username: string;
+    email: string;
+    emailVerified: boolean;
+    sub: string;
+    attributes: Record<string, string>;
+}
 
 interface AuthContextType {
     user: User | null;
@@ -28,19 +42,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             try {
                 const accessToken = localStorage.getItem('accessToken');
                 if (accessToken) {
-                    const cognitoUserData = await getUser(accessToken);
-                    setCognitoUser(cognitoUserData);
+                    const { success, user: cognitoUserData, error } = await getUserAction(accessToken);
 
-                    // Fetch full user data from our database
-                    const response = await fetch('/api/auth/me', {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                        },
-                    });
+                    if (success && cognitoUserData) {
+                        setCognitoUser(cognitoUserData);
 
-                    if (response.ok) {
-                        const userData = await response.json();
-                        setUser(userData);
+                        if (cognitoUserData.email) {
+                            const { success: dbSuccess, user: dbUser } = await getUserDbAction(cognitoUserData.email);
+                            if (dbSuccess && dbUser) {
+                                setUser(dbUser);
+                            }
+                        }
+                    } else {
+                        // Token invalid/expired
+                        throw new Error(error || 'Invalid token');
                     }
                 }
             } catch (error) {
@@ -59,28 +74,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = async (email: string, password: string) => {
         try {
-            const tokens = await signIn(email, password);
+            const { success, tokens, error } = await loginAction(email, password);
+
+            if (!success || !tokens) {
+                throw new Error(error || 'Login failed');
+            }
 
             // Store tokens
             localStorage.setItem('accessToken', tokens.accessToken);
             localStorage.setItem('idToken', tokens.idToken);
             localStorage.setItem('refreshToken', tokens.refreshToken);
 
-            // Get user data
-            const cognitoUserData = await getUser(tokens.accessToken);
-            setCognitoUser(cognitoUserData);
+            // Get user data (Server Action)
+            const { success: userSuccess, user: cognitoUserData } = await getUserAction(tokens.accessToken);
+            if (userSuccess && cognitoUserData) {
+                setCognitoUser(cognitoUserData);
 
-            // Fetch full user data from our database
-            const response = await fetch('/api/auth/me', {
-                headers: {
-                    Authorization: `Bearer ${tokens.accessToken}`,
-                },
-            });
-
-            if (response.ok) {
-                const userData = await response.json();
-                setUser(userData);
+                if (cognitoUserData.email) {
+                    const { success: dbSuccess, user: dbUser } = await getUserDbAction(cognitoUserData.email);
+                    if (dbSuccess && dbUser) {
+                        setUser(dbUser);
+                    }
+                }
             }
+
         } catch (error: any) {
             console.error('Login error:', error);
             throw error;
@@ -89,29 +106,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const register = async (email: string, password: string, userData?: Partial<User>) => {
         try {
-            // Sign up with Cognito
-            await signUp(email, password, {
+            // Sign up with Cognito (Server Action)
+            const { success, error } = await registerAction(email, password, {
                 given_name: userData?.firstName || '',
                 family_name: userData?.lastName || '',
             });
 
-            // Create user in our database
-            const response = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email,
-                    ...userData,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to create user account');
+            if (!success) {
+                throw new Error(error || 'Registration failed');
             }
-
-            // Note: User will need to confirm email before logging in
         } catch (error: any) {
             console.error('Registration error:', error);
             throw error;
@@ -130,15 +133,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         try {
             const accessToken = localStorage.getItem('accessToken');
             if (accessToken) {
-                const response = await fetch('/api/auth/me', {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-
-                if (response.ok) {
-                    const userData = await response.json();
-                    setUser(userData);
+                const { success, user: cognitoUserData } = await getUserAction(accessToken);
+                if (success && cognitoUserData && cognitoUserData.email) {
+                    const { success: dbSuccess, user: dbUser } = await getUserDbAction(cognitoUserData.email);
+                    if (dbSuccess && dbUser) {
+                        setUser(dbUser);
+                    }
                 }
             }
         } catch (error) {
