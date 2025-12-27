@@ -177,8 +177,8 @@ export async function createOrder(prevState: any, formData: FormData) {
                     tax: tax,
                     total: total,
                     paymentMethod: 'credit_card', // form.paymentMethod
-                    paymentStatus: 'COMPLETED', // Mock success
-                    status: 'CONFIRMED',
+                    paymentStatus: 'PENDING',
+                    status: 'PENDING',
                     items: {
                         create: orderItemsData
                     }
