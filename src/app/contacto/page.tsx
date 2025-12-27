@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Button from '@/components/ui/Button';
 import ContactForm from './ContactForm';
+import { Mail, MessageCircle, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Contacto | YUTNÜÜ',
@@ -43,7 +44,7 @@ export default function ContactPage() {
                                 <div className="space-y-6">
                                     <div className="flex items-start gap-4 group">
                                         <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#d4af37] group-hover:border-[#d4af37] transition-colors">
-                                            ✉️
+                                            <Mail size={20} />
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Email</span>
@@ -55,7 +56,7 @@ export default function ContactPage() {
 
                                     <div className="flex items-start gap-4 group">
                                         <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#d4af37] group-hover:border-[#d4af37] transition-colors">
-                                            💬
+                                            <MessageCircle size={20} />
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Whatsapp</span>
@@ -68,7 +69,7 @@ export default function ContactPage() {
 
                                     <div className="flex items-start gap-4 group">
                                         <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#d4af37] group-hover:border-[#d4af37] transition-colors">
-                                            📍
+                                            <MapPin size={20} />
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Oficina Central</span>

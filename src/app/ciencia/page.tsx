@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Leaf, Sun } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'Ciencia y Transparencia | YUTNÜÜ',
@@ -216,7 +217,7 @@ export default function SciencePage() {
                         </div>
 
                         <div className="bg-primary p-8 rounded-2xl text-white transform md:translate-y-8">
-                            <span className="text-4xl mb-4 block">🌵</span>
+                            <Leaf size={32} className="mb-4" />
                             <h3 className="font-bold mb-2 text-white">Sostenibilidad</h3>
                             <p className="text-sm text-white/95 leading-relaxed">
                                 Valorizamos semillas que antes eran desechadas, creando un ciclo de economía circular perfecto.
@@ -224,7 +225,7 @@ export default function SciencePage() {
                         </div>
 
                         <div className="bg-stone-100 p-8 rounded-2xl transform md:-translate-y-4">
-                            <span className="text-4xl mb-4 block">🚀</span>
+                            <Sun size={32} className="mb-4 text-primary" />
                             <h3 className="font-bold text-primary mb-2">Resistencia Extrema</h3>
                             <p className="text-sm text-text-secondary leading-relaxed">
                                 Por su estabilidad oxidativa, se estudia su uso en condiciones de alta radiación y estrés ambiental.

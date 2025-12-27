@@ -52,7 +52,7 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
                             key={banner.imageUrl}
                             src={banner.imageUrl}
                             alt={banner.title}
-                            className="w-full h-full object-cover opacity-90 animate-fade-in"
+                            className="w-full h-full object-cover object-center opacity-90 animate-fade-in"
                         />
                         <div className="absolute inset-0 bg-black/10" />
                     </div>

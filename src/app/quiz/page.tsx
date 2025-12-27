@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
-import { ArrowRight, RefreshCcw, Check, Sparkles } from 'lucide-react';
+import { ArrowRight, RefreshCcw, Check, Sparkles, Sprout, Scale, Flower2, Hourglass, Droplets, Sun, Search, Nut, Wind, HelpCircle, Variable } from 'lucide-react';
 
 // --- Types ---
 type Step = 'intro' | 'skinType' | 'concern' | 'texture' | 'result';
@@ -20,28 +20,28 @@ const QUESTIONS = {
     skinType: {
         title: "¿Cómo sientes tu piel al despertar?",
         options: [
-            { id: 'dry', label: 'Seca y tirante', icon: '🌵' },
-            { id: 'oily', label: 'Brillosa / Grasa', icon: '✨' },
-            { id: 'combination', label: 'Mixta (Zona T grasa)', icon: '⚖️' },
-            { id: 'normal', label: 'Equilibrada y suave', icon: '🌸' },
+            { id: 'dry', label: 'Seca y tirante', icon: <Wind size={32} /> },
+            { id: 'oily', label: 'Brillosa / Grasa', icon: <Sparkles size={32} /> },
+            { id: 'combination', label: 'Mixta (Zona T grasa)', icon: <Scale size={32} /> },
+            { id: 'normal', label: 'Equilibrada y suave', icon: <Flower2 size={32} /> },
         ]
     },
     concern: {
         title: "¿Cuál es tu principal preocupación?",
         options: [
-            { id: 'aging', label: 'Líneas finas y arrugas', icon: '⏳' },
-            { id: 'dryness', label: 'Deshidratación intensa', icon: '💧' },
-            { id: 'pigmentation', label: 'Manchas y tono desigual', icon: '☀️' },
-            { id: 'acne', label: 'Imperfecciones / Poros', icon: '🔍' },
+            { id: 'aging', label: 'Líneas finas y arrugas', icon: <Hourglass size={32} /> },
+            { id: 'dryness', label: 'Deshidratación intensa', icon: <Droplets size={32} /> },
+            { id: 'pigmentation', label: 'Manchas y tono desigual', icon: <Sun size={32} /> },
+            { id: 'acne', label: 'Imperfecciones / Poros', icon: <Search size={32} /> },
         ]
     },
     texture: {
         title: "¿Qué texturas prefieres?",
         options: [
-            { id: 'oil', label: 'Aceites nutritivos', icon: '🥥' },
-            { id: 'cream', label: 'Cremas untuosas', icon: '🧴' },
-            { id: 'light', label: 'Geles y sueros ligeros', icon: '🌬️' },
-            { id: 'any', label: 'Sin preferencia', icon: '🤷' },
+            { id: 'oil', label: 'Aceites nutritivos', icon: <Nut size={32} /> },
+            { id: 'cream', label: 'Cremas untuosas', icon: <Droplets size={32} /> },
+            { id: 'light', label: 'Geles y sueros ligeros', icon: <Wind size={32} /> },
+            { id: 'any', label: 'Sin preferencia', icon: <HelpCircle size={32} /> },
         ]
     }
 };
@@ -49,27 +49,27 @@ const QUESTIONS = {
 const RECOMMENDATIONS: Record<string, any> = {
     'oil': {
         name: 'Aceite de Tuna Puro',
-        image: 'https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg', // Placeholder image URL, ensure this is correct or generic
+        image: 'https://placehold.co/600x600/f4f4f0/d4af37?text=Aceite+Tuna',
         description: 'Tu piel pide a gritos nuestra joya del desierto. Nutrición profunda y antioxidantes potentes para reparar la barrera cutánea.',
         slug: 'aceite-tuna-roll-on',
     },
     'serum': {
         name: 'Suero Facial YUTNÜÜ',
-        image: 'https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg', // Placeholder
+        image: 'https://placehold.co/600x600/e2e8f0/2c4a52?text=Suero+Facial',
         description: 'Necesitas una dosis concentrada de activos ligeros. Nuestro suero penetra rápido para tratar líneas finas sin sensación grasa.',
         slug: 'suero-facial',
     },
     'cream': {
         name: 'Crema Facial Hidratante',
-        image: 'https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg', // Placeholder
+        image: 'https://placehold.co/600x600/ffffff/2c4a52?text=Crema+Facial',
         description: 'La base perfecta. Hidratación equilibrada que sella la humedad y suaviza la textura de tu piel instantáneamente.',
         slug: 'crema-facial',
     },
     'kit': {
         name: 'Kit Ritual Completo',
-        image: 'https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg', // Placeholder
+        image: 'https://placehold.co/600x600/f8fafc/2c4a52?text=Ritual+Completo',
         description: 'Tu piel se beneficiará del "layering" completo. Limpieza, tratamiento y sellado para una transformación total.',
-        slug: 'kit-rutina-completa', // Ensure this slug exists or link to shop
+        slug: 'kit-rutina-completa',
     }
 };
 
