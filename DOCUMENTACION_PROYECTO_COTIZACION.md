@@ -108,14 +108,14 @@ Las pruebas se realizarán en un entorno de **Staging** antes del despliegue fin
 - [x] Listado de Productos (Tienda).
 - [x] Detalle de Producto (PDP).
 - [x] Carrito de Compras (Funcionalidad base, requiere revisión de bugs).
-- [ ] Flujo de Checkout completo (Integración pasarelas pendiente).
+- [x] Flujo de Checkout completo (Mercado Pago integrado).
 
 ### Páginas Públicas - Fase 2
-- [ ] Página de Rutinas.
-- [ ] Sección de Ciencia y Transparencia.
+- [x] Página de Rutinas.
+- [x] Sección de Ciencia y Transparencia.
 - [ ] Librería de Ingredientes.
 - [x] Blog (Listado y Detalle implementado con Markdown).
-- [ ] Páginas estáticas (Nosotros, Contacto).
+- [x] Páginas estáticas (Nosotros, Contacto).
 
 ### Cuenta de Usuario
 - [x] Login/Registro.

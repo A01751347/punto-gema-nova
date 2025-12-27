@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Button from '@/components/ui/Button';
+import ContactForm from './ContactForm';
 
 export const metadata: Metadata = {
     title: 'Contacto | YUTNÜÜ',
@@ -103,57 +104,7 @@ export default function ContactPage() {
                         <h3 className="text-2xl font-serif text-[#2c4a52] mb-2">Envíanos un mensaje</h3>
                         <p className="text-text-secondary font-light mb-8">Te responderemos en menos de 24 horas.</p>
 
-                        <form className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-1">
-                                    <label htmlFor="name" className="text-xs font-bold text-gray-500 uppercase tracking-wide">Nombre</label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300"
-                                        placeholder="Tu nombre"
-                                    />
-                                </div>
-                                <div className="space-y-1">
-                                    <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-wide">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300"
-                                        placeholder="correo@ejemplo.com"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="space-y-1">
-                                <label htmlFor="subject" className="text-xs font-bold text-gray-500 uppercase tracking-wide">Asunto</label>
-                                <select
-                                    id="subject"
-                                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors text-gray-700"
-                                >
-                                    <option>Información de Producto</option>
-                                    <option>Mi Pedido</option>
-                                    <option>Prensa / Colaboraciones</option>
-                                    <option>Otro</option>
-                                </select>
-                            </div>
-
-                            <div className="space-y-1">
-                                <label htmlFor="message" className="text-xs font-bold text-gray-500 uppercase tracking-wide">Mensaje</label>
-                                <textarea
-                                    id="message"
-                                    rows={4}
-                                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300 resize-none"
-                                    placeholder="¿En qué podemos ayudarte?"
-                                ></textarea>
-                            </div>
-
-                            <div className="pt-4">
-                                <Button className="w-full md:w-auto px-10 py-3 shadow-lg hover:shadow-xl transition-all">
-                                    Enviar Mensaje
-                                </Button>
-                            </div>
-                        </form>
+                        <ContactForm />
                     </div>
                 </div>
             </section>
