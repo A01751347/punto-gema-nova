@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface BlogPostPageProps {
     params: Promise<{
@@ -61,11 +62,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {/* Content */}
                 <div className="max-w-3xl mx-auto">
-                    <div
-                        className="prose prose-lg prose-headings:font-serif prose-headings:text-[#2c4a52] prose-p:text-text-secondary prose-p:font-light prose-p:leading-loose prose-a:text-[#d4af37] prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl"
-                        dangerouslySetInnerHTML={{ __html: post.content.replace(/\n\n/g, '<br/><br/>').replace(/# (.*)/g, '').replace(/## (.*)/g, '<h2>$1</h2>').replace(/### (.*)/g, '<h3>$1</h3>') }}
-                    />
-                    {/* Note: In a real app, use a proper Markdown parser like 'react-markdown' or 'marked' */}
+                    <div className="prose prose-lg prose-headings:font-serif prose-headings:text-[#2c4a52] prose-p:text-text-secondary prose-p:font-light prose-p:leading-loose prose-a:text-[#d4af37] prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+                        <ReactMarkdown>
+                            {post.content}
+                        </ReactMarkdown>
+                    </div>
 
                     {/* Share Section */}
                     <div className="border-t border-gray-100 mt-16 pt-8 flex items-center justify-between">
