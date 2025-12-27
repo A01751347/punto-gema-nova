@@ -5,6 +5,7 @@ import CartItem from '@/components/cart/CartItem';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { ShoppingBag, X, Truck, Sparkles } from 'lucide-react';
 
 export default function CartDrawer() {
     const { isCartOpen, closeCart, items, subtotal, totalItems } = useCart();
@@ -37,27 +38,33 @@ export default function CartDrawer() {
 
                 {/* Header */}
                 <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-10">
-                    <h2 className="text-2xl font-serif text-primary">Tu Carrito ({totalItems})</h2>
+                    <h2 className="text-2xl font-serif text-primary flex items-center gap-2">
+                        Tu Carrito <span className="text-base text-gray-400 font-sans font-light">({totalItems})</span>
+                    </h2>
                     <button
                         onClick={closeCart}
-                        className="p-2 -mr-2 text-gray-400 hover:text-primary transition-colors text-2xl"
+                        className="p-2 -mr-2 text-gray-400 hover:text-primary transition-colors"
                     >
-                        ×
+                        <X size={24} />
                     </button>
                 </div>
 
                 {/* Free Shipping Progress */}
-                <div className="px-6 py-4 bg-gray-50/50 border-b border-gray-100">
+                <div className="px-6 py-5 bg-gray-50/30 border-b border-gray-100">
                     {remaining > 0 ? (
-                        <p className="text-sm text-text-secondary mb-2 text-center">
-                            Te faltan <span className="font-bold text-primary">${remaining.toFixed(2)}</span> para envío gratis
-                        </p>
+                        <div className="flex items-center justify-center gap-2 mb-3 text-sm text-text-secondary">
+                            <Truck size={16} className="text-gray-400" />
+                            <p>
+                                Te faltan <span className="font-bold text-primary">${remaining.toFixed(2)}</span> para envío gratis
+                            </p>
+                        </div>
                     ) : (
-                        <p className="text-sm text-green-700 font-medium mb-2 text-center flex items-center justify-center gap-2">
-                            <span>✨</span> ¡Tienes envío gratis!
-                        </p>
+                        <div className="flex items-center justify-center gap-2 mb-3 text-green-700 text-sm font-medium">
+                            <Sparkles size={16} />
+                            <p>¡Felicidades! Tienes envío gratis</p>
+                        </div>
                     )}
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
                         <div
                             className="h-full bg-primary transition-all duration-500 ease-out"
                             style={{ width: `${progress}%` }}
@@ -68,18 +75,19 @@ export default function CartDrawer() {
                 {/* Content */}
                 <div className="flex-1 overflow-y-auto p-6">
                     {items.length === 0 ? (
-                        <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
-                            <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center text-4xl">
-                                🛍️
+                        <div className="h-full flex flex-col items-center justify-center text-center space-y-6 animate-fade-in">
+                            <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-2 relative group">
+                                <div className="absolute inset-0 bg-primary/5 rounded-full scale-100 group-hover:scale-110 transition-transform duration-500" />
+                                <ShoppingBag size={40} className="text-gray-300 relative z-10" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-medium text-text-primary mb-2">Tu carrito está vacío</h3>
-                                <p className="text-text-secondary font-light max-w-xs mx-auto">
-                                    Parece que aún no has descubierto nuestros tratamientos.
+                                <h3 className="text-xl font-serif text-primary mb-3">Tu carrito está vacío</h3>
+                                <p className="text-text-secondary font-light max-w-[250px] mx-auto leading-relaxed text-sm">
+                                    Parece que aún no has descubierto tus esenciales de YUTNÜÜ.
                                 </p>
                             </div>
-                            <Button onClick={closeCart} variant="outline" className="mt-4 border-gray-300 text-text-primary hover:bg-gray-50">
-                                Continuar Comprando
+                            <Button onClick={closeCart} className="mt-2 w-full max-w-[200px] shadow-sm hover:shadow-md transition-all">
+                                Explorar Tienda
                             </Button>
                         </div>
                     ) : (
