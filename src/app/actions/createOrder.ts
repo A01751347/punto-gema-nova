@@ -215,8 +215,13 @@ export async function createOrder(prevState: any, formData: FormData) {
 
         console.error('[CreateOrder] Error:', e); // Keep original object logging for full details in server console
 
+        if (e.status === 409) {
+            return { message: "Error: La orden ya fue procesada o conflicto de datos." };
+        }
+
         if (e.code === 'PA_UNAUTHORIZED_RESULT_FROM_POLICIES' || e.status === 403) {
-            return { message: "Error de configuración de Mercado Pago (403 Unauthorized). Verifica tu ACCESS_TOKEN." };
+            console.error('[CreateOrder] MP Auth Error: Check your MERCADOPAGO_ACCESS_TOKEN. Is it a Production token? Have you completed Identity Verification (KYC)?');
+            return { message: "Error de autorización con Mercado Pago (403). El token de acceso puede ser inválido o faltan permisos (KYC)." };
         }
 
         return { message: "Error procesando la orden. Intenta nuevamente o contacta soporte." };
