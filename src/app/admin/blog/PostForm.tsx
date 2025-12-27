@@ -1,7 +1,8 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState, useRef } from 'react';
 import { createPost, updatePost } from '@/lib/blog/actions';
+import { uploadImageAction } from '@/app/actions/upload-actions';
 import Button from '@/components/ui/Button';
 import { ArrowLeft, Save, Upload, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -41,6 +42,30 @@ export default function PostForm({ post, isEditing = false }: PostFormProps) {
         : createPost;
 
     const [state, formAction, isPending] = useActionState(action, initialState);
+
+    // Image Upload State
+    const [imageUrl, setImageUrl] = useState(post?.featuredImage || '');
+    const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('folder', 'blog');
+
+        const result = await uploadImageAction(formData);
+
+        if (result.success && result.url) {
+            setImageUrl(result.url);
+        } else {
+            alert('Error subiendo imagen: ' + (result.error || 'Desconocido'));
+        }
+        setIsUploading(false);
+    };
 
     return (
         <form action={formAction} className="max-w-4xl mx-auto space-y-8">
@@ -164,23 +189,42 @@ export default function PostForm({ post, isEditing = false }: PostFormProps) {
                                 <input
                                     type="text"
                                     name="featuredImage"
-                                    defaultValue={post?.featuredImage || ''}
+                                    value={imageUrl}
+                                    onChange={(e) => setImageUrl(e.target.value)}
                                     className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     placeholder="https://..."
                                 />
-                                <button type="button" className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-500">
-                                    <Upload size={18} />
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    className="hidden"
+                                    accept="image/*"
+                                    onChange={handleFileUpload}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={isUploading}
+                                    className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-gray-500 disabled:opacity-50"
+                                >
+                                    {isUploading ? <div className="w-4 h-4 border-2 border-gray-500 border-t-transparent rounded-full animate-spin" /> : <Upload size={18} />}
                                 </button>
                             </div>
-                            <p className="text-xs text-gray-400 mt-2">Próximamente: Subida directa de archivos.</p>
+                            <p className="text-xs text-gray-400 mt-2">Sube una imagen o pega una URL externa.</p>
                         </div>
 
-                        {post?.featuredImage && (
+                        {imageUrl ? (
                             <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden relative border border-gray-200">
-                                <img src={post.featuredImage} alt="Preview" className="w-full h-full object-cover" />
+                                <img src={imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                                <button
+                                    type="button"
+                                    onClick={() => setImageUrl('')}
+                                    className="absolute top-2 right-2 p-1 bg-white/80 rounded-full hover:bg-white text-red-500 shadow-sm"
+                                >
+                                    <ImageIcon size={16} className="rotate-45" /> {/* Using generic icon as 'X' or import X */}
+                                </button>
                             </div>
-                        )}
-                        {!post?.featuredImage && (
+                        ) : (
                             <div className="aspect-video bg-gray-50 rounded-lg flex items-center justify-center border border-dashed border-gray-200 text-gray-300">
                                 <ImageIcon size={32} />
                             </div>
