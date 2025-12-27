@@ -131,6 +131,7 @@ export default function CheckoutPage() {
                                         required
                                         fullWidth
                                         className="bg-gray-50 border-gray-100 focus:bg-white"
+                                        error={state.errors?.email?.[0]}
                                     />
                                     <div className="flex items-start gap-2 text-xs text-gray-500">
                                         <ShieldCheck size={14} className="text-secondary mt-0.5" />
@@ -159,6 +160,7 @@ export default function CheckoutPage() {
                                             defaultValue={user?.firstName || ''}
                                             required
                                             fullWidth
+                                            error={state.errors?.firstName?.[0]}
                                         />
                                         <Input
                                             label="Apellidos"
@@ -167,14 +169,43 @@ export default function CheckoutPage() {
                                             defaultValue={user?.lastName || ''}
                                             required
                                             fullWidth
+                                            error={state.errors?.lastName?.[0]}
                                         />
                                     </div>
-                                    <Input label="Calle y Número" name="address" placeholder="Av. Reforma 222, Depto 401" required fullWidth />
+                                    <Input
+                                        label="Calle y Número"
+                                        name="address"
+                                        placeholder="Av. Reforma 222, Depto 401"
+                                        required
+                                        fullWidth
+                                        error={state.errors?.address?.[0]}
+                                    />
 
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-                                        <Input label="Ciudad" name="city" placeholder="CDMX" required fullWidth />
-                                        <Input label="Estado" name="state" placeholder="CDMX" required fullWidth />
-                                        <Input label="C.P." name="postalCode" placeholder="06600" required fullWidth />
+                                        <Input
+                                            label="Ciudad"
+                                            name="city"
+                                            placeholder="CDMX"
+                                            required
+                                            fullWidth
+                                            error={state.errors?.city?.[0]}
+                                        />
+                                        <Input
+                                            label="Estado"
+                                            name="state"
+                                            placeholder="CDMX"
+                                            required
+                                            fullWidth
+                                            error={state.errors?.state?.[0]}
+                                        />
+                                        <Input
+                                            label="C.P."
+                                            name="postalCode"
+                                            placeholder="06600"
+                                            required
+                                            fullWidth
+                                            error={state.errors?.postalCode?.[0]}
+                                        />
                                     </div>
                                     <Input
                                         label="Teléfono Celular"
@@ -183,6 +214,7 @@ export default function CheckoutPage() {
                                         defaultValue={user?.phone || ''}
                                         required
                                         fullWidth
+                                        error={state.errors?.phone?.[0]}
                                     />
                                 </div>
                             </div>
@@ -216,6 +248,12 @@ export default function CheckoutPage() {
                                     Serás redirigido a Mercado Pago para completar tu compra de forma segura.
                                 </p>
                             </div>
+
+                            {state.message && (
+                                <div className="bg-red-50 text-red-600 p-4 rounded-xl text-center text-sm font-medium">
+                                    {state.message}
+                                </div>
+                            )}
 
                         </form>
                     </div>
@@ -283,11 +321,18 @@ export default function CheckoutPage() {
                             <Button
                                 type="submit"
                                 form="checkout-form"
-                                className="w-full mt-8 bg-[#2c4a52] hover:bg-[#1e343a] text-white font-bold h-16 text-lg transition-all shadow-none rounded-xl"
+                                disabled={isPending}
+                                className="w-full mt-8 bg-[#2c4a52] hover:bg-[#1e343a] text-white font-bold h-16 text-lg transition-all shadow-none rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                <span className="flex items-center justify-center gap-2">
-                                    Confirmar Compra <ArrowRight size={20} />
-                                </span>
+                                {isPending ? (
+                                    <span className="flex items-center justify-center gap-2">
+                                        Procesando...
+                                    </span>
+                                ) : (
+                                    <span className="flex items-center justify-center gap-2">
+                                        Confirmar Compra <ArrowRight size={20} />
+                                    </span>
+                                )}
                             </Button>
 
                             <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400">

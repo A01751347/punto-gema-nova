@@ -193,11 +193,13 @@ export async function createOrder(prevState: any, formData: FormData) {
         orderId = result.id;
 
         // 4. Create Mercado Pago Preference
+        console.log('[CreateOrder] Creating preference for Order ID:', orderId);
         const preference = await createPreference(
             orderId,
             orderItemsData,
             { firstName, lastName, email, phone, address, postalCode, city }
         );
+        console.log('[CreateOrder] Preference created:', JSON.stringify(preference, null, 2));
 
         if (preference.init_point) {
             redirect(preference.init_point);
@@ -205,12 +207,18 @@ export async function createOrder(prevState: any, formData: FormData) {
             throw new Error('No se pudo generar el link de pago');
         }
 
-    } catch (e) {
+    } catch (e: any) {
         // If it's a redirect error, let it pass (Next.js internals)
-        if ((e as any).message === 'NEXT_REDIRECT') {
+        if (e.message === 'NEXT_REDIRECT') {
             throw e;
         }
-        console.error(e);
-        return { message: "Error creando la orden o conectando con pagos." };
+
+        console.error('[CreateOrder] Error:', e); // Keep original object logging for full details in server console
+
+        if (e.code === 'PA_UNAUTHORIZED_RESULT_FROM_POLICIES' || e.status === 403) {
+            return { message: "Error de configuración de Mercado Pago (403 Unauthorized). Verifica tu ACCESS_TOKEN." };
+        }
+
+        return { message: "Error procesando la orden. Intenta nuevamente o contacta soporte." };
     }
 }

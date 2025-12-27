@@ -1,7 +1,16 @@
 import MercadoPagoConfig, { Preference } from 'mercadopago';
 
+const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+
+console.log('[MercadoPagoConfig] Initializing with token length:', accessToken?.length || 0);
+console.log('[MercadoPagoConfig] Token starts with:', accessToken?.substring(0, 10) + '...');
+
+if (!accessToken) {
+    console.error('[MercadoPagoConfig] ERROR: MERCADOPAGO_ACCESS_TOKEN is missing in environment variables.');
+}
+
 const client = new MercadoPagoConfig({
-    accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '',
+    accessToken: accessToken || '',
     options: { timeout: 5000 }
 });
 
@@ -20,16 +29,8 @@ export const createPreference = async (orderId: string, items: any[], payer: any
             payer: {
                 name: payer.firstName,
                 surname: payer.lastName,
-                email: payer.email,
-                phone: {
-                    area_code: '',
-                    number: payer.phone
-                },
-                address: {
-                    zip_code: payer.postalCode,
-                    street_name: payer.address,
-                    city_name: payer.city
-                }
+                email: payer.email
+                // Removed address to minimize errors
             },
             back_urls: {
                 success: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success/${orderId}`,
@@ -37,12 +38,7 @@ export const createPreference = async (orderId: string, items: any[], payer: any
                 pending: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/pending/${orderId}`
             },
             auto_return: 'approved',
-            external_reference: orderId,
-            statement_descriptor: 'YUTNUU',
-            payment_methods: {
-                excluded_payment_types: [],
-                installments: 12
-            }
+            external_reference: orderId
         }
     };
 

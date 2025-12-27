@@ -6,35 +6,28 @@
   --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+
 :root {
-  /* Color System */
   --background: #ffffff;
   --foreground: #2d3339;
-  /* Más suave que negro puro */
 
-  /* Brand Colors - Simplified for Hierarchy */
   --cream: #f4f4f0;
-  /* Base neutra principal */
   --cream-light: #fafaf8;
 
   --primary: #2c4a52;
-  /* Tono serio/científico para CTAs y Títulos fuertes */
   --primary-light: #4a727d;
 
   --secondary: #8c9e8e;
-  /* Sutil para detalles botánicos */
-
   --accent: #d4af37;
-  /* Toques dorados/lujo muy puntuales */
 
   --text-primary: #1a202c;
   --text-secondary: #4a5568;
   --text-light: #718096;
 
-  /* Spacing - Nueva escala base visual */
   --section-padding: 6rem;
   --container-max-width: 1400px;
 }
+
 
 @layer base {
   html {
@@ -67,14 +60,10 @@
 
 /* Links */
 a {
-  color: var(--primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-a:hover {
-  color: var(--secondary);
-}
 
 /* Buttons */
 button {
