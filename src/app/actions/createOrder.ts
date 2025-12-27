@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import prisma from '@/lib/db/prisma';
 import { redirect } from 'next/navigation';
+import { createPreference } from '@/lib/payment/mercadopago';
 
 const shippingSchema = z.object({
     firstName: z.string().min(2, "El nombre es requerido"),
@@ -184,16 +185,32 @@ export async function createOrder(prevState: any, formData: FormData) {
                 }
             });
 
+
+
             return newOrder;
         });
 
         orderId = result.id;
 
-    } catch (e) {
-        console.error(e);
-        return { message: "Error creando la orden en base de datos." };
-    }
+        // 4. Create Mercado Pago Preference
+        const preference = await createPreference(
+            orderId,
+            orderItemsData,
+            { firstName, lastName, email, phone, address, postalCode, city }
+        );
 
-    // 4. Redirect
-    redirect(`/checkout/success/${orderId}`);
+        if (preference.init_point) {
+            redirect(preference.init_point);
+        } else {
+            throw new Error('No se pudo generar el link de pago');
+        }
+
+    } catch (e) {
+        // If it's a redirect error, let it pass (Next.js internals)
+        if ((e as any).message === 'NEXT_REDIRECT') {
+            throw e;
+        }
+        console.error(e);
+        return { message: "Error creando la orden o conectando con pagos." };
+    }
 }

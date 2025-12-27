@@ -189,31 +189,31 @@ export default function CheckoutPage() {
 
                             {/* Section 3: Payment */}
                             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110" />
 
                                 <div className="flex items-center gap-3 mb-6">
-                                    <div className="w-10 h-10 rounded-full bg-cream flex items-center justify-center text-primary">
+                                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                                         <CreditCard size={20} />
                                     </div>
-                                    <h2 className="text-xl font-serif text-primary">Método de Pago</h2>
+                                    <h2 className="text-xl font-serif text-gray-800">Método de Pago</h2>
                                 </div>
 
-                                <div className="p-5 border border-primary/20 bg-primary/[0.02] rounded-xl flex items-center justify-between cursor-not-allowed opacity-80">
+                                <div className="p-5 border border-blue-200 bg-blue-50/50 rounded-xl flex items-center justify-between">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-8 bg-gray-200 rounded flex items-center justify-center">
-                                            <span className="text-xs font-bold text-gray-500">CARD</span>
+                                        <div className="w-12 h-8 bg-white border border-blue-100 rounded flex items-center justify-center text-[#009EE3] font-bold text-xs">
+                                            MP
                                         </div>
                                         <div>
-                                            <p className="font-medium text-primary">Tarjeta de Crédito / Débito</p>
-                                            <p className="text-xs text-gray-500">Procesado de forma segura</p>
+                                            <p className="font-medium text-gray-900">Mercado Pago</p>
+                                            <p className="text-xs text-gray-500">Tarjetas, Efectivo, Transferencia</p>
                                         </div>
                                     </div>
-                                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-bold uppercase tracking-wide">
-                                        Simulado
+                                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-bold uppercase tracking-wide">
+                                        Seguro
                                     </span>
                                 </div>
                                 <p className="text-xs text-gray-400 mt-4 text-center">
-                                    Esta es una tienda demo. No se realizará ningún cargo real.
+                                    Serás redirigido a Mercado Pago para completar tu compra de forma segura.
                                 </p>
                             </div>
 
