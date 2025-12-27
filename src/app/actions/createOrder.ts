@@ -176,7 +176,7 @@ export async function createOrder(prevState: any, formData: FormData) {
                     subtotal: netSubtotal, // Storing NET subtotal
                     tax: tax,
                     total: total,
-                    paymentMethod: 'credit_card', // form.paymentMethod
+                    paymentMethod: 'mercadopago',
                     paymentStatus: 'PENDING',
                     status: 'PENDING',
                     items: {
