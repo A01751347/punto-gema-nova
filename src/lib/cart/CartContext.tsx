@@ -60,9 +60,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
             const quantityToAdd = newItem.quantity || 1;
 
             if (existingItemIndex > -1) {
-                // Update existing item
+                // Update existing item correctly (immutable)
                 const updatedItems = [...prevItems];
-                updatedItems[existingItemIndex].quantity += quantityToAdd;
+                const existingItem = updatedItems[existingItemIndex];
+
+                updatedItems[existingItemIndex] = {
+                    ...existingItem,
+                    quantity: existingItem.quantity + quantityToAdd
+                };
+
                 return updatedItems;
             } else {
                 // Add new item
