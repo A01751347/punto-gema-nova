@@ -54,7 +54,7 @@ const RECOMMENDATIONS: Record<string, any> = {
         slug: 'aceite-tuna-roll-on',
     },
     'serum': {
-        name: 'Suero Facial YUTNÜÜ',
+        name: 'Suero Facial Yutnüu',
         image: 'https://placehold.co/600x600/e2e8f0/2c4a52?text=Suero+Facial',
         description: 'Necesitas una dosis concentrada de activos ligeros. Nuestro suero penetra rápido para tratar líneas finas sin sensación grasa.',
         slug: 'suero-facial',

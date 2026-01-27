@@ -214,16 +214,31 @@ export default function AdminOrderDetailPage() {
                             Pago
                         </h3>
                         <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                            <div className="w-12 h-8 bg-white rounded border border-gray-200 flex items-center justify-center shadow-sm">
-                                <span className="text-[10px] font-bold text-gray-600">VISA</span>
+                            <div className="w-12 h-8 bg-white rounded border border-gray-200 flex items-center justify-center shadow-sm px-1">
+                                <span className="text-[10px] font-bold text-gray-600 truncate uppercase">
+                                    {order.paymentMethod === 'mercadopago' ? 'MP' : order.paymentMethod?.substring(0, 4) || 'CARD'}
+                                </span>
                             </div>
-                            <div>
-                                <p className="text-sm font-medium text-gray-900">Terminada en 4242</p>
-                                <p className="text-xs text-gray-500">Pagado el {new Date(order.createdAt).toLocaleDateString()}</p>
+                            <div className="overflow-hidden">
+                                <p className="text-sm font-medium text-gray-900 uppercase truncate">
+                                    {order.paymentMethod || 'Método no especificado'}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    {order.paymentStatus === 'COMPLETED'
+                                        ? `Pagado el ${new Date(order.updatedAt || order.createdAt).toLocaleDateString()}`
+                                        : 'Pago pendiente'}
+                                </p>
+                                {order.paymentId && (
+                                    <p className="text-[10px] text-gray-400 mt-0.5 font-mono truncate">ID: {order.paymentId}</p>
+                                )}
                             </div>
-                            <div className="ml-auto">
-                                <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-50 text-green-700">
-                                    Pagado
+                            <div className="ml-auto flex-shrink-0">
+                                <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${order.paymentStatus === 'COMPLETED' ? 'bg-green-50 text-green-700 border border-green-100' :
+                                        order.paymentStatus === 'FAILED' ? 'bg-red-50 text-red-700 border border-red-100' :
+                                            'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                                    }`}>
+                                    {order.paymentStatus === 'COMPLETED' ? 'Pagado' :
+                                        order.paymentStatus === 'FAILED' ? 'Fallido' : 'Pendiente'}
                                 </span>
                             </div>
                         </div>

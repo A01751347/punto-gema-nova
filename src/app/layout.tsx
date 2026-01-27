@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "YUTNÜÜ - Cosmética Natural con Respaldo Científico",
+  title: "Yutnüu - Cosmética Natural con Respaldo Científico",
   description: "Cosmética natural formulada con criterio científico. Transparencia, trazabilidad y resultados medibles.",
   keywords: ["cosmética natural", "skincare", "cuidado de la piel", "ingredientes naturales", "ciencia"],
 };

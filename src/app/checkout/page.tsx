@@ -2,11 +2,11 @@
 
 import { useCart } from '@/lib/cart/CartContext';
 import { createOrder } from '@/app/actions/createOrder';
+import { getUserAddressesAction } from '@/app/actions/address-actions';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useActionState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import {
     Lock,
     ShieldCheck,
@@ -16,7 +16,9 @@ import {
     ArrowRight,
     MapPin,
     User,
-    Mail
+    Mail,
+    Plus,
+    CheckCircle
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -29,6 +31,78 @@ export default function CheckoutPage() {
     const router = useRouter();
     const [state, dispatch, isPending] = useActionState(createOrder, { message: '', errors: {} });
     const [isGuest, setIsGuest] = useState(false);
+
+    // Address Management
+    const [addresses, setAddresses] = useState<any[]>([]);
+    const [loadingAddresses, setLoadingAddresses] = useState(true);
+    const [selectedAddressId, setSelectedAddressId] = useState<string | null>('new');
+
+    // Controlled Form State
+    const [formValues, setFormValues] = useState({
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        phone: '',
+        email: ''
+    });
+
+    useEffect(() => {
+        if (user?.email) {
+            setFormValues(prev => ({
+                ...prev,
+                firstName: user.firstName || '',
+                lastName: user.lastName || '',
+                phone: user.phone || '',
+                email: user.email || ''
+            }));
+
+            getUserAddressesAction(user.email).then(res => {
+                if (res.success && res.addresses && res.addresses.length > 0) {
+                    setAddresses(res.addresses);
+                    const def = res.addresses.find((a: any) => a.isDefault) || res.addresses[0];
+                    selectAddress(def);
+                }
+                setLoadingAddresses(false);
+            });
+        } else {
+            setLoadingAddresses(false);
+        }
+    }, [user]);
+
+    const selectAddress = (addr: any) => {
+        setSelectedAddressId(addr.id);
+        setFormValues(prev => ({
+            ...prev,
+            firstName: addr.firstName,
+            lastName: addr.lastName,
+            address: addr.address1,
+            city: addr.city,
+            state: addr.state,
+            postalCode: addr.postalCode,
+            phone: addr.phone
+        }));
+    };
+
+    const handleNewAddress = () => {
+        setSelectedAddressId('new');
+        setFormValues({
+            firstName: user?.firstName || '',
+            lastName: user?.lastName || '',
+            address: '',
+            city: '',
+            state: '',
+            postalCode: '',
+            phone: user?.phone || '',
+            email: user?.email || ''
+        });
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
 
     // Redirect if cart is empty
     useEffect(() => {
@@ -127,7 +201,8 @@ export default function CheckoutPage() {
                                         name="email"
                                         type="email"
                                         placeholder="ejemplo@correo.com"
-                                        defaultValue={user?.email || ''}
+                                        value={formValues.email}
+                                        onChange={handleInputChange}
                                         required
                                         fullWidth
                                         className="bg-gray-50 border-gray-100 focus:bg-white"
@@ -152,12 +227,52 @@ export default function CheckoutPage() {
                                 </div>
 
                                 <div className="space-y-5">
+                                    {/* Saved Addresses List */}
+                                    {!loadingAddresses && addresses.length > 0 && (
+                                        <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {addresses.map((addr: any) => (
+                                                <div
+                                                    key={addr.id}
+                                                    onClick={() => selectAddress(addr)}
+                                                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAddressId === addr.id
+                                                            ? 'border-[#2c4a52] bg-[#2c4a52]/5 ring-1 ring-[#2c4a52]'
+                                                            : 'border-gray-100 hover:border-gray-200 bg-gray-50'
+                                                        }`}
+                                                >
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <span className="font-bold text-[#2c4a52] text-sm flex items-center gap-2">
+                                                            {addr.firstName} {addr.lastName}
+                                                            {selectedAddressId === addr.id && <CheckCircle size={14} className="text-[#2c4a52]" />}
+                                                        </span>
+                                                        {addr.isDefault && <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">Default</span>}
+                                                    </div>
+                                                    <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed">
+                                                        {addr.address1}, {addr.city}, {addr.state}, {addr.postalCode}
+                                                    </p>
+                                                </div>
+                                            ))}
+
+                                            {/* Add New Option */}
+                                            <div
+                                                onClick={handleNewAddress}
+                                                className={`p-4 rounded-xl border-2 border-dashed cursor-pointer flex flex-col items-center justify-center gap-2 transition-colors min-h-[100px] ${selectedAddressId === 'new'
+                                                        ? 'border-[#2c4a52] bg-[#2c4a52]/5'
+                                                        : 'border-gray-200 hover:border-[#2c4a52]/50 text-gray-400 hover:text-[#2c4a52]'
+                                                    }`}
+                                            >
+                                                <Plus size={20} />
+                                                <span className="text-xs font-bold">Nueva Dirección</span>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         <Input
                                             label="Nombre(s)"
                                             name="firstName"
                                             placeholder="Ana"
-                                            defaultValue={user?.firstName || ''}
+                                            value={formValues.firstName}
+                                            onChange={handleInputChange}
                                             required
                                             fullWidth
                                             error={state.errors?.firstName?.[0]}
@@ -166,7 +281,8 @@ export default function CheckoutPage() {
                                             label="Apellidos"
                                             name="lastName"
                                             placeholder="García"
-                                            defaultValue={user?.lastName || ''}
+                                            value={formValues.lastName}
+                                            onChange={handleInputChange}
                                             required
                                             fullWidth
                                             error={state.errors?.lastName?.[0]}
@@ -176,6 +292,8 @@ export default function CheckoutPage() {
                                         label="Calle y Número"
                                         name="address"
                                         placeholder="Av. Reforma 222, Depto 401"
+                                        value={formValues.address}
+                                        onChange={handleInputChange}
                                         required
                                         fullWidth
                                         error={state.errors?.address?.[0]}
@@ -186,6 +304,8 @@ export default function CheckoutPage() {
                                             label="Ciudad"
                                             name="city"
                                             placeholder="CDMX"
+                                            value={formValues.city}
+                                            onChange={handleInputChange}
                                             required
                                             fullWidth
                                             error={state.errors?.city?.[0]}
@@ -194,6 +314,8 @@ export default function CheckoutPage() {
                                             label="Estado"
                                             name="state"
                                             placeholder="CDMX"
+                                            value={formValues.state}
+                                            onChange={handleInputChange}
                                             required
                                             fullWidth
                                             error={state.errors?.state?.[0]}
@@ -202,6 +324,8 @@ export default function CheckoutPage() {
                                             label="C.P."
                                             name="postalCode"
                                             placeholder="06600"
+                                            value={formValues.postalCode}
+                                            onChange={handleInputChange}
                                             required
                                             fullWidth
                                             error={state.errors?.postalCode?.[0]}
@@ -211,7 +335,8 @@ export default function CheckoutPage() {
                                         label="Teléfono Celular"
                                         name="phone"
                                         placeholder="55 1234 5678"
-                                        defaultValue={user?.phone || ''}
+                                        value={formValues.phone}
+                                        onChange={handleInputChange}
                                         required
                                         fullWidth
                                         error={state.errors?.phone?.[0]}
@@ -337,7 +462,7 @@ export default function CheckoutPage() {
 
                             <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400">
                                 <ShieldCheck size={12} />
-                                <span>Garantía de Satisfacción YUTNÜÜ</span>
+                                <span>Garantía de Satisfacción Yutnüu</span>
                             </div>
 
 

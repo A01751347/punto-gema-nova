@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-    title: 'Nuestra Historia | YUTNÜÜ',
-    description: 'De las tierras altas de México a tu piel. La historia detrás de YUTNÜÜ y nuestra obsesión por la cosmética botánica.',
+    title: 'Nuestra Historia | Yutnüu',
+    description: 'De las tierras altas de México a tu piel. La historia detrás de Yutnüu y nuestra obsesión por la cosmética botánica.',
 };
 
 export default function AboutPage() {
@@ -33,7 +33,7 @@ export default function AboutPage() {
                         <span className="italic text-white">capturamos paisajes.</span>
                     </h1>
                     <p className="text-xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
-                        YUTNÜÜ nace de la fascinación por la resistencia.
+                        Yutnüu nace de la fascinación por la resistencia.
                         La capacidad de la naturaleza para prosperar en los entornos más hostiles.
                     </p>
                 </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
             <section className="py-24 px-4 bg-cream-light">
                 <div className="container mx-auto max-w-6xl">
                     <div className="text-center mb-20">
-                        <h2 className="text-3xl md:text-4xl font-serif text-[#2c4a52] mb-4">Filosofía YUTNÜÜ</h2>
+                        <h2 className="text-3xl md:text-4xl font-serif text-[#2c4a52] mb-4">Filosofía Yutnüu</h2>
                         <p className="text-text-secondary max-w-lg mx-auto font-light">
                             Tres pilares innegociables que guían cada fórmula que desarrollamos.
                         </p>

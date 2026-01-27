@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Leaf, Sun } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Ciencia y Transparencia | YUTNÜÜ',
+    title: 'Ciencia y Transparencia | Yutnüu',
     description: 'Conoce la ciencia detrás de nuestras formulaciones. Fichas técnicas, estudios clínicos y transparencia total sobre nuestros ingredientes.',
 };
 

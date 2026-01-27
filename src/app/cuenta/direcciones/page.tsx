@@ -5,7 +5,9 @@ import { useAuth } from '@/lib/auth/auth-context';
 import { getUserAddressesAction, deleteAddressAction, setDefaultAddressAction } from '@/app/actions/address-actions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { MapPin, Plus, Pencil, Trash2, CheckCircle, Star } from 'lucide-react';
+import { MapPin, Plus, Pencil, Trash2, CheckCircle, Star, AlertTriangle } from 'lucide-react';
+import Modal from '@/components/ui/Modal';
+import Button from '@/components/ui/Button';
 
 interface Address {
     id: string;
@@ -41,13 +43,21 @@ export default function AddressesPage() {
         fetchAddresses();
     }, [user]);
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('¿Estás seguro de que quieres eliminar esta dirección?')) return;
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [addressToDelete, setAddressToDelete] = useState<string | null>(null);
 
-        if (user?.email) {
-            await deleteAddressAction(user.email, id);
-            fetchAddresses(); // Refresh list
+    const handleDelete = (id: string) => {
+        setAddressToDelete(id);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
+        if (user?.email && addressToDelete) {
+            await deleteAddressAction(user.email, addressToDelete);
+            fetchAddresses();
         }
+        setShowDeleteModal(false);
+        setAddressToDelete(null);
     };
 
     const handleSetDefault = async (id: string) => {
@@ -102,8 +112,8 @@ export default function AddressesPage() {
                         <div
                             key={address.id}
                             className={`p-6 rounded-xl border transition-all duration-300 relative group flex flex-col ${address.isDefault
-                                    ? 'border-[#2c4a52]/30 bg-[#F2EFE9]/30 shadow-sm'
-                                    : 'border-gray-200 bg-white hover:border-[#2c4a52]/30 hover:shadow-md'
+                                ? 'border-[#2c4a52]/30 bg-[#F2EFE9]/30 shadow-sm'
+                                : 'border-gray-200 bg-white hover:border-[#2c4a52]/30 hover:shadow-md'
                                 }`}
                         >
                             {address.isDefault && (
@@ -155,6 +165,36 @@ export default function AddressesPage() {
                     ))}
                 </div>
             )}
+
+            <Modal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                title="Eliminar Dirección"
+            >
+                <div className="flex flex-col items-center text-center p-4">
+                    <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4 text-red-500">
+                        <AlertTriangle size={32} />
+                    </div>
+                    <p className="text-gray-600 mb-8">
+                        ¿Estás seguro de que deseas eliminar esta dirección? Esta acción no se puede deshacer.
+                    </p>
+                    <div className="flex gap-4 w-full">
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => setShowDeleteModal(false)}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            className="flex-1 bg-red-600 hover:bg-red-700 text-white border-red-600"
+                            onClick={confirmDelete}
+                        >
+                            Sí, Eliminar
+                        </Button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

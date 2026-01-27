@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayment } from '@/lib/payment/mercadopago';
 import prisma from '@/lib/db/prisma';
+import { sendOrderConfirmationEmail } from '@/lib/email/email-service';
 
 export async function POST(request: NextRequest) {
     try {
@@ -62,18 +63,50 @@ export async function POST(request: NextRequest) {
                     console.warn(`[Webhook] Unhandled status: ${status}`);
             }
 
+            // Check previous status to prevent double-processing stock
+            const existingOrder = await prisma.order.findUnique({
+                where: { id: orderId },
+                select: { paymentStatus: true }
+            });
+
             // 3. Update Order in DB
-            await prisma.order.update({
+            const updatedOrder = await prisma.order.update({
                 where: { id: orderId },
                 data: {
                     paymentStatus: dbPaymentStatus,
                     status: dbOrderStatus,
                     paymentId: data.id.toString(),
                     updatedAt: new Date()
-                }
+                },
+                include: { items: true, user: true }
             });
 
             console.log(`[Webhook] Order ${orderId} updated successfully.`);
+
+            // 4. Update Stock & Send Email (Only on NEW approval)
+            const isNewApproval = dbPaymentStatus === 'COMPLETED' && existingOrder?.paymentStatus !== 'COMPLETED';
+
+            if (isNewApproval) {
+                console.log(`[Webhook] Processing Stock and Email for confirmed order ${orderId}`);
+
+                // Decrement Stock
+                for (const item of updatedOrder.items) {
+                    await prisma.product.update({
+                        where: { id: item.productId },
+                        data: { stock: { decrement: item.quantity } }
+                    });
+                }
+
+                // Send Email
+                if (updatedOrder.user) {
+                    try {
+                        await sendOrderConfirmationEmail(updatedOrder, updatedOrder.user);
+                        console.log(`[Webhook] Confirmation email sent to ${updatedOrder.user.email}`);
+                    } catch (emailError) {
+                        console.error('[Webhook] Failed to send email:', emailError);
+                    }
+                }
+            }
         }
 
         return NextResponse.json({ status: 'success' });

@@ -16,7 +16,7 @@ export const getPayment = async (paymentId: string) => {
     return await payment.get({ id: paymentId });
 }
 
-export const createPreference = async (orderId: string, items: any[], payer: any) => {
+export const createPreference = async (orderId: string, items: any[], payer: any, shippingCost: number = 0) => {
     const preference = new Preference(client);
 
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
@@ -31,6 +31,10 @@ export const createPreference = async (orderId: string, items: any[], payer: any
                 quantity: Number(item.quantity),
                 currency_id: 'MXN'
             })),
+            shipments: {
+                cost: shippingCost,
+                mode: 'not_specified'
+            },
             // Payer: Who is buying
             payer: {
                 name: payer.firstName,

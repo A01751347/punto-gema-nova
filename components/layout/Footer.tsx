@@ -45,16 +45,17 @@ export default function Footer() {
             { name: 'Acné', href: '/tienda?category=acne' },
         ],
         ayuda: [
-            { name: 'Preguntas Frecuentes', href: '/ciencia/faq' },
+            { name: 'Preguntas Frecuentes', href: '/faq' },
             { name: 'Envíos', href: '/envios' },
             { name: 'Devoluciones', href: '/devoluciones' },
+            { name: 'Facturación / CFDI', href: '/facturacion' },
             { name: 'Contacto', href: '/contacto' },
-            { name: 'Política de Privacidad', href: '/privacidad' },
+            { name: 'Política de Privacidad', href: '/politica-privacidad' },
         ],
         ciencia: [
-            { name: 'Ingredientes', href: '/ciencia/ingredientes' },
-            { name: 'Referencias', href: '/ciencia/referencias' },
-            { name: 'Metodología', href: '/ciencia/metodologia' },
+            { name: 'Ingredientes', href: '/ingredientes' },
+            { name: 'Referencias', href: '/referencias' },
+            { name: 'Metodología', href: '/metodologia' },
             { name: 'Blog', href: '/blog' },
         ],
     };

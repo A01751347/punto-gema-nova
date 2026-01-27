@@ -187,6 +187,8 @@ export async function createOrder(prevState: any, formData: FormData) {
 
 
 
+
+
             return newOrder;
         });
 
@@ -197,7 +199,8 @@ export async function createOrder(prevState: any, formData: FormData) {
         const preference = await createPreference(
             orderId,
             orderItemsData,
-            { firstName, lastName, email, phone, address, postalCode, city }
+            { firstName, lastName, email, phone, address, postalCode, city },
+            shippingCost
         );
         console.log('[CreateOrder] Preference created:', JSON.stringify(preference, null, 2));
 

@@ -4,7 +4,7 @@ import { getPublishedPosts } from '@/lib/blog/actions';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-    title: 'Bitácora | YUTNÜÜ',
+    title: 'Bitácora | Yutnüu',
     description: 'Reflexiones sobre botánica, dermatología y el arte de vivir lento. Artículos de expertos y noticias de la marca.',
 };
 
@@ -26,7 +26,7 @@ export default async function BlogPage() {
                         Nuestro Journal
                     </span>
                     <h1 className="text-4xl md:text-6xl font-serif text-[#2c4a52] mb-6">
-                        Bitácora YUTNÜÜ
+                        Bitácora Yutnüu
                     </h1>
                     <p className="text-lg text-text-secondary font-light max-w-xl mx-auto">
                         Un espacio para explorar la intersección entre la ciencia moderna y la sabiduría ancestral.

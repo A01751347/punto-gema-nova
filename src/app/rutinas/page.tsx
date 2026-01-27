@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Rituales y Rutinas | YUTNÜÜ',
+    title: 'Rituales y Rutinas | Yutnüu',
     description: 'Guía experta de aplicación. Maximiza la eficacia de nuestras fórmulas botánicas con el orden correcto.',
 };
 
@@ -41,7 +41,7 @@ export default function RoutinesPage() {
                     </h1>
                     <p className="text-xl text-white/80 font-light max-w-2xl mx-auto leading-relaxed">
                         En cosmética, el orden de los factores sí altera el producto.
-                        Aprende a superponer tus fórmulas YUTNÜÜ para una absorción y eficacia óptima.
+                        Aprende a superponer tus fórmulas Yutnüu para una absorción y eficacia óptima.
                     </p>
                 </div>
             </section>
@@ -87,7 +87,7 @@ export default function RoutinesPage() {
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <span className="text-xs font-bold text-accent uppercase tracking-widest mb-2 block">Tratamiento Dirigido</span>
-                                        <h3 className="text-2xl font-serif text-primary group-hover:text-accent transition-colors">Suero Facial YUTNÜU</h3>
+                                        <h3 className="text-2xl font-serif text-primary group-hover:text-accent transition-colors">Suero Facial Yutnüu</h3>
                                     </div>
                                     <Zap className="text-accent" size={28} strokeWidth={1.5} />
                                 </div>
@@ -115,7 +115,7 @@ export default function RoutinesPage() {
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <span className="text-xs font-bold text-accent uppercase tracking-widest mb-2 block">Hidratación y Soporte</span>
-                                        <h3 className="text-2xl font-serif text-primary group-hover:text-accent transition-colors">Crema Facial YUTNÜU</h3>
+                                        <h3 className="text-2xl font-serif text-primary group-hover:text-accent transition-colors">Crema Facial Yutnüu</h3>
                                     </div>
                                     <Droplet className="text-blue-300" size={28} strokeWidth={1.5} />
                                 </div>
@@ -212,7 +212,7 @@ export default function RoutinesPage() {
                             <div className="aspect-square rounded-[3rem] shadow-xl relative overflow-hidden group">
                                 <Image
                                     src="https://yutnu-images.s3.us-east-2.amazonaws.com/products/1766778492644-IMG_7419.jpg"
-                                    alt="Aceite Capilar YUTNÜÜ"
+                                    alt="Aceite Capilar Yutnüu"
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
@@ -223,7 +223,7 @@ export default function RoutinesPage() {
                                         <Feather size={32} strokeWidth={1.5} />
                                     </div>
                                     <h3 className="font-serif text-3xl text-white mb-2 shadow-sm">Aceite Capilar</h3>
-                                    <p className="text-sm text-[#d4af37] font-bold uppercase tracking-widest drop-shadow-md">YUTNÜÜ Cosmetics</p>
+                                    <p className="text-sm text-[#d4af37] font-bold uppercase tracking-widest drop-shadow-md">Yutnüu Cosmetics</p>
                                 </div>
                             </div>
                         </div>

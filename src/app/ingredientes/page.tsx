@@ -4,7 +4,7 @@ import { getIngredients } from '@/lib/ingredients/actions';
 import { FlaskConical, Leaf, Microscope } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Glosario de Ingredientes | YUTNÜÜ',
+    title: 'Glosario de Ingredientes | Yutnüu',
     description: 'Transparencia radical. Conoce cada activo que toca tu piel, su origen y su función científica.',
 };
 

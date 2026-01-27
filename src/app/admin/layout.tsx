@@ -45,6 +45,7 @@ export default function AdminLayout({
         { label: 'Bitácora', href: '/admin/blog', icon: 'BookOpen' },
         { label: 'Tienda', href: '/admin/marketing/banners', icon: 'Store' },
         { label: 'Descuentos', href: '/admin/cupones', icon: 'Tag' },
+        { label: 'Facturas', href: '/admin/facturas', icon: 'FileInvoice' },
     ];
 
     return (
@@ -53,7 +54,7 @@ export default function AdminLayout({
             <aside className="relative w-64 bg-[#F2EFE9] border-r border-[#E6E0D9] hidden md:flex flex-col flex-shrink-0 shadow-lg z-20">
                 <div className="p-8 border-b border-[#2c4a52]/10">
                     <h2 className="text-xl font-bold tracking-wider text-[#2c4a52] uppercase">
-                        YUTNÜU Panel
+                        Yutnüu Panel
                     </h2>
                     <p className="text-xs text-[#2c4a52]/70 mt-1 uppercase tracking-widest">
                         Administración
@@ -103,7 +104,7 @@ export default function AdminLayout({
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Mobile Header (solo en pantallas pequeñas) */}
                 <header className="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center justify-between px-6 md:hidden">
-                    <div className="font-bold text-[#2c4a52] tracking-wide">YUTNÜU Admin</div>
+                    <div className="font-bold text-[#2c4a52] tracking-wide">Yutnüu Admin</div>
                     <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
                         Salir
                     </Link>

@@ -245,6 +245,7 @@ model Order {
   // Relations
   user            User?       @relation(fields: [userId], references: [id])
   items           OrderItem[]
+  invoiceRequest  InvoiceRequest?
   
   @@map("orders")
 }
@@ -482,4 +483,37 @@ model Banner {
   updatedAt   DateTime  @updatedAt
   
   @@map("banners")
+}
+
+// Invoice request model
+model InvoiceRequest {
+  id              String      @id @default(uuid())
+  orderId         String      @unique
+  
+  // Fiscal Data
+  rfc             String
+  razonSocial     String
+  regimenFiscal   String
+  usoCfdi         String
+  cp              String
+  email           String
+  
+  // Status
+  status          InvoiceStatus @default(PENDING)
+  xmlUrl          String?
+  pdfUrl          String?
+  
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  
+  // Relations
+  order           Order       @relation(fields: [orderId], references: [id])
+  
+  @@map("invoice_requests")
+}
+
+enum InvoiceStatus {
+  PENDING
+  GENERATED
+  FAILED
 }

@@ -91,9 +91,9 @@ export default function OrdersPage() {
                                     <div className="flex items-center gap-3">
                                         <span className="font-bold text-[#2c4a52] text-sm">#{order.orderNumber}</span>
                                         <span className={`px-2 py-0.5 text-[10px] rounded-full font-bold uppercase tracking-wider border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
-                                                order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                                    order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
-                                                        'bg-yellow-50 text-yellow-700 border-yellow-200'
+                                            order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                                order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
+                                                    'bg-yellow-50 text-yellow-700 border-yellow-200'
                                             }`}>
                                             {order.status === 'PENDING' ? 'Pendiente' : order.status}
                                         </span>
@@ -110,17 +110,28 @@ export default function OrdersPage() {
                                         )}
                                     </p>
                                 </div>
-                                <div className="flex items-center justify-between md:justify-end gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-gray-100">
+                                <div className="flex flex-row items-center justify-between md:justify-end gap-4 md:gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-gray-100 w-full md:w-auto">
                                     <p className="font-bold text-lg text-[#2c4a52]">
                                         ${order.total.toFixed(2)}
                                     </p>
-                                    <Link
-                                        href={`/cuenta/pedidos/${order.id}`}
-                                        className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#2c4a52] hover:text-[#4a727d] transition-colors group-hover:underline decoration-1 underline-offset-4"
-                                    >
-                                        Ver Detalles
-                                        <ArrowRight size={14} />
-                                    </Link>
+                                    <div className="flex items-center gap-3">
+                                        {order.status !== 'CANCELLED' && order.status !== 'PENDING' && (
+                                            <Link
+                                                href={`/facturacion?orderId=${order.orderNumber}&amount=${order.total}`}
+                                                className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-[#d4af37] transition-colors border-r border-gray-200 pr-3"
+                                                title="Solicitar Factura"
+                                            >
+                                                Facturar
+                                            </Link>
+                                        )}
+                                        <Link
+                                            href={`/cuenta/pedidos/${order.id}`}
+                                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#2c4a52] hover:text-[#4a727d] transition-colors group-hover:underline decoration-1 underline-offset-4"
+                                        >
+                                            Ver Detalles
+                                            <ArrowRight size={14} />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

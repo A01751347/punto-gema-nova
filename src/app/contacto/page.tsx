@@ -4,7 +4,7 @@ import ContactForm from './ContactForm';
 import { Mail, MessageCircle, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Contacto | YUTNÜÜ',
+    title: 'Contacto | Yutnüu',
     description: 'Ponte en contacto con nuestro equipo. Atención al cliente, dudas sobre productos y ventas corporativas.',
 };
 

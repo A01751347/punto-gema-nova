@@ -107,7 +107,7 @@ export default async function Home() {
             </h2>
 
             <p className="mt-6 text-text-secondary text-lg font-light leading-relaxed animate-slide-up">
-              En una industria llena de mitos, elegimos la transparencia. Cada fórmula de YUTNÜÜ contiene la
+              En una industria llena de mitos, elegimos la transparencia. Cada fórmula de Yutnüu contiene la
               concentración exacta de activos necesaria para ver cambios reales, validada por estudios clínicos.
             </p>
           </div>
