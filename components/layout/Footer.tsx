@@ -46,7 +46,8 @@ export default function Footer() {
         ],
         ayuda: [
             { name: 'Preguntas Frecuentes', href: '/faq' },
-            { name: 'Envíos', href: '/envios' },
+            { name: 'Rastrear Pedido', href: '/rastreo' },
+            { name: 'Envíos (Política)', href: '/envios' },
             { name: 'Devoluciones', href: '/devoluciones' },
             { name: 'Facturación / CFDI', href: '/facturacion' },
             { name: 'Contacto', href: '/contacto' },
@@ -182,7 +183,7 @@ export default function Footer() {
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm">Envío Gratis +$500</span>
+                        <span className="text-sm">Envío Gratis +$999</span>
                     </div>
                     <div className="flex items-center space-x-2 text-text-secondary">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

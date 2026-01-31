@@ -6,9 +6,12 @@ import { useAuth } from '@/lib/auth/auth-context';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/lib/cart/CartContext';
 
+import SearchOverlay from '@/components/layout/SearchOverlay';
+
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const { user, isAuthenticated, logout } = useAuth();
     const { totalItems, toggleCart } = useCart();
     const pathname = usePathname();
@@ -52,6 +55,7 @@ export default function Header() {
                     <div className="flex items-center space-x-4">
                         {/* Search Icon */}
                         <button
+                            onClick={() => setIsSearchOpen(true)}
                             className="p-2 text-text-secondary hover:text-primary transition-colors"
                             aria-label="Buscar"
                         >
@@ -232,6 +236,11 @@ export default function Header() {
                     </div>
                 )}
             </div>
+
+            <SearchOverlay
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+            />
         </header>
     );
 }

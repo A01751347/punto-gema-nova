@@ -18,8 +18,15 @@ export async function getUserOrdersAction(email: string) {
             orderBy: { createdAt: 'desc' },
             include: {
                 items: {
-                    take: 1, // Only get first item for preview
-                    select: { name: true }
+                    select: {
+                        name: true,
+                        quantity: true,
+                        product: {
+                            select: {
+                                images: true
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -72,5 +79,49 @@ export async function getOrderDetailsAction(orderId: string, email: string) {
     } catch (error: any) {
         console.error('Get order details error:', error);
         return { success: false, error: error.message };
+    }
+}
+
+export async function trackOrderAction(orderNumber: string, email: string) {
+    try {
+        // Try to find by direct orderNumber
+        const order = await prisma.order.findUnique({
+            where: { orderNumber },
+            include: {
+                // Include minimal details for security if needed, or full if verified
+                shippingAddress: true,
+                items: {
+                    select: {
+                        name: true,
+                        quantity: true,
+                        price: true,
+                        product: {
+                            select: { images: true }
+                        }
+                    }
+                },
+                user: {
+                    select: { email: true }
+                }
+            }
+        });
+
+        if (!order) {
+            return { success: false, error: 'No encontramos una orden con este número.' };
+        }
+
+        // Verify email matches either the registered user or the guest email
+        const orderEmail = order.user?.email || order.guestEmail;
+
+        // Simple case-insensitive match
+        if (!orderEmail || orderEmail.toLowerCase() !== email.toLowerCase()) {
+            return { success: false, error: 'El correo electrónico no coincide con el de la orden.' };
+        }
+
+        return { success: true, order };
+
+    } catch (error: any) {
+        console.error('Tracking error:', error);
+        return { success: false, error: 'Error al buscar la orden. Intente más tarde.' };
     }
 }

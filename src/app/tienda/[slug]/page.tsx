@@ -4,6 +4,7 @@ import ProductGallery from '@/components/product/ProductGallery';
 import ProductInfo from '@/components/product/ProductInfo';
 import ScienceSection from '@/components/product/ScienceSection';
 import IngredientsList from '@/components/product/IngredientsList';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 interface ProductPageProps {
     params: Promise<{
@@ -52,8 +53,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
     const allIngredients = product.ingredients.map(pi => ({ name: pi.ingredient.name }));
 
     return (
-        <div className="bg-white min-h-screen pt-0 pb-20">
+        <div className="bg-white min-h-screen pt-8 pb-20">
             <div className="container mx-auto px-4 md:px-8">
+
+                {/* Breadcrumbs */}
+                <div className="mb-8">
+                    <Breadcrumbs
+                        items={[
+                            { label: 'Tienda', href: '/tienda' },
+                            { label: product.name, href: `/tienda/${slug}` }
+                        ]}
+                    />
+                </div>
 
                 {/* Top Section: Gallery + Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 mb-20 lg:mb-32">

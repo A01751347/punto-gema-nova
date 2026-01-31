@@ -14,12 +14,17 @@ import {
     Truck,
     Calendar,
     MapPin,
-    MoreVertical,
     Printer,
     Mail,
     Phone
 } from 'lucide-react';
 import Image from 'next/image';
+
+// New imports
+import { updateOrderTrackingAction } from '@/app/actions/admin/admin-tracking';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Modal from '@/components/ui/Modal';
 
 export default function AdminOrderDetailPage() {
     const params = useParams();
@@ -31,11 +36,18 @@ export default function AdminOrderDetailPage() {
     const [error, setError] = useState('');
     const [isUpdating, setIsUpdating] = useState(false);
 
+    // Tracking Modal State
+    const [isTrackingModalOpen, setIsTrackingModalOpen] = useState(false);
+    const [trackingNumber, setTrackingNumber] = useState('');
+    const [shippingMethod, setShippingMethod] = useState('');
+
     const loadOrder = async () => {
         if (user?.email && params.id) {
-            const { success, order, error } = await getAdminOrderDetailsAction(user.email, params.id as string);
-            if (success) {
-                setOrder(order);
+            const { success, order: fetchedOrder, error } = await getAdminOrderDetailsAction(user.email, params.id as string);
+            if (success && fetchedOrder) {
+                setOrder(fetchedOrder);
+                setTrackingNumber(fetchedOrder.trackingNumber || '');
+                setShippingMethod(fetchedOrder.shippingMethod || 'Estándar');
             } else {
                 setError(error || 'Failed to load order');
             }
@@ -55,6 +67,22 @@ export default function AdminOrderDetailPage() {
             setOrder({ ...order, status: newStatus });
         } else {
             alert('Error updating status');
+        }
+        setIsUpdating(false);
+    };
+
+    const handleTrackingSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!user?.email || !order) return;
+
+        setIsUpdating(true);
+        const { success, order: updatedOrder } = await updateOrderTrackingAction(user.email, order.id, trackingNumber, shippingMethod);
+
+        if (success && updatedOrder) {
+            setOrder(updatedOrder);
+            setIsTrackingModalOpen(false);
+        } else {
+            alert('Error updating tracking info');
         }
         setIsUpdating(false);
     };
@@ -234,8 +262,8 @@ export default function AdminOrderDetailPage() {
                             </div>
                             <div className="ml-auto flex-shrink-0">
                                 <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${order.paymentStatus === 'COMPLETED' ? 'bg-green-50 text-green-700 border border-green-100' :
-                                        order.paymentStatus === 'FAILED' ? 'bg-red-50 text-red-700 border border-red-100' :
-                                            'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                                    order.paymentStatus === 'FAILED' ? 'bg-red-50 text-red-700 border border-red-100' :
+                                        'bg-yellow-50 text-yellow-700 border border-yellow-100'
                                     }`}>
                                     {order.paymentStatus === 'COMPLETED' ? 'Pagado' :
                                         order.paymentStatus === 'FAILED' ? 'Fallido' : 'Pendiente'}
@@ -279,7 +307,13 @@ export default function AdminOrderDetailPage() {
                     </div>
 
                     {/* Shipping Card */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 relative">
+                        <button
+                            onClick={() => setIsTrackingModalOpen(true)}
+                            className="absolute top-6 right-6 text-xs font-medium text-primary hover:underline flex items-center gap-1"
+                        >
+                            Editar
+                        </button>
                         <h3 className="font-semibold text-gray-900 flex items-center gap-2 mb-6">
                             <Truck size={18} className="text-gray-400" />
                             Envío
@@ -297,8 +331,19 @@ export default function AdminOrderDetailPage() {
                                     </p>
                                 </div>
                                 <div>
+                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Guía de Rastreo</span>
+                                    {order.trackingNumber ? (
+                                        <div className="flex items-center justify-between bg-blue-50 p-2 rounded-lg border border-blue-100">
+                                            <span className="font-mono text-sm text-blue-900 font-medium">{order.trackingNumber}</span>
+                                            <a href={`https://www.google.com/search?q=${order.trackingNumber}`} target="_blank" className="text-xs text-blue-500 hover:underline">Rastrear</a>
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-gray-400 italic">No asignada</p>
+                                    )}
+                                </div>
+                                <div>
                                     <span className="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">Método</span>
-                                    <p className="text-sm text-gray-700 font-medium">Estándar (3-5 días hábiles)</p>
+                                    <p className="text-sm text-gray-700 font-medium capitalize">{order.shippingMethod || 'Estándar'}</p>
                                 </div>
                             </div>
                         ) : (
@@ -307,10 +352,14 @@ export default function AdminOrderDetailPage() {
                             </div>
                         )}
 
-                        {/* Map placeholder */}
-                        <div className="mt-6 h-32 bg-gray-100 rounded-lg relative overflow-hidden flex items-center justify-center opacity-60">
-                            <MapPin className="text-gray-300" size={32} />
-                        </div>
+                        {/* Interactive prompt if no tracking */}
+                        {!order.trackingNumber && (
+                            <div className="mt-4 pt-4 border-t border-gray-50">
+                                <Button variant="outline" className="w-full text-xs" onClick={() => setIsTrackingModalOpen(true)}>
+                                    + Asignar Guía
+                                </Button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Notes Card */}
@@ -325,6 +374,37 @@ export default function AdminOrderDetailPage() {
 
                 </div>
             </div>
+
+            {/* Tracking Modal */}
+            <Modal
+                isOpen={isTrackingModalOpen}
+                onClose={() => setIsTrackingModalOpen(false)}
+                title="Información de Envío"
+            >
+                <form onSubmit={handleTrackingSubmit} className="space-y-4">
+                    <p className="text-sm text-gray-500">Agrega o actualiza el número de guía para que el cliente pueda rastrear su paquete.</p>
+
+                    <Input
+                        label="Número de Guía (Tracking ID)"
+                        value={trackingNumber}
+                        onChange={(e) => setTrackingNumber(e.target.value)}
+                        placeholder="Ej. FEDEX-12345678"
+                    />
+
+                    <Input
+                        label="Paquetería / Método"
+                        value={shippingMethod}
+                        onChange={(e) => setShippingMethod(e.target.value)}
+                        placeholder="Ej. FedEx Express, DHL, Estafeta"
+                    />
+
+                    <div className="flex gap-2 justify-end pt-4">
+                        <Button type="button" variant="ghost" onClick={() => setIsTrackingModalOpen(false)}>Cancelar</Button>
+                        <Button type="submit" isLoading={isUpdating}>Guardar Cambios</Button>
+                    </div>
+                </form>
+            </Modal>
+
         </div>
     );
 }

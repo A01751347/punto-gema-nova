@@ -102,12 +102,12 @@ export default function CartDrawer() {
                 {/* Footer */}
                 {items.length > 0 && (
                     <div className="p-6 border-t border-gray-100 bg-white shadow-[0_-5px_20px_rgba(0,0,0,0.03)] z-10">
-                        <div className="space-y-4 mb-6">
-                            <div className="flex justify-between items-center text-text-secondary">
+                        <div className="space-y-3 mb-6">
+                            <div className="flex justify-between items-center text-base text-text-secondary">
                                 <span>Subtotal</span>
                                 <span className="font-medium">${subtotal.toFixed(2)}</span>
                             </div>
-                            <div className="flex justify-between items-center text-text-secondary">
+                            <div className="flex justify-between items-center text-base text-text-secondary">
                                 <span>Envío</span>
                                 {remaining <= 0 ? (
                                     <span className="text-green-700 font-medium">Gratis</span>
@@ -115,23 +115,30 @@ export default function CartDrawer() {
                                     <span className="text-sm">Calculado en checkout</span>
                                 )}
                             </div>
-                            <div className="flex justify-between items-center text-lg font-medium text-primary pt-4 border-t border-gray-100">
+                            <div className="flex justify-between items-center text-xl font-medium text-primary pt-4 border-t border-gray-100">
                                 <span>Total Estimado</span>
                                 <span>${subtotal.toFixed(2)}</span>
                             </div>
                         </div>
 
-                        <div className="grid gap-3">
+                        <div className="space-y-3">
                             <Link href="/checkout" onClick={closeCart}>
-                                <Button className="w-full py-4 text-base shadow-lg hover:shadow-xl transition-shadow bg-primary text-white">
+                                <Button className="w-full py-4 text-base font-medium shadow-md hover:shadow-lg transition-shadow bg-primary text-white">
                                     Finalizar Compra
                                 </Button>
                             </Link>
-                            <Link href="/carrito" onClick={closeCart}>
-                                <Button variant="ghost" className="w-full text-text-secondary hover:text-primary hover:bg-gray-50">
-                                    Ver Carrito Detallado
-                                </Button>
-                            </Link>
+                            <div className="grid grid-cols-2 pt-4 gap-3">
+                                <Link href="/carrito" onClick={closeCart}>
+                                    <Button variant="ghost" className="w-full text-base py-3 px-0 text-text-secondary hover:text-primary hover:bg-gray-50 border border-gray-300">
+                                        Ver Carrito
+                                    </Button>
+                                </Link>
+                                <Link href="/tienda" onClick={closeCart}>
+                                    <Button variant="outline" className="w-full text-base py-3 px-0 text-text-secondary hover:text-primary border-gray-200">
+                                        Seguir Comprando
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 )}

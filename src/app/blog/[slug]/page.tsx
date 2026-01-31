@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { ArrowLeft, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
+
 interface BlogPostPageProps {
     params: Promise<{
         slug: string;
@@ -20,15 +22,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
 
     return (
-        <article className="bg-white min-h-screen pt-0 pb-20">
+        <article className="bg-white min-h-screen pt-8 pb-20">
             {/* Detailed SEO Metadata would go here */}
 
             <div className="container mx-auto max-w-4xl px-4">
-                {/* Back Button */}
-                <Link href="/blog" className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary mb-8 transition-colors">
-                    <ArrowLeft size={16} className="mr-2" />
-                    Volver a la Bitácora
-                </Link>
+                {/* Breadcrumbs */}
+                <div className="mb-8">
+                    <Breadcrumbs
+                        items={[
+                            { label: 'Blog', href: '/blog' },
+                            { label: post.title, href: `/blog/${slug}` }
+                        ]}
+                    />
+                </div>
 
                 {/* Header */}
                 <div className="text-center mb-12">

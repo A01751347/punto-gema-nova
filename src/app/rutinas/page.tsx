@@ -77,13 +77,13 @@ export default function RoutinesPage() {
                         <div className="absolute left-8 top-8 bottom-8 w-px bg-gradient-to-b from-primary/10 via-primary/20 to-primary/10 hidden md:block" />
 
                         {/* Step 1: Suero */}
-                        <div className="flex flex-col md:flex-row gap-8 relative">
+                        <Link href="/tienda/suero-facial-yutnuu" className="flex flex-col md:flex-row gap-8 relative group block">
                             <div className="hidden md:flex flex-col items-center flex-shrink-0 w-16">
                                 <div className="w-16 h-16 rounded-full bg-cream border border-primary/10 flex items-center justify-center text-primary z-10">
                                     <span className="font-serif text-xl">01</span>
                                 </div>
                             </div>
-                            <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300 group">
+                            <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 hover:border-accent/20">
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <span className="text-xs font-bold text-accent uppercase tracking-widest mb-2 block">Tratamiento Dirigido</span>
@@ -102,16 +102,16 @@ export default function RoutinesPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                         {/* Step 2: Crema */}
-                        <div className="flex flex-col md:flex-row gap-8 relative">
+                        <Link href="/tienda/crema-facial-yutnuu" className="flex flex-col md:flex-row gap-8 relative group block">
                             <div className="hidden md:flex flex-col items-center flex-shrink-0 w-16">
                                 <div className="w-16 h-16 rounded-full bg-cream border border-primary/10 flex items-center justify-center text-primary z-10">
                                     <span className="font-serif text-xl">02</span>
                                 </div>
                             </div>
-                            <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-lg transition-shadow duration-300 group">
+                            <div className="flex-1 bg-white border border-gray-100 rounded-3xl p-8 hover:shadow-lg transition-all duration-300 hover:border-accent/20">
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <span className="text-xs font-bold text-accent uppercase tracking-widest mb-2 block">Hidratación y Soporte</span>
@@ -130,16 +130,16 @@ export default function RoutinesPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                         {/* Step 3: Aceite */}
-                        <div className="flex flex-col md:flex-row gap-8 relative">
+                        <Link href="/tienda/aceite-tuna-puro" className="flex flex-col md:flex-row gap-8 relative group block">
                             <div className="hidden md:flex flex-col items-center flex-shrink-0 w-16">
                                 <div className="w-16 h-16 rounded-full bg-primary text-white border border-primary flex items-center justify-center z-10 shadow-lg">
                                     <span className="font-serif text-xl">03</span>
                                 </div>
                             </div>
-                            <div className="flex-1 bg-[#2c4a52] text-white rounded-3xl p-8 shadow-xl relative overflow-hidden group">
+                            <div className="flex-1 bg-[#2c4a52] text-white rounded-3xl p-8 shadow-xl relative overflow-hidden transition-transform duration-300 hover:scale-[1.01]">
                                 {/* Decorative glow */}
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
@@ -161,7 +161,7 @@ export default function RoutinesPage() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </section>
