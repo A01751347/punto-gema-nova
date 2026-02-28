@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayment } from '@/lib/payment/mercadopago';
 import prisma from '@/lib/db/prisma';
-import { sendOrderConfirmationEmail } from '@/lib/email/email-service';
+import { sendOrderConfirmationEmail, sendAdminOrderNotificationEmail } from '@/lib/email/email-service';
 
 export async function POST(request: NextRequest) {
     try {
@@ -97,11 +97,20 @@ export async function POST(request: NextRequest) {
                     });
                 }
 
-                // Send Email
+                // Send Emails (Client + Admin)
                 if (updatedOrder.user) {
                     try {
-                        await sendOrderConfirmationEmail(updatedOrder, updatedOrder.user);
-                        console.log(`[Webhook] Confirmation email sent to ${updatedOrder.user.email}`);
+                        const adminEmail = process.env.ADMIN_EMAIL;
+                        const emailPromises: Promise<any>[] = [
+                            sendOrderConfirmationEmail(updatedOrder, updatedOrder.user)
+                        ];
+
+                        if (adminEmail) {
+                            emailPromises.push(sendAdminOrderNotificationEmail(updatedOrder, updatedOrder.user, adminEmail));
+                        }
+
+                        await Promise.allSettled(emailPromises);
+                        console.log(`[Webhook] Emails sent successfully`);
                     } catch (emailError) {
                         console.error('[Webhook] Failed to send email:', emailError);
                     }

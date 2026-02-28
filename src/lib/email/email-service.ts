@@ -19,8 +19,9 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const DEFAULT_FROM = process.env.SMTP_FROM ||
-    (process.env.SMTP_FROM_EMAIL ? `"${process.env.SMTP_FROM_NAME || 'Cremas Shop'}" <${process.env.SMTP_FROM_EMAIL}>` : '"Cremas Shop" <noreply@cremasshop.com>');
+const DEFAULT_FROM_EMAIL = process.env.SMTP_FROM_EMAIL || 'noreply@cremasshop.com';
+const DEFAULT_FROM_NAME = process.env.SMTP_FROM_NAME || 'Cremas Shop';
+const DEFAULT_FROM = `"${DEFAULT_FROM_NAME}" <${DEFAULT_FROM_EMAIL}>`;
 
 export async function sendEmail({ to, subject, html, attachments }: { to: string, subject: string, html: string, attachments?: any[] }) {
     console.log(`[EmailService] Sending email to: ${to} | Subject: ${subject}`);
@@ -36,6 +37,7 @@ export async function sendEmail({ to, subject, html, attachments }: { to: string
 
         const info = await transporter.sendMail({
             from: DEFAULT_FROM,
+            replyTo: DEFAULT_FROM_EMAIL,
             to,
             subject,
             html,
@@ -177,6 +179,90 @@ export const sendShippingNotificationEmail = async (order: any, user: any, items
     return sendEmail({
         to: user.email,
         subject: `Tu pedido ha sido enviado - #${order.orderNumber}`,
+        html
+    });
+};
+
+export const sendAdminOrderNotificationEmail = async (order: any, user: any, adminEmail: string) => {
+    const itemsHtml = order.items.map((item: any) => `
+        <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.name}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">${item.quantity}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #eee;">$${item.price.toFixed(2)}</td>
+        </tr>
+    `).join('');
+
+    const html = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+            <h1 style="color: #2c4a52;">¡Nuevo Pedido Recibido!</h1>
+            <p>Se ha registrado un nuevo pedido en la tienda.</p>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr>
+                    <td style="padding: 5px 0;"><strong>Pedido:</strong></td>
+                    <td style="padding: 5px 0;">#${order.orderNumber}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0;"><strong>Cliente:</strong></td>
+                    <td style="padding: 5px 0;">${user.firstName} ${user.lastName || ''} (${user.email})</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px 0;"><strong>Total:</strong></td>
+                    <td style="padding: 5px 0;">$${order.total.toFixed(2)}</td>
+                </tr>
+            </table>
+            
+            <h3 style="color: #2c4a52; margin-top: 20px;">Artículos</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <thead>
+                    <tr style="background-color: #f9f9f9; text-align: left;">
+                        <th style="padding: 8px;">Producto</th>
+                        <th style="padding: 8px;">Cant.</th>
+                        <th style="padding: 8px;">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${itemsHtml}
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #2c4a52; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
+            </div>
+        </div>
+    `;
+
+    return sendEmail({
+        to: adminEmail,
+        subject: `[NUEVO PEDIDO] Pedido #${order.orderNumber} - $${order.total.toFixed(2)}`,
+        html
+    });
+};
+
+export const sendAdminInvoiceNotificationEmail = async (request: any, order: any, adminEmail: string) => {
+    const html = `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+            <h2 style="color: #2c4a52;">Nueva Solicitud de Factura</h2>
+            <p>El cliente del pedido <strong>#${order.orderNumber}</strong> ha solicitado una factura.</p>
+            
+            <h3 style="color: #2c4a52; margin-top: 20px;">Datos Fiscales</h3>
+            <p><strong>RFC:</strong> ${request.rfc}</p>
+            <p><strong>Razón Social:</strong> ${request.razonSocial}</p>
+            ${request.regimenFiscal ? `<p><strong>Régimen Fiscal:</strong> ${request.regimenFiscal}</p>` : ''}
+            ${request.usoCfdi ? `<p><strong>Uso de CFDI:</strong> ${request.usoCfdi}</p>` : ''}
+            ${request.codigoPostal ? `<p><strong>Código Postal:</strong> ${request.codigoPostal}</p>` : ''}
+
+            <p style="margin-top: 20px;">Por favor procede a generarla y cargarla en el sistema.</p>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #2c4a52; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
+            </div>
+        </div>
+    `;
+
+    return sendEmail({
+        to: adminEmail,
+        subject: `[FACTURA SOLICITADA] Pedido #${order.orderNumber}`,
         html
     });
 };

@@ -2,7 +2,7 @@
 
 import { prisma } from '@/../lib/db/prisma';
 import { revalidatePath } from 'next/cache';
-import { sendInvoiceRequestNotification } from '@/lib/email/email-service';
+import { sendInvoiceRequestNotification, sendAdminInvoiceNotificationEmail } from '@/lib/email/email-service';
 
 // Response types
 type ActionResponse = {
@@ -110,11 +110,20 @@ export async function createInvoiceRequest(data: {
             }
         });
 
-        // Send User Notification
+        // Send Notifications (Client + Admin)
         try {
-            await sendInvoiceRequestNotification(data, order, email);
+            const adminEmail = process.env.ADMIN_EMAIL;
+            const emailPromises: Promise<any>[] = [
+                sendInvoiceRequestNotification(data, order, email)
+            ];
+
+            if (adminEmail) {
+                emailPromises.push(sendAdminInvoiceNotificationEmail(data, order, adminEmail));
+            }
+
+            await Promise.allSettled(emailPromises);
         } catch (emailErr) {
-            console.error('Failed to send invoice request email:', emailErr);
+            console.error('Failed to send invoice request emails:', emailErr);
         }
 
         return {
