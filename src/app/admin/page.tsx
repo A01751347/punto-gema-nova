@@ -26,20 +26,6 @@ export default function AdminDashboardPage() {
     const { user } = useAuth();
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isTestingEmail, setIsTestingEmail] = useState(false);
-
-    const handleTestEmail = async () => {
-        setIsTestingEmail(true);
-        import('@/app/actions/admin/test-email-actions').then(({ sendTestAdminEmailsAction }) => {
-            sendTestAdminEmailsAction().catch(e => console.error(e));
-        });
-
-        // Simular un poco de tiempo para el UX antes de ocultar el "Enviando"
-        setTimeout(() => {
-            setIsTestingEmail(false);
-            alert("Los correos se están enviando en segundo plano.");
-        }, 1500);
-    };
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -71,14 +57,6 @@ export default function AdminDashboardPage() {
                     <h1 className="text-3xl font-serif text-[#2c4a52] mb-2">Panel de Control</h1>
                     <p className="text-gray-500">Resumen general de tu tienda y rendimiento.</p>
                 </div>
-                <button
-                    onClick={handleTestEmail}
-                    disabled={isTestingEmail}
-                    className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 disabled:opacity-50 transition-colors shadow-sm"
-                >
-                    <Mail size={16} />
-                    {isTestingEmail ? 'Enviando prueba...' : 'Probar Notificaciones'}
-                </button>
             </div>
 
             {/* Top Metrics Grid */}

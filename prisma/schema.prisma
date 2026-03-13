@@ -517,3 +517,14 @@ enum InvoiceStatus {
   GENERATED
   FAILED
 }
+
+// Store configuration
+model StoreSettings {
+  id                        String      @id @default("default") // Usually just one row
+  orderNotificationEmails   String[]    @default([])
+  invoiceNotificationEmails String[]    @default([])
+  
+  updatedAt                 DateTime    @updatedAt
+  
+  @@map("store_settings")
+}

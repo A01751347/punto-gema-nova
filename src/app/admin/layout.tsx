@@ -46,6 +46,7 @@ export default function AdminLayout({
         { label: 'Tienda', href: '/admin/marketing/banners', icon: 'Store' },
         { label: 'Descuentos', href: '/admin/cupones', icon: 'Tag' },
         { label: 'Facturas', href: '/admin/facturas', icon: 'FileInvoice' },
+        { label: 'Configuración', href: '/admin/configuracion', icon: 'Settings' },
     ];
 
     return (

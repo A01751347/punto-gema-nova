@@ -100,13 +100,24 @@ export async function POST(request: NextRequest) {
                 // Send Emails (Client + Admin)
                 if (updatedOrder.user) {
                     try {
-                        const adminEmail = process.env.ADMIN_EMAIL;
                         const emailPromises: Promise<any>[] = [
                             sendOrderConfirmationEmail(updatedOrder, updatedOrder.user)
                         ];
 
-                        if (adminEmail) {
-                            emailPromises.push(sendAdminOrderNotificationEmail(updatedOrder, updatedOrder.user, adminEmail));
+                        // Fetch configured admin emails from DB
+                        const settings = await prisma.storeSettings.findUnique({ where: { id: 'default' } });
+                        const adminEmails = settings?.orderNotificationEmails || [];
+
+                        // Fallback to env if empty for safety
+                        if (adminEmails.length === 0 && process.env.ADMIN_EMAIL) {
+                            adminEmails.push(process.env.ADMIN_EMAIL);
+                        }
+
+                        // Send to each config email
+                        for (const email of adminEmails) {
+                            if (email) {
+                                emailPromises.push(sendAdminOrderNotificationEmail(updatedOrder, updatedOrder.user, email));
+                            }
                         }
 
                         await Promise.allSettled(emailPromises);

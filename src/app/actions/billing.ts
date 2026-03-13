@@ -112,13 +112,24 @@ export async function createInvoiceRequest(data: {
 
         // Send Notifications (Client + Admin)
         try {
-            const adminEmail = process.env.ADMIN_EMAIL;
             const emailPromises: Promise<any>[] = [
                 sendInvoiceRequestNotification(data, order, email)
             ];
 
-            if (adminEmail) {
-                emailPromises.push(sendAdminInvoiceNotificationEmail(data, order, adminEmail));
+            // Fetch configured invoice admin emails from DB
+            const settings = await prisma.storeSettings.findUnique({ where: { id: 'default' } });
+            const adminEmails = settings?.invoiceNotificationEmails || [];
+
+            // Fallback to env if empty
+            if (adminEmails.length === 0 && process.env.ADMIN_EMAIL) {
+                adminEmails.push(process.env.ADMIN_EMAIL);
+            }
+
+            // Send to each config email
+            for (const adminEmail of adminEmails) {
+                if (adminEmail) {
+                    emailPromises.push(sendAdminInvoiceNotificationEmail(data, order, adminEmail));
+                }
             }
 
             await Promise.allSettled(emailPromises);
