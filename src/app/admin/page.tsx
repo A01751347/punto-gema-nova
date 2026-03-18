@@ -26,19 +26,21 @@ export default function AdminDashboardPage() {
     const { user } = useAuth();
     const [stats, setStats] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [timeRange, setTimeRange] = useState('1m');
 
     useEffect(() => {
         const fetchStats = async () => {
+            setIsLoading(true);
             if (user?.email) {
-                const { success, stats } = await getAdminStatsAction(user.email);
+                const { success, stats: fetchedStats } = await getAdminStatsAction(user.email, timeRange);
                 if (success) {
-                    setStats(stats);
+                    setStats(fetchedStats);
                 }
             }
             setIsLoading(false);
         };
         fetchStats();
-    }, [user]);
+    }, [user, timeRange]);
 
     if (isLoading) {
         return (
@@ -57,6 +59,19 @@ export default function AdminDashboardPage() {
                     <h1 className="text-3xl font-serif text-[#2c4a52] mb-2">Panel de Control</h1>
                     <p className="text-gray-500">Resumen general de tu tienda y rendimiento.</p>
                 </div>
+                <div>
+                    <select
+                        className="border border-gray-200 rounded-lg text-sm text-gray-700 py-2 px-3 outline-none focus:ring-2 focus:ring-[#2c4a52]/30 cursor-pointer shadow-sm"
+                        value={timeRange}
+                        onChange={(e) => setTimeRange(e.target.value)}
+                    >
+                        <option value="1m">Último mes</option>
+                        <option value="3m">Últimos 3 meses</option>
+                        <option value="6m">Últimos 6 meses</option>
+                        <option value="1y">Último año</option>
+                        <option value="all">Todo el tiempo</option>
+                    </select>
+                </div>
             </div>
 
             {/* Top Metrics Grid */}
@@ -65,27 +80,28 @@ export default function AdminDashboardPage() {
                     title="Ingresos Totales"
                     value={toCurrency(stats.totalRevenue)}
                     icon={<DollarSign className="text-green-600" size={24} />}
-                    trend="+12% vs mes anterior" // Mock data for trend
+                    trend={stats.trends?.revenue}
                     color="green"
                 />
                 <StatCard
                     title="Pedidos Totales"
                     value={stats.totalOrders}
                     icon={<ShoppingBag className="text-blue-600" size={24} />}
-                    trend="+5 nuevos hoy"
+                    trend={stats.trends?.orders}
                     color="blue"
                 />
                 <StatCard
-                    title="Clientes Activos"
+                    title="Nuevos Clientes"
                     value={stats.totalCustomers}
                     icon={<Users className="text-purple-600" size={24} />}
-                    trend="+2 esta semana"
+                    trend={stats.trends?.customers}
                     color="purple"
                 />
                 <StatCard
                     title="Ticket Promedio"
                     value={toCurrency(stats.avgOrderValue)}
                     icon={<TrendingUp className="text-[#d4af37]" size={24} />}
+                    trend={stats.trends?.avg}
                     color="yellow"
                 />
             </div>
@@ -95,11 +111,7 @@ export default function AdminDashboardPage() {
                 {/* Sales Chart Area */}
                 <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg font-bold text-[#2c4a52]">Ventas (Últimos 30 días)</h2>
-                        <select className="text-xs border-gray-200 rounded-lg text-gray-500">
-                            <option>Últimos 30 días</option>
-                            <option>Últimos 7 días</option>
-                        </select>
+                        <h2 className="text-lg font-bold text-[#2c4a52]">Ventas en el periodo (o últ. 30 días)</h2>
                     </div>
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
