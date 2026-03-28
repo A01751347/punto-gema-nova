@@ -202,7 +202,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="text-center text-sm text-text-secondary">
                     <p>&copy; {new Date().getFullYear()} YUTNÜÜ. Todos los derechos reservados.</p>
-                    <p className="mt-2">Hecho en México con ingredientes naturales y respaldo científico.</p>
+                    <p className="mt-2">Hecho en México ccon ingredientes naturales y respaldo científico.</p>
                 </div>
             </div>
         </footer>
