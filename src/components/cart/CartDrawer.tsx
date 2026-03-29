@@ -83,7 +83,7 @@ export default function CartDrawer() {
                             <div>
                                 <h3 className="text-xl font-serif text-primary mb-3">Tu carrito está vacío</h3>
                                 <p className="text-text-secondary font-light max-w-[250px] mx-auto leading-relaxed text-sm">
-                                    Parece que aún no has descubierto tus esenciales de Yutnüu.
+                                    Parece que aún no has descubierto tus piezas de Punto Gema Nova.
                                 </p>
                             </div>
                             <Button onClick={closeCart} className="mt-2 w-full max-w-[200px] shadow-sm hover:shadow-md transition-all">

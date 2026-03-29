@@ -114,7 +114,7 @@ export default function CheckoutPage() {
     if (isLoading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-primary">Cargando...</div>;
     if (items.length === 0) return null;
 
-    const shippingCost = subtotal > 999 ? 0 : 150;
+    const shippingCost = subtotal > 1300 ? 0 : 150;
     const total = subtotal + shippingCost;
 
     // Auth Choice Screen
@@ -152,16 +152,16 @@ export default function CheckoutPage() {
 
                         {/* Option 2: Guest */}
                         <div className="bg-[#F2EFE9] p-8 rounded-3xl shadow-sm border border-[#E6E0D9] flex flex-col items-center text-center hover:shadow-md transition-shadow">
-                            <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#2c4a52] mb-6">
+                            <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1a1a1a] mb-6">
                                 <Truck size={32} />
                             </div>
-                            <h2 className="text-xl font-medium text-[#2c4a52] mb-4">Invitado</h2>
-                            <p className="text-[#2c4a52]/70 mb-8 text-sm">
+                            <h2 className="text-xl font-medium text-[#1a1a1a] mb-4">Invitado</h2>
+                            <p className="text-[#1a1a1a]/70 mb-8 text-sm">
                                 No necesitas cuenta. Podrás crear una al final si lo deseas.
                             </p>
                             <Button
                                 onClick={() => setIsGuest(true)}
-                                className="w-full bg-[#2c4a52] text-white hover:bg-[#1e343a] mt-auto"
+                                className="w-full bg-[#1a1a1a] text-white hover:bg-[#000000] mt-auto"
                             >
                                 Continuar como Invitado
                             </Button>
@@ -235,14 +235,14 @@ export default function CheckoutPage() {
                                                     key={addr.id}
                                                     onClick={() => selectAddress(addr)}
                                                     className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedAddressId === addr.id
-                                                            ? 'border-[#2c4a52] bg-[#2c4a52]/5 ring-1 ring-[#2c4a52]'
+                                                            ? 'border-[#1a1a1a] bg-[#1a1a1a]/5 ring-1 ring-[#1a1a1a]'
                                                             : 'border-gray-100 hover:border-gray-200 bg-gray-50'
                                                         }`}
                                                 >
                                                     <div className="flex justify-between items-start mb-2">
-                                                        <span className="font-bold text-[#2c4a52] text-sm flex items-center gap-2">
+                                                        <span className="font-bold text-[#1a1a1a] text-sm flex items-center gap-2">
                                                             {addr.firstName} {addr.lastName}
-                                                            {selectedAddressId === addr.id && <CheckCircle size={14} className="text-[#2c4a52]" />}
+                                                            {selectedAddressId === addr.id && <CheckCircle size={14} className="text-[#1a1a1a]" />}
                                                         </span>
                                                         {addr.isDefault && <span className="text-[10px] bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">Default</span>}
                                                     </div>
@@ -256,8 +256,8 @@ export default function CheckoutPage() {
                                             <div
                                                 onClick={handleNewAddress}
                                                 className={`p-4 rounded-xl border-2 border-dashed cursor-pointer flex flex-col items-center justify-center gap-2 transition-colors min-h-[100px] ${selectedAddressId === 'new'
-                                                        ? 'border-[#2c4a52] bg-[#2c4a52]/5'
-                                                        : 'border-gray-200 hover:border-[#2c4a52]/50 text-gray-400 hover:text-[#2c4a52]'
+                                                        ? 'border-[#1a1a1a] bg-[#1a1a1a]/5'
+                                                        : 'border-gray-200 hover:border-[#1a1a1a]/50 text-gray-400 hover:text-[#1a1a1a]'
                                                     }`}
                                             >
                                                 <Plus size={20} />
@@ -385,10 +385,10 @@ export default function CheckoutPage() {
 
                     {/* Right Column: Order Summary */}
                     <div className="lg:col-span-5">
-                        <div className="bg-[#F2EFE9] text-[#2c4a52] p-8 md:p-10 rounded-3xl sticky top-28 shadow-sm border border-[#E6E0D9] relative overflow-hidden">
+                        <div className="bg-[#F2EFE9] text-[#1a1a1a] p-8 md:p-10 rounded-3xl sticky top-28 shadow-sm border border-[#E6E0D9] relative overflow-hidden">
 
                             <h2 className="text-2xl font-serif mb-8 flex items-center gap-2 border-b border-[#E6E0D9] pb-4">
-                                <ShoppingBag size={24} className="text-[#2c4a52]" />
+                                <ShoppingBag size={24} className="text-[#1a1a1a]" />
                                 Resumen de Orden
                             </h2>
 
@@ -406,13 +406,13 @@ export default function CheckoutPage() {
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-xs text-gray-300">IMG</div>
                                             )}
-                                            <div className="absolute top-0 right-0 bg-[#2c4a52] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-bl-lg">
+                                            <div className="absolute top-0 right-0 bg-[#1a1a1a] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-bl-lg">
                                                 {item.quantity}
                                             </div>
                                         </div>
                                         <div className="flex-1">
-                                            <h4 className="font-medium text-sm leading-tight mb-1 text-[#2c4a52]">{item.name}</h4>
-                                            <p className="text-[#2c4a52]/80 text-sm">${item.price.toLocaleString('es-MX')}</p>
+                                            <h4 className="font-medium text-sm leading-tight mb-1 text-[#1a1a1a]">{item.name}</h4>
+                                            <p className="text-[#1a1a1a]/80 text-sm">${item.price.toLocaleString('es-MX')}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -432,12 +432,12 @@ export default function CheckoutPage() {
                                         <Truck size={14} /> Envío
                                     </span>
                                     <span>
-                                        {shippingCost === 0 ? <span className="text-[#2c4a52] font-bold">Gratis</span> : `$${shippingCost.toFixed(2)}`}
+                                        {shippingCost === 0 ? <span className="text-[#1a1a1a] font-bold">Gratis</span> : `$${shippingCost.toFixed(2)}`}
                                     </span>
                                 </div>
                                 <div className="border-t border-[#E6E0D9] pt-4 mt-4 flex justify-between items-end">
                                     <span className="text-lg font-medium">Total</span>
-                                    <span className="text-3xl font-medium text-[#2c4a52]">
+                                    <span className="text-3xl font-medium text-[#1a1a1a]">
                                         ${total.toLocaleString('es-MX')}
                                     </span>
                                 </div>
@@ -447,7 +447,7 @@ export default function CheckoutPage() {
                                 type="submit"
                                 form="checkout-form"
                                 disabled={isPending}
-                                className="w-full mt-8 bg-[#2c4a52] hover:bg-[#1e343a] text-white font-bold h-16 text-lg transition-all shadow-none rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full mt-8 bg-[#1a1a1a] hover:bg-[#000000] text-white font-bold h-16 text-lg transition-all shadow-none rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isPending ? (
                                     <span className="flex items-center justify-center gap-2">
@@ -462,7 +462,7 @@ export default function CheckoutPage() {
 
                             <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400">
                                 <ShieldCheck size={12} />
-                                <span>Garantía de Satisfacción Yutnüu</span>
+                                <span>Garantía de Satisfacción Punto Gema Nova</span>
                             </div>
 
 

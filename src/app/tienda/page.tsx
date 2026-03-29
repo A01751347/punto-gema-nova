@@ -68,7 +68,7 @@ export default async function ShopPage({
                         Tienda
                     </h1>
                     <p className="text-lg text-text-secondary max-w-2xl mx-auto font-light">
-                        Explora nuestra gama de productos formulados con precisión clínica y conciencia botánica.
+                        Explora nuestra colección de joyería artesanal elaborada con piedras semipreciosas y materiales selectos.
                     </p>
                 </div>
             </div>
@@ -76,7 +76,7 @@ export default async function ShopPage({
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row gap-12">
                     {/* Sidebar */}
-                    <FilterSidebar categories={categories} concerns={[]} />
+                    <FilterSidebar categories={categories} />
 
                     {/* Main Content */}
                     <div className="flex-1">

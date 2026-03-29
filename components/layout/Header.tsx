@@ -18,8 +18,8 @@ export default function Header() {
 
     const navigation = [
         { name: 'Tienda', href: '/tienda' },
-        { name: 'Rutinas', href: '/rutinas' },
-        { name: 'Ciencia', href: '/ciencia' },
+        { name: 'Colecciones', href: '/colecciones' },
+        { name: 'Materiales', href: '/materiales' },
         { name: 'Blog', href: '/blog' },
         { name: 'Sobre Nosotros', href: '/sobre-nosotros' },
     ];
@@ -32,7 +32,7 @@ export default function Header() {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
-                        <div className="text-2xl font-bold text-primary">YUTNÜU</div>
+                        <div className="text-2xl font-bold text-primary tracking-wide">PUNTO GEMA NOVA</div>
                     </Link>
 
                     {/* Desktop Navigation */}

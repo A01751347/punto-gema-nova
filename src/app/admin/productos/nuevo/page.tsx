@@ -13,7 +13,6 @@ export default function NewProductPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
-    // Simple state management for form
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -23,7 +22,7 @@ export default function NewProductPage() {
         size: ''
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -33,8 +32,7 @@ export default function NewProductPage() {
 
         setIsLoading(true);
 
-        const data = new FormData(e.currentTarget); // Use native FormData from event
-        // It automatically gathers 'name', 'price', 'image', etc. from inputs with name tags
+        const data = new FormData(e.currentTarget);
 
         const { success, error } = await createProductAction(user.email, data);
 
@@ -76,7 +74,7 @@ export default function NewProductPage() {
                         fullWidth
                     />
                     <Input
-                        label="Tamaño (ej. 50ml)"
+                        label="Tamaño (ej. 18cm, 45cm)"
                         name="size"
                         required
                         value={formData.size}
@@ -120,49 +118,78 @@ export default function NewProductPage() {
                 </div>
 
                 <div className="border-t border-gray-100 pt-6">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">Detalles Avanzados</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Detalles de la Pieza</h3>
 
                     <div className="space-y-4">
                         <Input
                             label="Beneficios Clave (separados por coma)"
                             name="benefits"
-                            placeholder="Hidratación, Anti-edad, Luminosidad"
-                            fullWidth
-                        />
-                        <Input
-                            label="Tipos de Piel (separados por coma)"
-                            name="suitableFor"
-                            placeholder="Seca, Mixta, Grasa, Sensible"
+                            placeholder="Piedras naturales, Chapa de oro 18k, Hecho a mano"
                             fullWidth
                         />
 
                         <div className="grid grid-cols-2 gap-4">
+                            <Input
+                                label="Material Principal"
+                                name="material"
+                                placeholder="Chapa de oro 18k"
+                                fullWidth
+                            />
+                            <Input
+                                label="Tipo de Piedra"
+                                name="stoneType"
+                                placeholder="Cuarzo rosa"
+                                fullWidth
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Instrucciones de Cuidado</label>
+                            <textarea
+                                name="careInstructions"
+                                rows={3}
+                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                                placeholder="Limpiar con paño suave. Evitar contacto con perfumes y agua."
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Modo de Uso</label>
-                                <textarea
-                                    name="howToUse"
-                                    rows={3}
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Disponibilidad</label>
+                                <select
+                                    name="availabilityLabel"
                                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                                    placeholder="Aplicar una pequeña cantidad..."
-                                />
+                                >
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="Última pieza">Última pieza</option>
+                                    <option value="Bajo pedido">Bajo pedido</option>
+                                </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Mecanismo (Científico)</label>
-                                <textarea
-                                    name="mechanism"
-                                    rows={3}
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Colección</label>
+                                <select
+                                    name="collectionType"
                                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                                    placeholder="Actúa mediante la inhibición de..."
-                                />
+                                >
+                                    <option value="permanente">Permanente</option>
+                                    <option value="casi-unica">Pieza Casi Única</option>
+                                    <option value="personalizado">Personalizado</option>
+                                    <option value="temporada">Temporada</option>
+                                </select>
                             </div>
                         </div>
 
-                        <Input
-                            label="Momento de Uso"
-                            name="whenToUse"
-                            placeholder="AM / PM / Todo el día"
-                            fullWidth
-                        />
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                name="isCustomizable"
+                                id="isCustomizable"
+                                className="rounded border-gray-300 text-primary focus:ring-primary"
+                            />
+                            <label htmlFor="isCustomizable" className="text-sm text-gray-700">
+                                Esta pieza es personalizable
+                            </label>
+                        </div>
                     </div>
                 </div>
 

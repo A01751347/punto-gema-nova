@@ -109,7 +109,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                                                 )}
                                             </div>
                                             <div>
-                                                <h4 className="text-base font-medium text-[#2c4a52] group-hover:text-[#d4af37] transition-colors line-clamp-1">
+                                                <h4 className="text-base font-medium text-[#1a1a1a] group-hover:text-[#d4af37] transition-colors line-clamp-1">
                                                     {product.name}
                                                 </h4>
                                                 <div className="flex items-center gap-2 mt-1">

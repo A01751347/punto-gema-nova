@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { HelpCircle, Truck, RefreshCw, Lock, Book, MessageCircle, FileText } from 'lucide-react';
+import { HelpCircle, Truck, RefreshCw, Lock, Gem, MessageCircle, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Centro de Ayuda | Yutnüu',
+    title: 'Centro de Ayuda | Punto Gema Nova',
     description: '¿En qué podemos ayudarte hoy?',
 };
 
@@ -11,7 +11,7 @@ const TOPICS = [
     {
         icon: <HelpCircle size={32} />,
         title: "Preguntas Frecuentes",
-        desc: "Respuestas rápidas sobre productos y cuenta.",
+        desc: "Respuestas rápidas sobre nuestras piezas y tu cuenta.",
         href: "/faq"
     },
     {
@@ -39,10 +39,10 @@ const TOPICS = [
         href: "/politica-privacidad"
     },
     {
-        icon: <Book size={32} />,
-        title: "Referencias Científicas",
-        desc: "Nuestra biblioteca de estudios.",
-        href: "/referencias"
+        icon: <Gem size={32} />,
+        title: "Cuidado de tus Joyas",
+        desc: "Consejos para mantener tus piezas como nuevas.",
+        href: "/cuidado-joyas"
     },
     {
         icon: <MessageCircle size={32} />,
@@ -55,14 +55,14 @@ const TOPICS = [
 export default function HelpHubPage() {
     return (
         <main className="bg-white min-h-screen pb-20">
-            <div className="bg-[#2c4a52] text-white py-20 border-b border-white/10">
+            <div className="bg-[#1a1a1a] text-white py-20 border-b border-white/10">
                 <div className="container mx-auto px-4 text-center max-w-3xl">
-                    <span className="text-[#d4af37] tracking-widest uppercase text-xs font-bold block mb-4">Soporte Yutnüu</span>
+                    <span className="text-[#d4af37] tracking-widest uppercase text-xs font-bold block mb-4">Soporte Punto Gema Nova</span>
                     <h1 className="text-4xl md:text-5xl font-serif mb-6">¿Cómo podemos ayudarte?</h1>
                     <div className="max-w-md mx-auto relative">
                         <input
                             type="text"
-                            placeholder="Buscar un tema (ej. envíos, ingredientes)..."
+                            placeholder="Buscar un tema (ej. envíos, materiales, tallas)..."
                             className="w-full h-12 rounded-full px-6 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#d4af37]"
                             disabled // Placeholder functionality for now
                         />
@@ -78,10 +78,10 @@ export default function HelpHubPage() {
                     {TOPICS.map((topic, idx) => (
                         <Link href={topic.href} key={idx} className="group">
                             <div className="border border-gray-100 rounded-2xl p-8 hover:shadow-lg hover:border-[#d4af37]/30 transition-all h-full bg-white">
-                                <div className="text-[#2c4a52] group-hover:text-[#d4af37] transition-colors mb-4 bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center group-hover:bg-[#d4af37]/10">
+                                <div className="text-[#1a1a1a] group-hover:text-[#d4af37] transition-colors mb-4 bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center group-hover:bg-[#d4af37]/10">
                                     {topic.icon}
                                 </div>
-                                <h3 className="text-xl font-serif text-[#2c4a52] mb-2">{topic.title}</h3>
+                                <h3 className="text-xl font-serif text-[#1a1a1a] mb-2">{topic.title}</h3>
                                 <p className="text-gray-500 font-light text-sm">{topic.desc}</p>
                             </div>
                         </Link>
@@ -89,15 +89,15 @@ export default function HelpHubPage() {
                 </div>
 
                 <div className="mt-20 bg-[#f8f9fa] rounded-2xl p-8 md:p-12 text-center">
-                    <h2 className="text-2xl font-serif text-[#2c4a52] mb-4">¿Sigues con dudas?</h2>
+                    <h2 className="text-2xl font-serif text-[#1a1a1a] mb-4">¿Sigues con dudas?</h2>
                     <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-                        Nuestro equipo de dermatología y atención al cliente está disponible de Lunes a Viernes de 9:00 a 18:00 hrs.
+                        Nuestro equipo de atención al cliente está disponible de Lunes a Viernes de 9:00 a 18:00 hrs para ayudarte con cualquier consulta sobre nuestras piezas.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/contacto" className="bg-[#2c4a52] text-white px-8 py-3 rounded-full hover:bg-[#1a2e33] transition-colors">
+                        <Link href="/contacto" className="bg-[#1a1a1a] text-white px-8 py-3 rounded-full hover:bg-[#1a2e33] transition-colors">
                             Formulario de Contacto
                         </Link>
-                        <a href="mailto:hola@yutnuu.mx" className="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-50 transition-colors">
+                        <a href="mailto:hola@puntogemanova.com" className="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-full hover:bg-gray-50 transition-colors">
                             Enviar Email
                         </a>
                     </div>

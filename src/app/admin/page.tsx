@@ -45,7 +45,7 @@ export default function AdminDashboardPage() {
     if (isLoading) {
         return (
             <div className="flex h-96 items-center justify-center">
-                <div className="text-[#2c4a52] animate-pulse">Cargando tablero...</div>
+                <div className="text-[#1a1a1a] animate-pulse">Cargando tablero...</div>
             </div>
         );
     }
@@ -56,12 +56,12 @@ export default function AdminDashboardPage() {
         <div className="space-y-8 pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
                 <div>
-                    <h1 className="text-3xl font-serif text-[#2c4a52] mb-2">Panel de Control</h1>
+                    <h1 className="text-3xl font-serif text-[#1a1a1a] mb-2">Panel de Control</h1>
                     <p className="text-gray-500">Resumen general de tu tienda y rendimiento.</p>
                 </div>
                 <div>
                     <select
-                        className="border border-gray-200 rounded-lg text-sm text-gray-700 py-2 px-3 outline-none focus:ring-2 focus:ring-[#2c4a52]/30 cursor-pointer shadow-sm"
+                        className="border border-gray-200 rounded-lg text-sm text-gray-700 py-2 px-3 outline-none focus:ring-2 focus:ring-[#1a1a1a]/30 cursor-pointer shadow-sm"
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}
                     >
@@ -111,15 +111,15 @@ export default function AdminDashboardPage() {
                 {/* Sales Chart Area */}
                 <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg font-bold text-[#2c4a52]">Ventas en el periodo (o últ. 30 días)</h2>
+                        <h2 className="text-lg font-bold text-[#1a1a1a]">Ventas en el periodo (o últ. 30 días)</h2>
                     </div>
                     <div className="h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={stats.salesGraph}>
                                 <defs>
                                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#2c4a52" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#2c4a52" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#1a1a1a" stopOpacity={0.1} />
+                                        <stop offset="95%" stopColor="#1a1a1a" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f1f1" />
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
                                 <Area
                                     type="monotone"
                                     dataKey="ventas"
-                                    stroke="#2c4a52"
+                                    stroke="#1a1a1a"
                                     strokeWidth={2}
                                     fillOpacity={1}
                                     fill="url(#colorSales)"
@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
 
                 {/* Top Products */}
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
-                    <h2 className="text-lg font-bold text-[#2c4a52] mb-6">Más Vendidos</h2>
+                    <h2 className="text-lg font-bold text-[#1a1a1a] mb-6">Más Vendidos</h2>
                     <div className="flex-1">
                         {stats.topProducts.length > 0 ? (
                             <div className="space-y-6">
@@ -181,7 +181,7 @@ export default function AdminDashboardPage() {
                             <p className="text-gray-400 text-sm text-center py-10">No hay datos suficientes</p>
                         )}
                     </div>
-                    <Link href="/admin/productos" className="mt-6 text-sm text-[#2c4a52] font-semibold flex items-center justify-center hover:underline">
+                    <Link href="/admin/productos" className="mt-6 text-sm text-[#1a1a1a] font-semibold flex items-center justify-center hover:underline">
                         Ver inventario <ArrowRight size={14} className="ml-1" />
                     </Link>
                 </div>
@@ -191,8 +191,8 @@ export default function AdminDashboardPage() {
                 {/* Recent Orders Table */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
-                        <h2 className="font-bold text-[#2c4a52]">Pedidos Recientes</h2>
-                        <Link href="/admin/pedidos" className="text-xs text-gray-500 hover:text-[#2c4a52]">
+                        <h2 className="font-bold text-[#1a1a1a]">Pedidos Recientes</h2>
+                        <Link href="/admin/pedidos" className="text-xs text-gray-500 hover:text-[#1a1a1a]">
                             Ver todos
                         </Link>
                     </div>
@@ -207,7 +207,7 @@ export default function AdminDashboardPage() {
                                     className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors group"
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="bg-gray-100 p-2 rounded-lg text-gray-500 group-hover:bg-[#2c4a52] group-hover:text-white transition-colors">
+                                        <div className="bg-gray-100 p-2 rounded-lg text-gray-500 group-hover:bg-[#1a1a1a] group-hover:text-white transition-colors">
                                             <Package size={20} />
                                         </div>
                                         <div>
@@ -221,7 +221,7 @@ export default function AdminDashboardPage() {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="font-bold text-[#2c4a52] text-sm">{toCurrency(order.total)}</div>
+                                        <div className="font-bold text-[#1a1a1a] text-sm">{toCurrency(order.total)}</div>
                                         <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold ${order.status === 'PENDING' ? 'bg-yellow-50 text-yellow-700' :
                                             order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700' :
                                                 order.status === 'DELIVERED' ? 'bg-green-50 text-green-700' :
@@ -239,7 +239,7 @@ export default function AdminDashboardPage() {
                 {/* Low Stock Alerts */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
-                        <h2 className="font-bold text-[#2c4a52] flex items-center gap-2">
+                        <h2 className="font-bold text-[#1a1a1a] flex items-center gap-2">
                             <AlertTriangle size={18} className="text-red-500" /> Alertas de Inventario
                         </h2>
                         {stats.lowStockCount > 0 && (
@@ -302,7 +302,7 @@ function StatCard({ title, value, icon, trend, color }: any) {
             </div>
             <div>
                 <p className="text-sm text-gray-500 font-medium mb-1">{title}</p>
-                <h3 className="text-2xl font-bold text-[#2c4a52]">{value}</h3>
+                <h3 className="text-2xl font-bold text-[#1a1a1a]">{value}</h3>
             </div>
         </div>
     );

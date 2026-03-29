@@ -80,7 +80,7 @@ export async function createOrder(prevState: any, formData: FormData) {
 
     // Prices are tax inclusive
     const grossProductTotal = subtotal;
-    const shippingCost = grossProductTotal > 999 ? 0 : 150;
+    const shippingCost = grossProductTotal > 1300 ? 0 : 150;
 
     const netSubtotal = grossProductTotal / 1.16;
     const tax = grossProductTotal - netSubtotal;

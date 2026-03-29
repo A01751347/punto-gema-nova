@@ -43,7 +43,7 @@ export default function CartPage() {
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
                         <div className="bg-[#F2EFE9] p-8 rounded-xl sticky top-28 shadow-sm border border-[#E6E0D9]">
-                            <h2 className="text-xl font-medium text-[#2c4a52] mb-6 pb-4 border-b border-[#E6E0D9]">Resumen del Pedido</h2>
+                            <h2 className="text-xl font-medium text-[#1a1a1a] mb-6 pb-4 border-b border-[#E6E0D9]">Resumen del Pedido</h2>
 
                             <div className="space-y-4 mb-8">
                                 <div className="flex justify-between text-gray-600 text-sm">
@@ -53,24 +53,24 @@ export default function CartPage() {
                                 <div className="flex justify-between text-gray-600 text-sm">
                                     <span>Envío</span>
                                     {remaining <= 0 ? (
-                                        <span className="text-[#2c4a52] font-medium">Gratis</span>
+                                        <span className="text-[#1a1a1a] font-medium">Gratis</span>
                                     ) : (
                                         <span className="text-gray-500 italic">Calculado al final</span>
                                     )}
                                 </div>
                                 {remaining > 0 && (
                                     <div className="py-2 px-3 bg-white/60 rounded text-xs text-gray-600 text-center mt-2">
-                                        Agrega <span className="font-bold text-[#2c4a52]">${remaining.toFixed(2)}</span> para envío gratis
+                                        Agrega <span className="font-bold text-[#1a1a1a]">${remaining.toFixed(2)}</span> para envío gratis
                                     </div>
                                 )}
                                 <div className="border-t border-[#E6E0D9] pt-6 flex justify-between items-end">
-                                    <span className="text-base font-medium text-[#2c4a52]">Total Estimado</span>
-                                    <span className="text-3xl font-medium text-[#2c4a52]">${subtotal.toFixed(2)}</span>
+                                    <span className="text-base font-medium text-[#1a1a1a]">Total Estimado</span>
+                                    <span className="text-3xl font-medium text-[#1a1a1a]">${subtotal.toFixed(2)}</span>
                                 </div>
                             </div>
 
                             <Link href="/checkout">
-                                <Button className="w-full py-4 text-base bg-[#2c4a52] hover:bg-[#1e343a] text-white shadow-none rounded-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                                <Button className="w-full py-4 text-base bg-[#1a1a1a] hover:bg-[#000000] text-white shadow-none rounded-lg transition-all duration-300 transform hover:-translate-y-0.5">
                                     Continuar Compra
                                 </Button>
                             </Link>

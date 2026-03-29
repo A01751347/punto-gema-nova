@@ -18,12 +18,12 @@ export async function GET(request: Request) {
                         category: true,
                     },
                 },
-                ingredients: {
+                materials: {
                     where: {
-                        isKeyIngredient: true,
+                        isPrimary: true,
                     },
                     include: {
-                        ingredient: true,
+                        material: true,
                     },
                 },
             },

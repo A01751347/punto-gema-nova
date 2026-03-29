@@ -35,7 +35,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     // Load from Local Storage on mount
     useEffect(() => {
-        const savedCart = localStorage.getItem('yutnuu_cart');
+        const savedCart = localStorage.getItem('pgn_cart');
         if (savedCart) {
             try {
                 setItems(JSON.parse(savedCart));
@@ -49,7 +49,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     // Save to Local Storage on change
     useEffect(() => {
         if (isInitialized) {
-            localStorage.setItem('yutnuu_cart', JSON.stringify(items));
+            localStorage.setItem('pgn_cart', JSON.stringify(items));
         }
     }, [items, isInitialized]);
 

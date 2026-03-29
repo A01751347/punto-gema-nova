@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Lock, Eye, FileText, Database } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Política de Privacidad | Yutnüu',
+    title: 'Política de Privacidad | Punto Gema Nova',
     description: 'Cómo protegemos y utilizamos tus datos personales.',
 };
 
@@ -12,9 +12,9 @@ export default function PrivacyPage() {
             <div className="bg-[#f8f9fa] py-16 border-b border-gray-100">
                 <div className="container mx-auto px-4 text-center max-w-3xl">
                     <Lock className="w-10 h-10 text-gray-400 mx-auto mb-4" />
-                    <h1 className="text-3xl md:text-4xl font-serif text-[#2c4a52] mb-4">Política de Privacidad</h1>
+                    <h1 className="text-3xl md:text-4xl font-serif text-[#1a1a1a] mb-4">Política de Privacidad</h1>
                     <p className="text-gray-500 font-light text-sm">
-                        Última actualización: 28 de Diciembre de 2025
+                        Última actualización: 28 de Marzo de 2026
                     </p>
                 </div>
             </div>
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
 
                 <section>
                     <p className="mb-6">
-                        En <strong>Yutnüu Cosmética S.A. de C.V.</strong> (en adelante "Yutnüu"), respetamos profundamente tu privacidad. Esta política describe cómo recopilamos, usamos y protegemos la información personal que nos proporcionas al utilizar nuestro sitio web <strong>www.yutnuu.mx</strong>.
+                        En <strong>Punto Gema Nova</strong>, respetamos profundamente tu privacidad. Esta política describe cómo recopilamos, usamos y protegemos la información personal que nos proporcionas al utilizar nuestro sitio web <strong>www.puntogemanova.com</strong>.
                     </p>
                     <p>
                         Al utilizar nuestros servicios, aceptas las prácticas descritas en esta política. Nos alineamos con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) de México.
@@ -31,20 +31,20 @@ export default function PrivacyPage() {
                 </section>
 
                 <section>
-                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#2c4a52] mb-4">
+                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#1a1a1a] mb-4">
                         <Database size={20} /> 1. Información que recopilamos
                     </h2>
                     <p className="mb-4">Podemos recopilar los siguientes datos personales:</p>
                     <ul className="list-disc pl-5 space-y-2 mb-4 text-gray-600">
                         <li><strong>Datos de Identificación:</strong> Nombre completo.</li>
                         <li><strong>Datos de Contacto:</strong> Correo electrónico, número de teléfono, dirección de envío y facturación.</li>
-                        <li><strong>Datos de Piel (Opcional):</strong> Información que proporcionas voluntariamente en nuestro Quiz de Piel (tipo de piel, preocupaciones) para recibir recomendaciones personalizadas.</li>
-                        <li><strong>Datos Transaccionales:</strong> Historial de compras. <strong>Nota importante:</strong> Yutnüu NO almacena datos bancarios completos. Los pagos son procesados de forma segura por Mercado Pago/Stripe.</li>
+                        <li><strong>Preferencias de Estilo (Opcional):</strong> Información que proporcionas voluntariamente en nuestro Quiz de Estilo (preferencias de materiales, ocasiones de uso, estilos favoritos) para recibir recomendaciones personalizadas de joyería.</li>
+                        <li><strong>Datos Transaccionales:</strong> Historial de compras. <strong>Nota importante:</strong> Punto Gema Nova NO almacena datos bancarios completos. Los pagos son procesados de forma segura por Mercado Pago/Stripe.</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#2c4a52] mb-4">
+                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#1a1a1a] mb-4">
                         <Eye size={20} /> 2. Uso de la información
                     </h2>
                     <p className="mb-4">Utilizamos tus datos exclusivamente para:</p>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
                 </section>
 
                 <section>
-                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#2c4a52] mb-4">
+                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#1a1a1a] mb-4">
                         <Lock size={20} /> 3. Protección de Datos
                     </h2>
                     <p>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
                 </section>
 
                 <section>
-                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#2c4a52] mb-4">
+                    <h2 className="flex items-center gap-2 text-xl font-bold text-[#1a1a1a] mb-4">
                         <FileText size={20} /> 4. Cookies
                     </h2>
                     <p>
@@ -75,12 +75,12 @@ export default function PrivacyPage() {
                 </section>
 
                 <section className="bg-gray-50 p-6 rounded-xl border border-gray-100">
-                    <h3 className="font-bold text-[#2c4a52] mb-2">Derechos ARCO</h3>
+                    <h3 className="font-bold text-[#1a1a1a] mb-2">Derechos ARCO</h3>
                     <p className="text-sm mb-4">
                         Tienes derecho a Acceder, Rectificar, Cancelar u Oponerte (ARCO) al tratamiento de tus datos personales.
                     </p>
                     <p className="text-sm">
-                        Para ejercer estos derechos, envía una solicitud a nuestro Oficial de Privacidad en: <a href="mailto:privacidad@yutnuu.mx" className="text-[#d4af37] font-medium underline">privacidad@yutnuu.mx</a>.
+                        Para ejercer estos derechos, envía una solicitud a nuestro Oficial de Privacidad en: <a href="mailto:privacidad@puntogemanova.com" className="text-[#d4af37] font-medium underline">privacidad@puntogemanova.com</a>.
                     </p>
                 </section>
 

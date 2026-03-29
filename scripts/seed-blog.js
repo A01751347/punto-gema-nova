@@ -4,129 +4,161 @@ const prisma = new PrismaClient();
 
 const posts = [
     {
-        title: "¿Por qué tu piel necesita ácidos grasos?",
-        slug: "por-que-tu-piel-necesita-acidos-grasos",
-        excerpt: "Más allá de la hidratación superficial: cómo los lípidos reparan la estructura celular dañada.",
+        title: "¿Por qué elegimos piedras semipreciosas?",
+        slug: "por-que-elegimos-piedras-semipreciosas",
+        excerpt: "Más allá de la estética: el valor real de trabajar con cuarzo, amatista, jade y perlas naturales.",
         content: `
-# ¿Por qué tu piel necesita ácidos grasos?
+# ¿Por qué elegimos piedras semipreciosas?
 
-No todos los aceites son iguales. En el mundo de la cosmética, existe un mito persistente de que la grasa es enemiga de una piel sana. Nada podría estar más lejos de la verdad.
+En un mercado lleno de bisutería con materiales sintéticos, elegir piedras semipreciosas naturales es una decisión consciente. No es solo una cuestión de apariencia — es una cuestión de calidad, autenticidad y conexión con la naturaleza.
 
-## La barrera lipídica
+## Cada piedra es única
 
-Tu piel tiene una barrera natural compuesta principalmente por ceramidas, colesterol y ácidos grasos. Esta barrera es lo único que impide que tu agua interna se evapore y que los patógenos externos entren.
+A diferencia de las cuentas de vidrio o plástico, cada piedra semipreciosa tiene variaciones naturales de color, textura e incluso forma. Esto significa que cada pieza de joyería que elaboramos es verdaderamente única.
 
-Cuando limpiamos nuestra piel en exceso o usamos productos agresivos, esta barrera se rompe. El resultado no es solo sequedad, sino inflamación, sensibilidad y envejecimiento prematuro.
+## Propiedades que van más allá de lo visual
 
-## Opuntia Ficus-Indica: Una fuente superior
+### Cuarzo Rosa
+Conocida como la piedra del amor. Su tono rosado suave aporta calidez y feminidad a cualquier pieza.
 
-Aquí es donde entra el aceite de semilla de tuna. A diferencia de otros aceites que son oclusivos (simplemente se asientan encima), este aceite es rico en ácido linoleico.
+### Amatista
+Su violeta profundo no solo es hermoso — es una piedra asociada con la serenidad y la claridad mental.
 
-El ácido linoleico es un ácido graso esencial que nuestro cuerpo no puede producir. Es fundamental para reparar la barrera cutánea sin obstruir los poros.
+### Jade
+Valorada desde hace milenios en culturas de todo el mundo. El jade guatemalteco que utilizamos tiene un verde sereno que evoca la naturaleza.
 
-### Beneficios clave:
+### Perlas de Río
+Cada perla es formada naturalmente, lo que le da un brillo iridiscente imposible de replicar artificialmente.
 
-1.  **Restauración:** Ayuda a reconstruir el cemento intercelular.
-2.  **Anti-inflamatorio:** Calma rojeces y reactividad.
-3.  **No comedogénico:** Penetra rápidamente sin causar brotes.
+## Nuestro compromiso
 
-En YUTNÜÜ, formulamos pensando en biología, no en tendencias. Añadir ácidos grasos de calidad a tu rutina es devolverle a tu piel las herramientas que necesita para defenderse sola.
+En Punto Gema Nova, seleccionamos cada piedra individualmente. Verificamos su autenticidad, su color y su calidad antes de incorporarla a una pieza. Es un proceso más lento, pero el resultado se nota.
         `,
-        featuredImage: "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=2574&auto=format&fit=crop",
-        category: "Ciencia",
-        tags: ["Ácidos Grasos", "Barrera Cutánea", "Ciencia"],
-        publishedAt: new Date("2024-10-12T10:00:00Z"),
+        featuredImage: null,
+        category: "Materiales",
+        tags: ["Piedras Semipreciosas", "Cuarzo", "Amatista", "Materiales"],
+        publishedAt: new Date("2025-01-15T10:00:00Z"),
         isPublished: true
     },
     {
-        title: "La cosecha de la tuna: Una tradición en riesgo",
-        slug: "cosecha-tuna-tradicion-riesgo",
-        excerpt: "Visitamos a nuestros productores en San Luis Potosí para entender el ciclo de vida del nopal.",
+        title: "Cómo cuidar tu joyería artesanal",
+        slug: "como-cuidar-tu-joyeria-artesanal",
+        excerpt: "Guía práctica para que tus piezas se mantengan hermosas por mucho más tiempo.",
         content: `
-# La cosecha de la tuna
+# Cómo cuidar tu joyería artesanal
 
-El sol de San Luis Potosí no perdona. A las 6 de la mañana, ya se siente el calor que caracterizará el resto del día. Es aquí, en estas tierras áridas, donde sucede la magia.
+Tus piezas de Punto Gema Nova están hechas para durar, pero como cualquier joya de calidad, necesitan un poco de amor y cuidado. Aquí te compartimos los mejores consejos.
 
-## Más que una planta
+## Regla #1: Última en ponerse, primera en quitarse
 
-El nopal no es un cultivo cualquiera; es un símbolo de identidad y resistencia. Para obtener el aceite que usamos en YUTNÜÜ, se requiere un proceso meticuloso.
+Esto significa: ponte tu joyería después de aplicar perfume, crema, maquillaje y fijador de cabello. Y quítatela antes de bañarte, hacer ejercicio o dormir.
 
-Primero, la fruta debe madurar en la planta. No se puede cortar verde. Una vez cosechada, se separan las semillas de la pulpa. Las semillas se lavan y se secan al sol durante días.
+## Cuidado según el material
 
-## Un proceso lento
+### Chapa de Oro 18k
+- Limpia con un paño suave y seco después de cada uso
+- Evita el contacto con cloro, agua salada y productos químicos
+- Guarda cada pieza por separado para evitar rayones
 
-Se necesitan aproximadamente una tonelada de fruta para obtener un litro de aceite puro. Es un rendimiento bajísimo, lo que explica por qué este "oro líquido" es tan preciado.
+### Plata .925
+- La plata se oscurece naturalmente con el tiempo — es normal
+- Usa un paño para plata para recuperar su brillo
+- Guarda en bolsa hermética cuando no la uses
 
-Nuestros productores no usan agroquímicos. No porque sea una moda, sino porque así lo han hecho durante generaciones. Respetar la tierra significa asegurar que habrá cosecha el próximo año.
+### Piedras Semipreciosas
+- Limpia con paño suave ligeramente húmedo
+- Evita golpes directos que puedan astillar la piedra
+- Algunas piedras (como la amatista) pueden perder color con exposición solar prolongada
 
-Al elegir nuestros productos, estás apoyando directamente a estas familias y la preservación de una técnica agrícola que está en riesgo de desaparecer ante la agricultura industrial intensiva.
+### Perlas
+- Son las más delicadas de todos nuestros materiales
+- Limpia con paño suave después de CADA uso
+- Nunca las sumerjas en agua
+- Guárdalas envueltas en tela suave, separadas de otras joyas
+
+## Almacenamiento
+
+Guarda tus piezas en las bolsas de tela que incluimos con cada compra. Evita amontonar varias piezas juntas — pueden rayarse entre sí.
+
+Con estos cuidados simples, tus piezas lucirán hermosas durante años.
         `,
-        featuredImage: "https://images.unsplash.com/photo-1596436889106-be35e843f974?q=80&w=2576&auto=format&fit=crop",
-        category: "Origen",
-        tags: ["Sustentabilidad", "Origen", "México"],
-        publishedAt: new Date("2024-09-28T10:00:00Z"),
+        featuredImage: null,
+        category: "Cuidado",
+        tags: ["Cuidado", "Consejos", "Mantenimiento"],
+        publishedAt: new Date("2025-02-01T10:00:00Z"),
         isPublished: true
     },
     {
-        title: "Simplicidad Radical: Menos productos, más resultados",
-        slug: "simplicidad-radical-skinimalism",
-        excerpt: "La tendencia del 'Skinimalism' llegó para quedarse. Aprende a depurar tu tocador.",
+        title: "El arte de regalar joyería con significado",
+        slug: "arte-de-regalar-joyeria-con-significado",
+        excerpt: "Ideas y consejos para elegir la pieza perfecta según la persona y la ocasión.",
         content: `
-# Simplicidad Radical
+# El arte de regalar joyería con significado
 
-¿Cuántos pasos tiene tu rutina? ¿7? ¿10? ¿12?
+Regalar joyería es un gesto que va más allá de lo material. Una pieza bien elegida puede convertirse en un objeto con historia, un recordatorio tangible de un momento especial.
 
-En los últimos años, la industria de la belleza nos ha convencido de que necesitamos un producto específico para cada centímetro de piel y para cada momento del día.
+## ¿Para quién es el regalo?
 
-## El costo de la complejidad
+### Para mamá
+Los sets son ideales: una pulsera y un collar que combinen. El Set Serenidad de Perlas es nuestra opción más popular para el Día de las Madres. Si quieres algo aún más especial, el Set Madre e Hija es un regalo que cuenta una historia.
 
-Sobrecargar la piel con activos puede ser contraproducente. Mezclar demasiados ingredientes aumenta el riesgo de irritación y hace imposible saber qué está funcionando y qué no.
+### Para tu mejor amiga
+Las pulseras de piedras naturales son perfectas. El cuarzo rosa (amor) o la amatista (serenidad) tienen significados que puedes incluir en una tarjeta personalizada.
 
-El "Skinimalism" no se trata de no cuidarse. Se trata de usar pocos productos, pero multifuncionales y de altísima calidad.
+### Para tu pareja
+Los collares de perlas son un clásico que nunca falla. Si buscas algo más personal, una pieza con inicial es un detalle íntimo y elegante.
 
-## Tu nueva rutina base
+### Para ti misma
+¡No necesitas una excusa! Elegir una pieza que te guste es un acto de autocuidado. La Pulsera Minimalista Oro es perfecta para uso diario.
 
-Solo necesitas tres pasos reales:
+## Nuestro empaque
 
-1.  **Limpiar:** Sin agredir.
-2.  **Tratar/Hidratar:** Un buen suero o crema que aporte agua y activos.
-3.  **Proteger/Sellar:** SPF de día, Aceite de noche.
+Cada pieza de Punto Gema Nova llega en una caja de presentación elegante con interior acolchado. Incluimos una bolsa de tela para almacenamiento y una tarjeta con las propiedades de las piedras utilizadas.
 
-Eso es todo. La piel es un órgano sabio; a veces solo necesita que nos quitemos de en medio y la dejemos trabajar.
+Si es un regalo, podemos incluir una tarjeta con mensaje personalizado — solo agrégalo en las notas de tu pedido.
         `,
-        featuredImage: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?q=80&w=2670&auto=format&fit=crop",
-        category: "Estilo de Vida",
-        tags: ["Minimalismo", "Rutina", "Consejos"],
-        publishedAt: new Date("2024-09-15T10:00:00Z"),
+        featuredImage: null,
+        category: "Ideas",
+        tags: ["Regalos", "Ideas", "Guía"],
+        publishedAt: new Date("2025-02-20T10:00:00Z"),
         isPublished: true
     },
     {
-        title: "Vitamina E vs. Vitamina C: ¿Cuál necesitas?",
-        slug: "vitamina-e-vs-vitamina-c",
-        excerpt: "Desmitificando los antioxidantes. Cuándo usar cada uno y cómo combinarlos.",
+        title: "Chapa de oro vs. oro sólido: ¿Cuál es la diferencia?",
+        slug: "chapa-de-oro-vs-oro-solido",
+        excerpt: "Todo lo que necesitas saber sobre la chapa de oro 18k y por qué es una excelente opción.",
         content: `
-# Vitamina E vs. Vitamina C
+# Chapa de oro vs. oro sólido
 
-Son los dos gigantes del mundo antioxidante. Ambos prometen iluminar, proteger y rejuvenecer. Pero, ¿son intercambiables?
+Una de las preguntas más frecuentes que recibimos es sobre la diferencia entre chapa de oro y oro sólido. Aquí te explicamos todo de forma clara y honesta.
 
-## Vitamina C: El escudo diurno
+## ¿Qué es la chapa de oro 18k?
 
-La Vitamina C (ácido ascórbico) es soluble en agua. Su principal función es neutralizar los radicales libres generados por el sol y la contaminación *antes* de que dañen tu ADN. También es clave para la producción de colágeno.
+La chapa de oro (también llamada gold-filled en inglés) consiste en una capa gruesa de oro real adherida mecánicamente a un metal base. En nuestro caso, usamos chapa de oro de 18 quilates.
 
-## Vitamina E: El reparador
+## ¿Cuál es la diferencia con el oro sólido?
 
-La Vitamina E (tocoferol) es soluble en grasa. Es la guardiana de las membranas celulares. Hidrata, calma y repara el daño ya hecho.
+El oro sólido de 18k está compuesto por 75% de oro puro. Es más caro porque usa más material precioso. La chapa de oro tiene una cantidad menor de oro, pero la capa es lo suficientemente gruesa para ofrecer durabilidad y un brillo idéntico.
 
-## ¿La pareja perfecta?
+## ¿Por qué elegimos chapa de oro?
 
-La respuesta corta es: necesitas ambos. De hecho, funcionan mejor juntos. La Vitamina E ayuda a estabilizar la Vitamina C, y la Vitamina C regenera la Vitamina E oxidada.
+1. **Accesibilidad:** Permite ofrecer piezas con el look y la calidad del oro a precios más accesibles
+2. **Durabilidad:** Una buena chapa de oro dura años con el cuidado adecuado
+3. **Hipoalergénica:** La capa de oro protege la piel del contacto con el metal base
+4. **Sustentabilidad:** Usa menos oro, lo que tiene menor impacto ambiental
 
-Nuestro Aceite de Tuna tiene una concentración natural de Vitamina E del 150% superior al Argán. Combinarlo con un suero de Vitamina C por la mañana crea un escudo antioxidante impenetrable.
+## ¿Cuánto dura?
+
+Con el cuidado adecuado (evitar agua, perfumes y productos químicos), nuestras piezas en chapa de oro mantienen su brillo durante años. No es lo mismo que el "baño de oro" económico que se desgasta en semanas.
+
+## Nuestra promesa
+
+Somos transparentes con nuestros materiales. Cada pieza indica claramente si es chapa de oro 18k o plata .925. Creemos que la honestidad es la base de la confianza.
         `,
-        featuredImage: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2574&auto=format&fit=crop",
-        category: "Ingredientes",
-        tags: ["Vitamina E", "Vitamina C", "Educación"],
-        publishedAt: new Date("2024-09-02T10:00:00Z"),
+        featuredImage: null,
+        category: "Educación",
+        tags: ["Chapa de Oro", "Materiales", "Educación"],
+        publishedAt: new Date("2025-03-10T10:00:00Z"),
         isPublished: true
     }
 ];
@@ -134,7 +166,6 @@ Nuestro Aceite de Tuna tiene una concentración natural de Vitamina E del 150% s
 async function main() {
     console.log('Seeding blog posts...');
 
-    // Clean up first
     await prisma.blogPost.deleteMany({});
 
     for (const post of posts) {

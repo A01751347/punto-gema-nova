@@ -94,7 +94,7 @@ export default function ConfiguracionAdminPage() {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <Loader2 className="animate-spin text-[#2c4a52] w-8 h-8" />
+                <Loader2 className="animate-spin text-[#1a1a1a] w-8 h-8" />
             </div>
         );
     }
@@ -103,13 +103,13 @@ export default function ConfiguracionAdminPage() {
         <div className="max-w-4xl mx-auto space-y-8 pb-12">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-serif text-[#2c4a52] mb-2">Configuración</h1>
+                    <h1 className="text-3xl font-serif text-[#1a1a1a] mb-2">Configuración</h1>
                     <p className="text-gray-500">Administra los parámetros de la tienda y las notificaciones automáticas.</p>
                 </div>
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="flex items-center gap-2 bg-[#2c4a52] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#1f3940] transition-colors disabled:opacity-50"
+                    className="flex items-center gap-2 bg-[#1a1a1a] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-[#1f3940] transition-colors disabled:opacity-50"
                 >
                     {isSaving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
                     {isSaving ? 'Guardando...' : 'Guardar Cambios'}
@@ -119,7 +119,7 @@ export default function ConfiguracionAdminPage() {
             {/* Email Notifications Segment */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-xl font-bold text-[#2c4a52] flex items-center gap-2">
+                    <h2 className="text-xl font-bold text-[#1a1a1a] flex items-center gap-2">
                         <Mail className="text-[#d4af37]" /> Notificaciones de Equipo
                     </h2>
                     <p className="text-sm text-gray-500 mt-2">
@@ -145,13 +145,13 @@ export default function ConfiguracionAdminPage() {
                         <div className="space-y-3">
                             {orderEmails.map((email, i) => (
                                 <div key={i} className="flex flex-col sm:flex-row gap-3">
-                                    <div className="flex-1 border border-gray-200 rounded-lg overflow-hidden flex bg-gray-50 items-center px-3 focus-within:ring-2 focus-within:ring-[#2c4a52] focus-within:border-[#2c4a52]">
+                                    <div className="flex-1 border border-gray-200 rounded-lg overflow-hidden flex bg-gray-50 items-center px-3 focus-within:ring-2 focus-within:ring-[#1a1a1a] focus-within:border-[#1a1a1a]">
                                         <Mail size={16} className="text-gray-400" />
                                         <input
                                             type="email"
                                             value={email}
                                             onChange={e => updateOrderEmail(i, e.target.value)}
-                                            placeholder="ejemplo@yutnuu.com"
+                                            placeholder="ejemplo@puntogemanova.com"
                                             className="w-full bg-transparent border-none focus:ring-0 text-sm py-2 px-3 text-gray-800"
                                         />
                                     </div>
@@ -168,7 +168,7 @@ export default function ConfiguracionAdminPage() {
 
                         <button
                             onClick={addOrderEmail}
-                            className="text-sm font-semibold flex items-center gap-1 text-[#2c4a52] mt-2 shrink-0 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+                            className="text-sm font-semibold flex items-center gap-1 text-[#1a1a1a] mt-2 shrink-0 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
                         >
                             <Plus size={16} /> Añadir otro correo
                         </button>
@@ -192,13 +192,13 @@ export default function ConfiguracionAdminPage() {
                         <div className="space-y-3">
                             {invoiceEmails.map((email, i) => (
                                 <div key={i} className="flex flex-col sm:flex-row gap-3">
-                                    <div className="flex-1 border border-gray-200 rounded-lg overflow-hidden flex bg-gray-50 items-center px-3 focus-within:ring-2 focus-within:ring-[#2c4a52] focus-within:border-[#2c4a52]">
+                                    <div className="flex-1 border border-gray-200 rounded-lg overflow-hidden flex bg-gray-50 items-center px-3 focus-within:ring-2 focus-within:ring-[#1a1a1a] focus-within:border-[#1a1a1a]">
                                         <Mail size={16} className="text-gray-400" />
                                         <input
                                             type="email"
                                             value={email}
                                             onChange={e => updateInvoiceEmail(i, e.target.value)}
-                                            placeholder="contabilidad@yutnuu.com"
+                                            placeholder="contabilidad@puntogemanova.com"
                                             className="w-full bg-transparent border-none focus:ring-0 text-sm py-2 px-3 text-gray-800"
                                         />
                                     </div>
@@ -215,7 +215,7 @@ export default function ConfiguracionAdminPage() {
 
                         <button
                             onClick={addInvoiceEmail}
-                            className="text-sm font-semibold flex items-center gap-1 text-[#2c4a52] mt-2 shrink-0 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+                            className="text-sm font-semibold flex items-center gap-1 text-[#1a1a1a] mt-2 shrink-0 border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
                         >
                             <Plus size={16} /> Añadir otro correo
                         </button>
@@ -225,9 +225,9 @@ export default function ConfiguracionAdminPage() {
             </div>
 
             {/* Test notifications box */}
-            <div className="bg-[#2c4a52]/5 rounded-xl border border-[#2c4a52]/20 p-6 flex flex-col sm:flex-row text-center sm:text-left items-center justify-between gap-4">
+            <div className="bg-[#1a1a1a]/5 rounded-xl border border-[#1a1a1a]/20 p-6 flex flex-col sm:flex-row text-center sm:text-left items-center justify-between gap-4">
                 <div>
-                    <h3 className="font-bold text-[#2c4a52]">¿Quieres probar que todo funciona bien?</h3>
+                    <h3 className="font-bold text-[#1a1a1a]">¿Quieres probar que todo funciona bien?</h3>
                     <p className="text-sm tracking-wide text-gray-600 mt-1">Antes de probar, asegurate de darle el botón de "Guardar Cambios".</p>
                 </div>
                 <button

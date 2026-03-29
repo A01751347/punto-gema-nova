@@ -57,7 +57,7 @@ export default function RegisterPage() {
             <div className="w-full max-w-lg space-y-8">
                 <div className="text-center">
                     <h1 className="text-4xl font-serif text-text-primary mb-2">Crear Cuenta</h1>
-                    <p className="text-text-secondary">Únete a la comunidad Yutnüu</p>
+                    <p className="text-text-secondary">Crea tu cuenta en Punto Gema Nova</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-2xl shadow-soft-lg border border-gray-100">

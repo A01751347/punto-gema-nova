@@ -3,164 +3,138 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-    console.log('🌱 Starting database seed...');
+    console.log('Starting database seed...');
 
     // Create categories
     console.log('Creating categories...');
     const categories = await Promise.all([
         prisma.category.create({
             data: {
-                slug: 'hidratacion',
-                name: 'Hidratación',
-                description: 'Productos para hidratar y mantener la piel suave',
+                slug: 'pulseras',
+                name: 'Pulseras',
+                description: 'Pulseras artesanales con piedras semipreciosas y chapa de oro',
                 sortOrder: 1,
             },
         }),
         prisma.category.create({
             data: {
-                slug: 'anti-edad',
-                name: 'Anti-Edad',
-                description: 'Productos para reducir signos de envejecimiento',
+                slug: 'collares',
+                name: 'Collares',
+                description: 'Collares elegantes elaborados a mano con materiales selectos',
                 sortOrder: 2,
             },
         }),
         prisma.category.create({
             data: {
-                slug: 'manchas',
-                name: 'Manchas',
-                description: 'Productos para reducir hiperpigmentación',
+                slug: 'sets',
+                name: 'Sets',
+                description: 'Conjuntos de joyería artesanal para combinar y regalar',
                 sortOrder: 3,
             },
         }),
         prisma.category.create({
             data: {
-                slug: 'acne',
-                name: 'Acné',
-                description: 'Productos para piel propensa al acné',
+                slug: 'personalizados',
+                name: 'Personalizados',
+                description: 'Piezas únicas con iniciales, piedras a elegir y ajustes especiales',
                 sortOrder: 4,
             },
         }),
         prisma.category.create({
             data: {
-                slug: 'barrera',
-                name: 'Barrera Cutánea',
-                description: 'Productos para fortalecer la barrera de la piel',
+                slug: 'temporada',
+                name: 'Temporada',
+                description: 'Colecciones especiales por tiempo limitado',
                 sortOrder: 5,
             },
         }),
     ]);
 
-    console.log(`✅ Created ${categories.length} categories`);
+    console.log(`Created ${categories.length} categories`);
 
-    // Create ingredients
-    console.log('Creating ingredients...');
-    const ingredients = await Promise.all([
-        prisma.ingredient.create({
-            data: {
-                slug: 'acido-hialuronico',
-                name: 'Ácido Hialurónico',
-                description: 'Humectante potente que retiene hasta 1000 veces su peso en agua',
-                benefits: [
-                    'Hidratación profunda',
-                    'Reduce líneas finas',
-                    'Mejora elasticidad',
-                    'Apto para todo tipo de piel',
-                ],
-                typicalConcentration: '0.5-2%',
-                precautions: 'Usar con hidratante para sellar la humedad',
-            },
-        }),
-        prisma.ingredient.create({
-            data: {
-                slug: 'vitamina-c',
-                name: 'Vitamina C',
-                description: 'Antioxidante que estimula colágeno y reduce hiperpigmentación',
-                benefits: [
-                    'Ilumina la piel',
-                    'Reduce manchas',
-                    'Estimula colágeno',
-                    'Protege contra radicales libres',
-                ],
-                typicalConcentration: '10-20%',
-                precautions: 'Usar protector solar. Puede causar irritación en piel sensible',
-            },
-        }),
-        prisma.ingredient.create({
-            data: {
-                slug: 'niacinamida',
-                name: 'Niacinamida',
-                description: 'Vitamina B3 que fortalece la barrera cutánea y regula sebo',
-                benefits: [
-                    'Reduce poros',
-                    'Controla sebo',
-                    'Fortalece barrera',
-                    'Reduce inflamación',
-                ],
-                typicalConcentration: '2-10%',
-                precautions: 'Generalmente bien tolerado',
-            },
-        }),
-        prisma.ingredient.create({
-            data: {
-                slug: 'retinol',
-                name: 'Retinol',
-                description: 'Derivado de vitamina A que acelera renovación celular',
-                benefits: [
-                    'Reduce arrugas',
-                    'Mejora textura',
-                    'Estimula colágeno',
-                    'Reduce manchas',
-                ],
-                typicalConcentration: '0.25-1%',
-                precautions: 'Usar solo de noche. Puede causar irritación inicial. Usar protector solar',
-            },
-        }),
-    ]);
+    // Create materials
+    console.log('Creating materials...');
+    const materialsData = [
+        {
+            slug: 'cuarzo-rosa',
+            name: 'Cuarzo Rosa',
+            description: 'Conocida como la piedra del amor incondicional. Su tono rosado delicado aporta feminidad y calidez.',
+            benefits: ['Piedra del amor y la armonía', 'Color rosado natural', 'Energía calmante'],
+            type: 'piedra',
+            origin: 'Brasil',
+        },
+        {
+            slug: 'amatista',
+            name: 'Amatista',
+            description: 'Piedra de serenidad y claridad mental. Su color violeta profundo es una de las gemas más apreciadas.',
+            benefits: ['Piedra de la serenidad', 'Color violeta intenso', 'Protección energética'],
+            type: 'piedra',
+            origin: 'Brasil',
+        },
+        {
+            slug: 'perla-de-rio',
+            name: 'Perla de Río',
+            description: 'Sinónimo de elegancia natural. Cada una es única en forma y brillo.',
+            benefits: ['Elegancia natural', 'Brillo iridiscente', 'Cada perla es única'],
+            type: 'perla',
+            origin: 'China',
+        },
+        {
+            slug: 'chapa-de-oro-18k',
+            name: 'Chapa de Oro 18k',
+            description: 'Brillo y calidez del oro con mayor accesibilidad. Capa generosa que garantiza durabilidad.',
+            benefits: ['Brillo dorado duradero', 'No mancha la piel', 'Hipoalergénico'],
+            type: 'metal',
+            origin: 'México',
+        },
+    ];
 
-    console.log(`✅ Created ${ingredients.length} ingredients`);
+    const createdMaterials = await Promise.all(
+        materialsData.map((m) => prisma.material.create({ data: m }))
+    );
 
-    // Create products
+    console.log(`Created ${createdMaterials.length} materials`);
+
+    // Create sample products
     console.log('Creating products...');
     const products = await Promise.all([
         prisma.product.create({
             data: {
-                slug: 'suero-hidratante-acido-hialuronico',
-                name: 'Suero Hidratante con Ácido Hialurónico',
-                tagline: 'Hidratación profunda y duradera',
-                description: 'Suero ligero con ácido hialurónico de bajo y alto peso molecular para hidratación en múltiples capas de la piel.',
-                price: 450,
-                compareAtPrice: 550,
-                size: '30ml',
-                sku: 'YTN-SH-001',
-                stock: 50,
+                slug: 'pulsera-luna-de-cuarzo',
+                name: 'Pulsera Luna de Cuarzo',
+                tagline: 'Delicadeza en cada detalle',
+                description: 'Pulsera artesanal elaborada con cuentas de cuarzo rosa natural y detalles en chapa de oro 18k.',
+                price: 650,
+                compareAtPrice: 780,
+                size: '18cm',
+                sku: 'PGN-PUL-001',
+                stock: 25,
                 isActive: true,
                 isFeatured: true,
                 isNew: true,
-                isBestseller: false,
-                benefits: [
-                    'Hidratación profunda de 24 horas',
-                    'Reduce apariencia de líneas finas',
-                    'Textura ligera de rápida absorción',
-                    'Apto para todo tipo de piel',
-                ],
-                howToUse: 'Aplicar 3-4 gotas sobre piel limpia y húmeda, mañana y noche. Seguir con hidratante.',
-                whenToUse: 'AM/PM',
-                suitableFor: ['Piel seca', 'Piel normal', 'Piel mixta', 'Piel sensible'],
-                notSuitableFor: [],
-                mechanism: 'El ácido hialurónico de bajo peso molecular penetra las capas profundas mientras que el de alto peso molecular forma una película hidratante en la superficie.',
-                expectedResults: 'Piel más hidratada y suave en 1-2 semanas. Reducción visible de líneas finas en 4-6 semanas con uso continuo.',
+                isBestseller: true,
+                benefits: ['Piedras naturales de cuarzo rosa', 'Detalles en chapa de oro 18k', 'Elaborada a mano', 'Ajustable'],
+                careInstructions: 'Limpiar con paño suave y seco. Evitar contacto con perfumes, cremas y agua.',
+                material: 'Chapa de oro 18k',
+                stoneType: 'Cuarzo rosa',
+                isCustomizable: false,
+                availabilityLabel: 'Disponible',
+                collectionType: 'permanente',
                 images: [],
                 categories: {
                     create: [
-                        { category: { connect: { slug: 'hidratacion' } } },
+                        { category: { connect: { slug: 'pulseras' } } },
                     ],
                 },
-                ingredients: {
+                materials: {
                     create: [
                         {
-                            ingredient: { connect: { slug: 'acido-hialuronico' } },
-                            concentration: '2%',
-                            isKeyIngredient: true,
+                            material: { connect: { slug: 'cuarzo-rosa' } },
+                            isPrimary: true,
+                        },
+                        {
+                            material: { connect: { slug: 'chapa-de-oro-18k' } },
+                            isPrimary: false,
                         },
                     ],
                 },
@@ -168,130 +142,41 @@ async function main() {
         }),
         prisma.product.create({
             data: {
-                slug: 'suero-iluminador-vitamina-c',
-                name: 'Suero Iluminador con Vitamina C',
-                tagline: 'Ilumina y reduce manchas',
-                description: 'Suero antioxidante con vitamina C estabilizada que ilumina la piel y reduce hiperpigmentación.',
-                price: 520,
-                size: '30ml',
-                sku: 'YTN-SI-002',
-                stock: 35,
+                slug: 'collar-gotas-de-perla',
+                name: 'Collar Gotas de Perla',
+                tagline: 'Sofisticación natural',
+                description: 'Collar con perlas de río en forma de gota y cadena en chapa de oro 18k.',
+                price: 950,
+                compareAtPrice: 1100,
+                size: '45cm',
+                sku: 'PGN-COL-001',
+                stock: 15,
                 isActive: true,
                 isFeatured: true,
                 isNew: true,
-                isBestseller: false,
-                benefits: [
-                    'Ilumina el tono de piel',
-                    'Reduce manchas oscuras',
-                    'Estimula producción de colágeno',
-                    'Protege contra daño ambiental',
-                ],
-                howToUse: 'Aplicar 3-4 gotas sobre piel limpia por la mañana. Seguir con protector solar.',
-                whenToUse: 'AM',
-                suitableFor: ['Piel opaca', 'Piel con manchas', 'Piel normal', 'Piel mixta'],
-                notSuitableFor: ['Piel muy sensible (empezar con concentración baja)'],
-                mechanism: 'La vitamina C inhibe la tirosinasa, enzima clave en la producción de melanina, y estimula la síntesis de colágeno.',
-                expectedResults: 'Piel más luminosa en 2-3 semanas. Reducción de manchas en 6-8 semanas.',
-                images: [],
-                categories: {
-                    create: [
-                        { category: { connect: { slug: 'manchas' } } },
-                        { category: { connect: { slug: 'anti-edad' } } },
-                    ],
-                },
-                ingredients: {
-                    create: [
-                        {
-                            ingredient: { connect: { slug: 'vitamina-c' } },
-                            concentration: '15%',
-                            isKeyIngredient: true,
-                        },
-                    ],
-                },
-            },
-        }),
-        prisma.product.create({
-            data: {
-                slug: 'suero-equilibrante-niacinamida',
-                name: 'Suero Equilibrante con Niacinamida',
-                tagline: 'Controla sebo y reduce poros',
-                description: 'Suero multifuncional con niacinamida que equilibra la producción de sebo y fortalece la barrera cutánea.',
-                price: 480,
-                size: '30ml',
-                sku: 'YTN-SE-003',
-                stock: 42,
-                isActive: true,
-                isFeatured: true,
-                isNew: false,
                 isBestseller: true,
-                benefits: [
-                    'Reduce apariencia de poros',
-                    'Controla producción de sebo',
-                    'Fortalece barrera cutánea',
-                    'Calma rojeces e inflamación',
-                ],
-                howToUse: 'Aplicar 3-4 gotas sobre piel limpia, mañana y noche.',
-                whenToUse: 'AM/PM',
-                suitableFor: ['Piel grasa', 'Piel mixta', 'Piel con acné', 'Piel sensible'],
-                notSuitableFor: [],
-                mechanism: 'La niacinamida regula la producción de sebo, fortalece la barrera lipídica y tiene propiedades antiinflamatorias.',
-                expectedResults: 'Reducción de brillo y poros en 2-4 semanas. Mejora de textura en 4-6 semanas.',
+                benefits: ['Perlas de río en forma de gota', 'Cadena en chapa de oro 18k', 'Versátil: casual y formal'],
+                careInstructions: 'Las perlas requieren cuidado especial. Limpiar con paño suave después de cada uso. Evitar perfumes y agua.',
+                material: 'Chapa de oro 18k',
+                stoneType: 'Perla de río',
+                isCustomizable: false,
+                availabilityLabel: 'Disponible',
+                collectionType: 'permanente',
                 images: [],
                 categories: {
                     create: [
-                        { category: { connect: { slug: 'barrera' } } },
-                        { category: { connect: { slug: 'acne' } } },
+                        { category: { connect: { slug: 'collares' } } },
                     ],
                 },
-                ingredients: {
+                materials: {
                     create: [
                         {
-                            ingredient: { connect: { slug: 'niacinamida' } },
-                            concentration: '10%',
-                            isKeyIngredient: true,
+                            material: { connect: { slug: 'perla-de-rio' } },
+                            isPrimary: true,
                         },
-                    ],
-                },
-            },
-        }),
-        prisma.product.create({
-            data: {
-                slug: 'suero-renovador-retinol',
-                name: 'Suero Renovador con Retinol',
-                tagline: 'Renueva y rejuvenece',
-                description: 'Suero nocturno con retinol encapsulado que acelera la renovación celular y reduce signos de envejecimiento.',
-                price: 580,
-                size: '30ml',
-                sku: 'YTN-SR-004',
-                stock: 28,
-                isActive: true,
-                isFeatured: true,
-                isNew: false,
-                isBestseller: true,
-                benefits: [
-                    'Reduce arrugas y líneas finas',
-                    'Mejora textura de la piel',
-                    'Estimula producción de colágeno',
-                    'Unifica tono de piel',
-                ],
-                howToUse: 'Aplicar 2-3 gotas sobre piel limpia solo de noche. Empezar 2-3 veces por semana.',
-                whenToUse: 'PM',
-                suitableFor: ['Piel madura', 'Piel con arrugas', 'Piel normal', 'Piel mixta'],
-                notSuitableFor: ['Embarazo', 'Lactancia', 'Piel muy sensible'],
-                mechanism: 'El retinol se convierte en ácido retinoico, que acelera la renovación celular y estimula la producción de colágeno.',
-                expectedResults: 'Mejora de textura en 4-6 semanas. Reducción de arrugas en 8-12 semanas.',
-                images: [],
-                categories: {
-                    create: [
-                        { category: { connect: { slug: 'anti-edad' } } },
-                    ],
-                },
-                ingredients: {
-                    create: [
                         {
-                            ingredient: { connect: { slug: 'retinol' } },
-                            concentration: '0.5%',
-                            isKeyIngredient: true,
+                            material: { connect: { slug: 'chapa-de-oro-18k' } },
+                            isPrimary: false,
                         },
                     ],
                 },
@@ -299,15 +184,15 @@ async function main() {
         }),
     ]);
 
-    console.log(`✅ Created ${products.length} products`);
+    console.log(`Created ${products.length} products`);
 
     // Create a banner
     console.log('Creating banner...');
     await prisma.banner.create({
         data: {
-            title: 'Cosmética Natural con Respaldo Científico',
-            subtitle: 'Formulaciones basadas en evidencia',
-            ctaText: 'Explorar Productos',
+            title: 'Piezas que cuentan\nhistorias',
+            subtitle: 'Joyería artesanal elaborada a mano con piedras semipreciosas, perlas y chapa de oro.',
+            ctaText: 'Ver Colección',
             ctaLink: '/tienda',
             position: 'hero',
             sortOrder: 1,
@@ -315,14 +200,13 @@ async function main() {
         },
     });
 
-    console.log('✅ Created banner');
-
-    console.log('🎉 Seed completed successfully!');
+    console.log('Created banner');
+    console.log('Seed completed successfully!');
 }
 
 main()
     .catch((e) => {
-        console.error('❌ Error seeding database:', e);
+        console.error('Error seeding database:', e);
         process.exit(1);
     })
     .finally(async () => {

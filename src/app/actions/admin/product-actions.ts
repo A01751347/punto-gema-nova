@@ -23,7 +23,6 @@ export async function getAdminProductsAction(email: string) {
                 stock: true,
                 isActive: true,
                 images: true
-                // could adding category relation later
             }
         });
         return { success: true, products };
@@ -84,12 +83,14 @@ export async function createProductAction(email: string, formData: FormData) {
         const stock = parseInt(formData.get('stock') as string);
         const size = formData.get('size') as string;
 
-        // Detailed fields
+        // Jewelry-specific fields
         const benefits = parseArray(formData.get('benefits') as string);
-        const howToUse = formData.get('howToUse') as string;
-        const whenToUse = formData.get('whenToUse') as string;
-        const suitableFor = parseArray(formData.get('suitableFor') as string);
-        const mechanism = formData.get('mechanism') as string;
+        const careInstructions = (formData.get('careInstructions') as string) || 'Evitar contacto con agua y perfumes. Limpiar con paño suave.';
+        const material = formData.get('material') as string;
+        const stoneType = formData.get('stoneType') as string;
+        const isCustomizable = formData.get('isCustomizable') === 'on';
+        const availabilityLabel = (formData.get('availabilityLabel') as string) || 'Disponible';
+        const collectionType = (formData.get('collectionType') as string) || 'permanente';
 
         const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
@@ -113,14 +114,15 @@ export async function createProductAction(email: string, formData: FormData) {
                 price,
                 stock,
                 sku,
-                size: size || 'Standard',
+                size: size || '18cm',
                 images: imageUrls,
-                howToUse: howToUse || 'Aplicar diariamente.',
-                whenToUse,
+                careInstructions,
                 benefits,
-                suitableFor,
-                mechanism,
-                notSuitableFor: [], // Default empty
+                material: material || null,
+                stoneType: stoneType || null,
+                isCustomizable,
+                availabilityLabel,
+                collectionType,
                 isActive: true
             }
         });
@@ -144,12 +146,14 @@ export async function updateProductAction(email: string, id: string, formData: F
         const description = formData.get('description') as string;
         const isActive = formData.get('isActive') === 'true';
 
-        // Detailed fields
+        // Jewelry-specific fields
         const benefits = parseArray(formData.get('benefits') as string);
-        const howToUse = formData.get('howToUse') as string;
-        const whenToUse = formData.get('whenToUse') as string;
-        const suitableFor = parseArray(formData.get('suitableFor') as string);
-        const mechanism = formData.get('mechanism') as string;
+        const careInstructions = formData.get('careInstructions') as string;
+        const material = formData.get('material') as string;
+        const stoneType = formData.get('stoneType') as string;
+        const isCustomizable = formData.get('isCustomizable') === 'on';
+        const availabilityLabel = formData.get('availabilityLabel') as string;
+        const collectionType = formData.get('collectionType') as string;
 
         // Handle New Image if uploaded
         const imageFile = formData.get('image') as File;
@@ -159,10 +163,6 @@ export async function updateProductAction(email: string, id: string, formData: F
             const buffer = Buffer.from(await imageFile.arrayBuffer());
             const key = `products/${Date.now()}-${imageFile.name}`;
             const { url } = await uploadFile(buffer, key, imageFile.type);
-            // Verify existing images to append or replace? For MVP replace primary, or assume append logic needed. 
-            // Let's Append to existing for now, or just replace array if we want simple 'Set Image' logic.
-            // Usually dashboard replaces the 'Main' image or adds to gallery.
-            // We'll Fetch current to append
             const current = await prisma.product.findUnique({ where: { id }, select: { images: true } });
             newImages = [...(current?.images || []), url];
         }
@@ -177,10 +177,12 @@ export async function updateProductAction(email: string, id: string, formData: F
                 description,
                 isActive,
                 benefits,
-                howToUse,
-                whenToUse,
-                suitableFor,
-                mechanism,
+                careInstructions,
+                material: material || null,
+                stoneType: stoneType || null,
+                isCustomizable,
+                availabilityLabel,
+                collectionType,
                 ...(newImages && { images: newImages })
             }
         });

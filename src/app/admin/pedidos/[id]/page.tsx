@@ -130,7 +130,7 @@ export default function AdminOrderDetailPage() {
                         <ChevronLeft size={20} />
                     </Link>
                     <div>
-                        <h1 className="text-2xl font-serif text-[#1e343a] flex items-center gap-3">
+                        <h1 className="text-2xl font-serif text-[#000000] flex items-center gap-3">
                             Pedido #{order.orderNumber}
                             <span className={`text-xs px-2.5 py-0.5 rounded-full border font-sans font-bold tracking-wide ${getStatusColor(order.status)}`}>
                                 {order.status}
@@ -161,7 +161,7 @@ export default function AdminOrderDetailPage() {
                     <button className="bg-white border border-gray-200 text-gray-600 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 flex items-center gap-2 shadow-sm">
                         <Printer size={16} /> Imprimir
                     </button>
-                    <button className="bg-[#1e343a] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#1e343a]/90 shadow-lg shadow-primary/20">
+                    <button className="bg-[#000000] text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-[#000000]/90 shadow-lg shadow-primary/20">
                         Enviar Notificación
                     </button>
                 </div>
@@ -227,7 +227,7 @@ export default function AdminOrderDetailPage() {
                                     <span>${order.tax.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                                 </div>
                                 <div className="h-px bg-gray-200 my-2" />
-                                <div className="flex justify-between text-[#1e343a] font-serif text-xl font-bold">
+                                <div className="flex justify-between text-[#000000] font-serif text-xl font-bold">
                                     <span>Total</span>
                                     <span>${order.total.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                                 </div>

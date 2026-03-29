@@ -186,7 +186,7 @@ export default function TrackingPage() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <span className="text-xs font-bold text-accent uppercase tracking-widest mb-2 block">
-                        Yutnüu Logistics
+                        Punto Gema Nova Envíos
                     </span>
                     <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">
                         Seguimiento de Envíos

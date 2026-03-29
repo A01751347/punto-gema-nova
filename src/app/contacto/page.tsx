@@ -4,8 +4,8 @@ import ContactForm from './ContactForm';
 import { Mail, MessageCircle, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'Contacto | Yutnüu',
-    description: 'Ponte en contacto con nuestro equipo. Atención al cliente, dudas sobre productos y ventas corporativas.',
+    title: 'Contacto | Punto Gema Nova',
+    description: 'Ponte en contacto con nuestro equipo. Atención al cliente, pedidos personalizados y envíos de joyería artesanal.',
 };
 
 export default function ContactPage() {
@@ -13,7 +13,7 @@ export default function ContactPage() {
         <main className="bg-white min-h-screen pt-0 pb-20">
 
             {/* Hero with Map/Texture background */}
-            <section className="relative px-4 py-20 bg-[#2c4a52] text-white overflow-hidden">
+            <section className="relative px-4 py-20 bg-[#1a1a1a] text-white overflow-hidden">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-3xl -z-10 -translate-y-1/2 translate-x-1/2" />
 
                 <div className="container mx-auto max-w-5xl text-center relative z-10">
@@ -24,8 +24,8 @@ export default function ContactPage() {
                         Conversemos
                     </h1>
                     <p className="text-lg text-white/80 font-light max-w-xl mx-auto leading-relaxed">
-                        ¿Dudas sobre qué rutina es ideal para tí? ¿O simplemente quieres saludar?
-                        Nuestro equipo de expertos está listo para escucharte.
+                        ¿Tienes preguntas sobre nuestras piezas, pedidos personalizados o envíos?
+                        Nuestro equipo está listo para ayudarte a encontrar la joya perfecta.
                     </p>
                 </div>
             </section>
@@ -36,11 +36,11 @@ export default function ContactPage() {
                     {/* Contact Info Side */}
                     <div className="md:w-5/12 bg-cream-light p-10 md:p-14 border-r border-gray-100 relative overflow-hidden">
                         {/* Blob */}
-                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#2c4a52]/5 rounded-full blur-2xl pointer-events-none" />
+                        <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#1a1a1a]/5 rounded-full blur-2xl pointer-events-none" />
 
                         <div className="relative z-10 space-y-12 h-full flex flex-col justify-center">
                             <div>
-                                <h3 className="text-xl font-serif text-[#2c4a52] mb-6">Canales Directos</h3>
+                                <h3 className="text-xl font-serif text-[#1a1a1a] mb-6">Canales Directos</h3>
                                 <div className="space-y-6">
                                     <div className="flex items-start gap-4 group">
                                         <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[#d4af37] group-hover:border-[#d4af37] transition-colors">
@@ -48,8 +48,8 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Email</span>
-                                            <a href="mailto:hola@yutnuu.mx" className="text-lg text-[#2c4a52] font-medium hover:text-[#d4af37] transition-colors">
-                                                hola@yutnuu.mx
+                                            <a href="mailto:hola@puntogemanova.com" className="text-lg text-[#1a1a1a] font-medium hover:text-[#d4af37] transition-colors">
+                                                hola@puntogemanova.com
                                             </a>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <span className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Whatsapp</span>
-                                            <a href="https://wa.me/5211234567890" target="_blank" rel="noopener noreferrer" className="text-lg text-[#2c4a52] font-medium hover:text-[#d4af37] transition-colors">
+                                            <a href="https://wa.me/5211234567890" target="_blank" rel="noopener noreferrer" className="text-lg text-[#1a1a1a] font-medium hover:text-[#d4af37] transition-colors">
                                                 +52 (1) 123 456 7890
                                             </a>
                                             <p className="text-xs text-text-light mt-1">Lun - Vie, 9:00 - 18:00</p>
@@ -83,7 +83,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="pt-8 border-t border-gray-200">
-                                <h4 className="text-sm font-bold text-[#2c4a52] mb-4">Preguntas Frecuentes</h4>
+                                <h4 className="text-sm font-bold text-[#1a1a1a] mb-4">Preguntas Frecuentes</h4>
                                 <ul className="space-y-3 text-sm text-text-secondary">
                                     <li>
                                         <a href="#" className="hover:text-[#d4af37] transition-colors flex items-center gap-2">
@@ -102,7 +102,7 @@ export default function ContactPage() {
 
                     {/* Form Side */}
                     <div className="md:w-7/12 p-10 md:p-14 bg-white">
-                        <h3 className="text-2xl font-serif text-[#2c4a52] mb-2">Envíanos un mensaje</h3>
+                        <h3 className="text-2xl font-serif text-[#1a1a1a] mb-2">Envíanos un mensaje</h3>
                         <p className="text-text-secondary font-light mb-8">Te responderemos en menos de 24 horas.</p>
 
                         <ContactForm />

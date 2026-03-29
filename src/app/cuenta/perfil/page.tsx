@@ -62,8 +62,8 @@ export default function ProfilePage() {
     return (
         <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-8 border-b border-gray-100 pb-4">
-                <User size={20} className="text-[#2c4a52]" />
-                <h2 className="text-xl font-bold text-[#2c4a52] uppercase tracking-wider">Mi Perfil</h2>
+                <User size={20} className="text-[#1a1a1a]" />
+                <h2 className="text-xl font-bold text-[#1a1a1a] uppercase tracking-wider">Mi Perfil</h2>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -119,7 +119,7 @@ export default function ProfilePage() {
                     <Button
                         type="submit"
                         isLoading={isLoading}
-                        className="bg-[#2c4a52] hover:bg-[#1a2c32] text-white px-8 py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider transition-colors w-full md:w-auto"
+                        className="bg-[#1a1a1a] hover:bg-[#000000] text-white px-8 py-2.5 rounded-lg text-sm font-medium uppercase tracking-wider transition-colors w-full md:w-auto"
                     >
                         Guardar Cambios
                     </Button>

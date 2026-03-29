@@ -15,7 +15,6 @@ export default function EditProductPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [isFetching, setIsFetching] = useState(true);
 
-    // Extended Form Data
     const [formData, setFormData] = useState({
         name: '',
         price: '',
@@ -24,10 +23,12 @@ export default function EditProductPage() {
         size: '',
         description: '',
         benefits: '',
-        howToUse: '',
-        mechanism: '',
-        suitableFor: '',
-        whenToUse: '',
+        careInstructions: '',
+        material: '',
+        stoneType: '',
+        isCustomizable: false,
+        availabilityLabel: 'Disponible',
+        collectionType: 'permanente',
         isActive: true,
         images: [] as string[]
     });
@@ -45,10 +46,12 @@ export default function EditProductPage() {
                         size: product.size || '',
                         description: product.description || '',
                         benefits: product.benefits ? product.benefits.join(', ') : '',
-                        howToUse: product.howToUse || '',
-                        mechanism: product.mechanism || '',
-                        suitableFor: product.suitableFor ? product.suitableFor.join(', ') : '',
-                        whenToUse: product.whenToUse || '',
+                        careInstructions: product.careInstructions || '',
+                        material: product.material || '',
+                        stoneType: product.stoneType || '',
+                        isCustomizable: product.isCustomizable || false,
+                        availabilityLabel: product.availabilityLabel || 'Disponible',
+                        collectionType: product.collectionType || 'permanente',
                         isActive: product.isActive,
                         images: product.images || []
                     });
@@ -59,7 +62,7 @@ export default function EditProductPage() {
         fetchProduct();
     }, [user, params.id]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const target = e.target as HTMLInputElement;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         // @ts-ignore
@@ -73,7 +76,6 @@ export default function EditProductPage() {
         setIsLoading(true);
 
         const data = new FormData(e.currentTarget);
-        // Add checkboxes manually as they might be unchecked
         data.set('isActive', formData.isActive.toString());
 
         const { success, error } = await updateProductAction(user.email, params.id as string, data);
@@ -103,7 +105,7 @@ export default function EditProductPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                     <Input label="SKU" name="sku" required value={formData.sku} onChange={handleChange} fullWidth />
-                    <Input label="Tamaño" name="size" required value={formData.size} onChange={handleChange} fullWidth />
+                    <Input label="Tamaño (ej. 18cm)" name="size" required value={formData.size} onChange={handleChange} fullWidth />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -124,7 +126,7 @@ export default function EditProductPage() {
                 </div>
 
                 <div className="border-t border-gray-100 pt-6">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">Detalles Avanzados</h3>
+                    <h3 className="text-lg font-medium text-gray-900 mb-4">Detalles de la Pieza</h3>
 
                     <div className="space-y-4">
                         <Input
@@ -134,51 +136,84 @@ export default function EditProductPage() {
                             onChange={handleChange}
                             fullWidth
                         />
-                        <Input
-                            label="Tipos de Piel (separados por coma)"
-                            name="suitableFor"
-                            value={formData.suitableFor}
-                            onChange={handleChange}
-                            fullWidth
-                        />
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <Input
+                                label="Material Principal"
+                                name="material"
+                                value={formData.material}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                            <Input
+                                label="Tipo de Piedra"
+                                name="stoneType"
+                                value={formData.stoneType}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Instrucciones de Cuidado</label>
+                            <textarea
+                                name="careInstructions"
+                                rows={3}
+                                className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                                value={formData.careInstructions}
+                                onChange={handleChange}
+                            />
+                        </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Modo de Uso</label>
-                                <textarea
-                                    name="howToUse"
-                                    rows={3}
-                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                                    value={formData.howToUse}
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Disponibilidad</label>
+                                <select
+                                    name="availabilityLabel"
+                                    value={formData.availabilityLabel}
                                     onChange={handleChange}
-                                />
+                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                                >
+                                    <option value="Disponible">Disponible</option>
+                                    <option value="Última pieza">Última pieza</option>
+                                    <option value="Bajo pedido">Bajo pedido</option>
+                                </select>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Mecanismo</label>
-                                <textarea
-                                    name="mechanism"
-                                    rows={3}
-                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                                    value={formData.mechanism}
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Colección</label>
+                                <select
+                                    name="collectionType"
+                                    value={formData.collectionType}
                                     onChange={handleChange}
-                                />
+                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                                >
+                                    <option value="permanente">Permanente</option>
+                                    <option value="casi-unica">Pieza Casi Única</option>
+                                    <option value="personalizado">Personalizado</option>
+                                    <option value="temporada">Temporada</option>
+                                </select>
                             </div>
                         </div>
 
-                        <Input
-                            label="Momento de Uso"
-                            name="whenToUse"
-                            value={formData.whenToUse}
-                            onChange={handleChange}
-                            fullWidth
-                        />
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                name="isCustomizable"
+                                id="isCustomizable"
+                                checked={formData.isCustomizable}
+                                onChange={handleChange}
+                                className="rounded border-gray-300 text-primary focus:ring-primary"
+                            />
+                            <label htmlFor="isCustomizable" className="text-sm text-gray-700">
+                                Esta pieza es personalizable
+                            </label>
+                        </div>
                     </div>
                 </div>
 
                 <div className="pt-4 border-t border-gray-100">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Imágenes del Producto</label>
 
-                    {/* Existing Images Preview */}
                     {formData.images && formData.images.length > 0 && (
                         <div className="flex gap-4 mb-4 overflow-x-auto pb-2">
                             {formData.images.map((img, idx) => (

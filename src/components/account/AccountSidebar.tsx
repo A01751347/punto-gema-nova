@@ -24,7 +24,7 @@ export default function AccountSidebar() {
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-xs font-bold text-[#2c4a52] uppercase tracking-wider mb-6 px-4">Mi Cuenta</h3>
+            <h3 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider mb-6 px-4">Mi Cuenta</h3>
             <nav className="space-y-1">
                 {menuItems.map((item) => {
                     const isActive = pathname === item.href;
@@ -34,11 +34,11 @@ export default function AccountSidebar() {
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-sm ${isActive
-                                ? 'bg-[#F2EFE9] text-[#2c4a52] font-bold'
-                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#2c4a52]'
+                                ? 'bg-[#F2EFE9] text-[#1a1a1a] font-bold'
+                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a1a1a]'
                                 }`}
                         >
-                            <Icon size={16} className={isActive ? 'text-[#2c4a52]' : 'text-gray-400'} />
+                            <Icon size={16} className={isActive ? 'text-[#1a1a1a]' : 'text-gray-400'} />
                             {item.label}
                         </Link>
                     );

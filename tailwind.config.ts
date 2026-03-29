@@ -16,13 +16,13 @@ const config: Config = {
           dark: '#e8e8e4',
         },
         primary: {
-          DEFAULT: '#2c4a52',
-          light: '#4a727d',
-          dark: '#1e343a',
+          DEFAULT: '#1a1a1a',
+          light: '#3d3d3d',
+          dark: '#000000',
         },
         secondary: {
-          DEFAULT: '#8c9e8e',
-          light: '#aebdb0',
+          DEFAULT: '#c9b99a',
+          light: '#ddd0b8',
         },
         accent: {
           DEFAULT: '#d4af37',

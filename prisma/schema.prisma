@@ -1,5 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Prisma schema — Punto Gema Nova (Joyería Artesanal)
 
 generator client {
   provider = "prisma-client-js"
@@ -12,24 +11,23 @@ datasource db {
 
 // User model (linked to AWS Cognito)
 model User {
-  id            String    @id @default(uuid())
-  cognitoId     String    @unique
-  email         String    @unique
-  firstName     String?
-  lastName      String?
-  phone         String?
-  role          UserRole  @default(CUSTOMER)
-  skinType      String?   // dry, oily, combination, sensitive, normal
-  skinConcerns  String[]  // array of concerns
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
+  id               String    @id @default(uuid())
+  cognitoId        String    @unique
+  email            String    @unique
+  firstName        String?
+  lastName         String?
+  phone            String?
+  role             UserRole  @default(CUSTOMER)
+  stylePreferences String[]  // style quiz preferences
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
   // Relations
   orders        Order[]
   addresses     Address[]
   reviews       Review[]
   quizResults   QuizResult[]
-  
+
   @@map("users")
 }
 
@@ -48,7 +46,7 @@ model Product {
   description       String
   price             Float
   compareAtPrice    Float?    // original price for discounts
-  size              String    // e.g., "30ml", "50ml"
+  size              String    // e.g., "18cm", "45cm"
   sku               String    @unique
   stock             Int       @default(0)
   lowStockThreshold Int       @default(10)
@@ -56,37 +54,36 @@ model Product {
   isFeatured        Boolean   @default(false)
   isNew             Boolean   @default(false)
   isBestseller      Boolean   @default(false)
-  
+
   // Product details
   benefits          String[]  // key benefits
-  howToUse          String    // usage instructions
-  whenToUse         String?   // AM/PM/Both
-  suitableFor       String[]  // skin types
-  notSuitableFor    String[]  // contraindications
-  
-  // Scientific backing
-  mechanism         String?   // how it works
-  expectedResults   String?   // timeline and expectations
-  
+  careInstructions  String    // how to care for the piece
+
+  // Jewelry-specific fields
+  material          String?   // "Chapa de oro 18k", "Plata .925"
+  stoneType         String?   // "Cuarzo rosa", "Amatista", "Perla de río"
+  isCustomizable    Boolean   @default(false)
+  availabilityLabel String?   // "Disponible", "Última pieza", "Bajo pedido"
+  collectionType    String?   // "permanente", "casi-unica", "personalizado", "temporada"
+
   // Media
   images            String[]  // S3 URLs
   videoUrl          String?   // S3 URL for demo video
-  
+
   // SEO
   metaTitle         String?
   metaDescription   String?
-  
+
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
-  
+
   // Relations
   categories        ProductCategory[]
-  ingredients       ProductIngredient[]
+  materials         ProductMaterial[]
   orderItems        OrderItem[]
   reviews           Review[]
-  routineProducts   RoutineProduct[]
   bundleProducts    BundleProduct[]
-  
+
   @@map("products")
 }
 
@@ -99,10 +96,10 @@ model Category {
   icon        String?
   sortOrder   Int       @default(0)
   isActive    Boolean   @default(true)
-  
+
   // Relations
   products    ProductCategory[]
-  
+
   @@map("categories")
 }
 
@@ -110,72 +107,41 @@ model Category {
 model ProductCategory {
   productId   String
   categoryId  String
-  
+
   product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
+
   @@id([productId, categoryId])
   @@map("product_categories")
 }
 
-// Ingredient model
-model Ingredient {
-  id              String    @id @default(uuid())
-  slug            String    @unique
-  name            String
-  description     String
-  benefits        String[]
-  typicalConcentration String?
-  precautions     String?
-  
-  // Relations
-  products        ProductIngredient[]
-  references      IngredientReference[]
-  
-  @@map("ingredients")
-}
-
-// Many-to-many relation between Product and Ingredient
-model ProductIngredient {
-  productId     String
-  ingredientId  String
-  concentration String?   // e.g., "5%", "10-15%"
-  isKeyIngredient Boolean @default(false)
-  
-  product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-  ingredient    Ingredient  @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
-  
-  @@id([productId, ingredientId])
-  @@map("product_ingredients")
-}
-
-// Scientific references
-model Reference {
+// Material model (stones, metals, pearls, etc.)
+model Material {
   id          String    @id @default(uuid())
-  title       String
-  summary     String
-  url         String?
-  authors     String?
-  publication String?
-  year        Int?
-  category    String?   // anti-aging, hydration, etc.
-  
+  slug        String    @unique
+  name        String
+  description String
+  benefits    String[]
+  type        String?   // "piedra", "metal", "perla", "hilo"
+  origin      String?   // "Brasil", "México", "India"
+
   // Relations
-  ingredients IngredientReference[]
-  
-  @@map("references")
+  products    ProductMaterial[]
+
+  @@map("materials")
 }
 
-// Many-to-many relation between Ingredient and Reference
-model IngredientReference {
-  ingredientId  String
-  referenceId   String
-  
-  ingredient    Ingredient  @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
-  reference     Reference   @relation(fields: [referenceId], references: [id], onDelete: Cascade)
-  
-  @@id([ingredientId, referenceId])
-  @@map("ingredient_references")
+// Many-to-many relation between Product and Material
+model ProductMaterial {
+  productId   String
+  materialId  String
+  isPrimary   Boolean   @default(false)
+
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  material    Material  @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  @@id([productId, materialId])
+  @@map("product_materials")
 }
 
 // Address model
@@ -193,14 +159,14 @@ model Address {
   country     String    @default("MX")
   phone       String
   isDefault   Boolean   @default(false)
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   // Relations
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   orders      Order[]
-  
+
   @@map("addresses")
 }
 
@@ -210,43 +176,43 @@ model Order {
   orderNumber     String      @unique
   userId          String?
   guestEmail      String?
-  
+
   // Shipping
   shippingAddressId String?
   shippingAddress   Address?  @relation(fields: [shippingAddressId], references: [id])
   shippingMethod    String
   shippingCost      Float
-  
+
   // Pricing
   subtotal        Float
   discount        Float       @default(0)
   tax             Float       @default(0)
   total           Float
-  
+
   // Payment
-  paymentMethod   String      // paypal, mercadopago
+  paymentMethod   String      // mercadopago
   paymentStatus   PaymentStatus @default(PENDING)
   paymentId       String?     // external payment ID
-  
+
   // Order status
   status          OrderStatus @default(PENDING)
   trackingNumber  String?
-  
+
   // Coupon
   couponCode      String?
-  
+
   // Notes
   customerNotes   String?
   adminNotes      String?
-  
+
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
-  
+
   // Relations
   user            User?       @relation(fields: [userId], references: [id])
   items           OrderItem[]
   invoiceRequest  InvoiceRequest?
-  
+
   @@map("orders")
 }
 
@@ -272,18 +238,18 @@ model OrderItem {
   id          String    @id @default(uuid())
   orderId     String
   productId   String
-  
+
   name        String    // snapshot of product name
   sku         String    // snapshot of SKU
   price       Float     // snapshot of price
   quantity    Int
-  
+
   createdAt   DateTime  @default(now())
-  
+
   // Relations
   order       Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product     Product   @relation(fields: [productId], references: [id])
-  
+
   @@map("order_items")
 }
 
@@ -292,62 +258,25 @@ model Review {
   id          String    @id @default(uuid())
   productId   String
   userId      String
-  
+
   rating      Int       // 1-5
   title       String?
   comment     String
   images      String[]  // S3 URLs for customer photos
   isVerified  Boolean   @default(false)
   isApproved  Boolean   @default(false)
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   // Relations
   product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   @@map("reviews")
 }
 
-// Skincare routine model
-model Routine {
-  id          String    @id @default(uuid())
-  slug        String    @unique
-  name        String
-  description String
-  skinType    String?   // target skin type
-  concerns    String[]  // target concerns
-  timeframe   String?   // "2 weeks", "1 month", etc.
-  
-  isActive    Boolean   @default(true)
-  sortOrder   Int       @default(0)
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  
-  // Relations
-  products    RoutineProduct[]
-  
-  @@map("routines")
-}
-
-// Many-to-many relation between Routine and Product
-model RoutineProduct {
-  routineId   String
-  productId   String
-  step        Int       // order in routine
-  timeOfDay   String    // AM, PM, Both
-  instructions String?
-  
-  routine     Routine   @relation(fields: [routineId], references: [id], onDelete: Cascade)
-  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
-  @@id([routineId, productId])
-  @@map("routine_products")
-}
-
-// Product bundle model
+// Product bundle / set model
 model Bundle {
   id          String    @id @default(uuid())
   slug        String    @unique
@@ -356,13 +285,13 @@ model Bundle {
   price       Float
   compareAtPrice Float?
   isActive    Boolean   @default(true)
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   // Relations
   products    BundleProduct[]
-  
+
   @@map("bundles")
 }
 
@@ -371,34 +300,34 @@ model BundleProduct {
   bundleId    String
   productId   String
   quantity    Int       @default(1)
-  
+
   bundle      Bundle    @relation(fields: [bundleId], references: [id], onDelete: Cascade)
   product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
+
   @@id([bundleId, productId])
   @@map("bundle_products")
 }
 
-// Skin quiz model
+// Style quiz model
 model QuizResult {
   id          String    @id @default(uuid())
   userId      String?
-  
-  // Quiz answers (stored as JSON)
-  skinType    String
-  concerns    String[]
-  currentRoutine String?
-  preferences Json?     // texture, fragrance, etc.
-  
+
+  // Quiz answers
+  styleType   String            // "minimalista", "bohemio", "clasico", "atrevido"
+  occasions   String[]          // "diario", "regalo", "fiesta", "oficina"
+  priceRange  String?           // budget preference
+  preferences Json?             // material/color preferences
+
   // Recommendations
-  recommendedProducts String[]  // product IDs
-  recommendedRoutine  String?   // routine ID
-  
+  recommendedProducts   String[]  // product IDs
+  recommendedCollection String?   // collection type
+
   createdAt   DateTime  @default(now())
-  
+
   // Relations
   user        User?     @relation(fields: [userId], references: [id])
-  
+
   @@map("quiz_results")
 }
 
@@ -407,23 +336,23 @@ model Coupon {
   id          String    @id @default(uuid())
   code        String    @unique
   description String?
-  
+
   discountType String   // percentage, fixed
   discountValue Float
-  
+
   minPurchase Float?
   maxDiscount Float?
-  
+
   usageLimit  Int?
   usageCount  Int       @default(0)
-  
+
   startsAt    DateTime?
   expiresAt   DateTime?
   isActive    Boolean   @default(true)
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   @@map("coupons")
 }
 
@@ -435,20 +364,20 @@ model BlogPost {
   excerpt     String?
   content     String
   featuredImage String?
-  
+
   category    String?
   tags        String[]
-  
+
   isPublished Boolean   @default(false)
   publishedAt DateTime?
-  
+
   // SEO
   metaTitle   String?
   metaDescription String?
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   @@map("blog_posts")
 }
 
@@ -458,9 +387,9 @@ model NewsletterSubscriber {
   email       String    @unique
   firstName   String?
   isActive    Boolean   @default(true)
-  
+
   createdAt   DateTime  @default(now())
-  
+
   @@map("newsletter_subscribers")
 }
 
@@ -471,17 +400,17 @@ model Banner {
   subtitle    String?
   ctaText     String?
   ctaLink     String?
-  
+
   imageUrl    String?   // S3 URL
   videoUrl    String?   // S3 URL
-  
+
   position    String    // hero, featured, etc.
   sortOrder   Int       @default(0)
   isActive    Boolean   @default(true)
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   @@map("banners")
 }
 
@@ -489,7 +418,7 @@ model Banner {
 model InvoiceRequest {
   id              String      @id @default(uuid())
   orderId         String      @unique
-  
+
   // Fiscal Data
   rfc             String
   razonSocial     String
@@ -497,18 +426,18 @@ model InvoiceRequest {
   usoCfdi         String
   cp              String
   email           String
-  
+
   // Status
   status          InvoiceStatus @default(PENDING)
   xmlUrl          String?
   pdfUrl          String?
-  
+
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
-  
+
   // Relations
   order           Order       @relation(fields: [orderId], references: [id])
-  
+
   @@map("invoice_requests")
 }
 
@@ -520,11 +449,11 @@ enum InvoiceStatus {
 
 // Store configuration
 model StoreSettings {
-  id                        String      @id @default("default") // Usually just one row
+  id                        String      @id @default("default")
   orderNotificationEmails   String[]    @default([])
   invoiceNotificationEmails String[]    @default([])
-  
+
   updatedAt                 DateTime    @updatedAt
-  
+
   @@map("store_settings")
 }

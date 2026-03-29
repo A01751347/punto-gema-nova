@@ -59,7 +59,7 @@ export const createPreference = async (orderId: string, items: any[], payer: any
             },
             auto_return: 'approved',
             external_reference: orderId,
-            statement_descriptor: 'CREMAS SHOP', // Changes what user sees on bank statement
+            statement_descriptor: 'PUNTO GEMA NOVA', // Changes what user sees on bank statement
             expires: false,
         }
     };

@@ -7,8 +7,7 @@ export interface User {
     lastName?: string | null;
     phone?: string | null;
     role: UserRole;
-    skinType?: string | null;
-    skinConcerns?: string[];
+    stylePreferences?: string[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -33,12 +32,12 @@ export interface Product {
     isNew: boolean;
     isBestseller: boolean;
     benefits: string[];
-    howToUse: string;
-    whenToUse?: string;
-    suitableFor: string[];
-    notSuitableFor: string[];
-    mechanism?: string;
-    expectedResults?: string;
+    careInstructions: string;
+    material?: string;
+    stoneType?: string;
+    isCustomizable: boolean;
+    availabilityLabel?: string;
+    collectionType?: string;
     images: string[];
     videoUrl?: string;
     metaTitle?: string;
@@ -134,51 +133,44 @@ export interface Review {
     updatedAt: Date;
 }
 
-// Ingredient types
-export interface Ingredient {
+// Material types
+export interface Material {
     id: string;
     slug: string;
     name: string;
     description: string;
     benefits: string[];
-    typicalConcentration?: string;
-    precautions?: string;
+    type?: string;
+    origin?: string;
 }
 
-// Routine types
-export interface Routine {
-    id: string;
-    slug: string;
-    name: string;
-    description: string;
-    skinType?: string;
-    concerns: string[];
-    timeframe?: string;
-    isActive: boolean;
-    sortOrder: number;
+export interface ProductMaterial {
+    productId: string;
+    materialId: string;
+    isPrimary: boolean;
+    material?: Material;
 }
 
 // Quiz types
 export interface QuizAnswer {
-    skinType: string;
-    concerns: string[];
-    currentRoutine?: string;
+    styleType: string;
+    occasions: string[];
+    priceRange?: string;
     preferences?: {
-        texture?: string[];
-        fragrance?: boolean;
-        budget?: string;
+        materials?: string[];
+        colors?: string[];
     };
 }
 
 export interface QuizResult {
     id: string;
     userId?: string;
-    skinType: string;
-    concerns: string[];
-    currentRoutine?: string;
+    styleType: string;
+    occasions: string[];
+    priceRange?: string;
     preferences?: any;
     recommendedProducts: string[];
-    recommendedRoutine?: string;
+    recommendedCollection?: string;
     createdAt: Date;
 }
 
@@ -219,8 +211,9 @@ export interface PaginatedResponse<T> {
 // Filter types
 export interface ProductFilters {
     category?: string;
-    skinType?: string;
-    concern?: string;
+    material?: string;
+    stoneType?: string;
+    collectionType?: string;
     priceMin?: number;
     priceMax?: number;
     sortBy?: 'price_asc' | 'price_desc' | 'newest' | 'popular' | 'name';

@@ -110,7 +110,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
                 </div>
 
                 <p className="text-xs text-center text-text-secondary font-light">
-                    Envío gratis en pedidos superiores a $999 MXN
+                    Envío gratis en compras mayores a $1,300 MXN
                 </p>
             </div>
         </div>

@@ -36,7 +36,7 @@ export default function DashboardPage() {
         <div>
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-[#2c4a52] mb-2">
+                <h1 className="text-2xl font-bold text-[#1a1a1a] mb-2">
                     Hola, {user?.firstName || 'Usuario'}
                 </h1>
                 <p className="text-sm text-gray-500 max-w-2xl">
@@ -50,10 +50,10 @@ export default function DashboardPage() {
                 <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
                     <div className="flex justify-between items-center mb-6 pb-3 border-b border-gray-100">
                         <div className="flex items-center gap-2">
-                            <Package size={16} className="text-[#2c4a52]" />
-                            <h2 className="text-xs font-bold text-[#2c4a52] uppercase tracking-wider">Pedidos Recientes</h2>
+                            <Package size={16} className="text-[#1a1a1a]" />
+                            <h2 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider">Pedidos Recientes</h2>
                         </div>
-                        <Link href="/cuenta/pedidos" className="text-xs text-gray-500 hover:text-[#2c4a52] transition-colors">
+                        <Link href="/cuenta/pedidos" className="text-xs text-gray-500 hover:text-[#1a1a1a] transition-colors">
                             Ver todos
                         </Link>
                     </div>
@@ -73,7 +73,7 @@ export default function DashboardPage() {
                                         className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 group"
                                     >
                                         <div>
-                                            <p className="text-sm font-medium text-[#2c4a52] group-hover:text-primary-light">#{order.orderNumber}</p>
+                                            <p className="text-sm font-medium text-[#1a1a1a] group-hover:text-primary-light">#{order.orderNumber}</p>
                                             <div className="flex items-center gap-2 text-xs text-gray-400 mt-0.5">
                                                 <Clock size={10} />
                                                 <span>{formatDate(order.createdAt)}</span>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                                                 }`}>
                                                 {order.status === 'PENDING' ? 'Pendiente' : order.status}
                                             </span>
-                                            <ChevronRight size={14} className="text-gray-300 group-hover:text-[#2c4a52]" />
+                                            <ChevronRight size={14} className="text-gray-300 group-hover:text-[#1a1a1a]" />
                                         </div>
                                     </Link>
                                 ))}
@@ -95,7 +95,7 @@ export default function DashboardPage() {
                         ) : (
                             <div className="text-center py-6">
                                 <p className="text-sm text-gray-400 mb-4">No tienes pedidos recientes.</p>
-                                <Link href="/tienda" className="inline-flex items-center px-4 py-2 bg-[#F2EFE9] text-[#2c4a52] text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-[#E6E0D9] transition-colors">
+                                <Link href="/tienda" className="inline-flex items-center px-4 py-2 bg-[#F2EFE9] text-[#1a1a1a] text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-[#E6E0D9] transition-colors">
                                     Ir a la tienda
                                 </Link>
                             </div>
@@ -107,17 +107,17 @@ export default function DashboardPage() {
                 <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow h-fit">
                     <div className="flex justify-between items-center mb-6 pb-3 border-b border-gray-100">
                         <div className="flex items-center gap-2">
-                            <User size={16} className="text-[#2c4a52]" />
-                            <h2 className="text-xs font-bold text-[#2c4a52] uppercase tracking-wider">Detalles de la Cuenta</h2>
+                            <User size={16} className="text-[#1a1a1a]" />
+                            <h2 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider">Detalles de la Cuenta</h2>
                         </div>
-                        <Link href="/cuenta/perfil" className="text-xs text-gray-500 hover:text-[#2c4a52] transition-colors">
+                        <Link href="/cuenta/perfil" className="text-xs text-gray-500 hover:text-[#1a1a1a] transition-colors">
                             Editar
                         </Link>
                     </div>
                     <div className="space-y-3">
                         <div>
                             <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Nombre</p>
-                            <p className="text-[#2c4a52] font-medium text-sm">{user?.firstName} {user?.lastName}</p>
+                            <p className="text-[#1a1a1a] font-medium text-sm">{user?.firstName} {user?.lastName}</p>
                         </div>
                         <div>
                             <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Email</p>

@@ -51,16 +51,16 @@ export default function OrdersPage() {
     if (orders.length === 0) {
         return (
             <div className="min-h-[400px] flex flex-col items-center justify-center text-center bg-white rounded-xl border border-gray-200 p-8 shadow-sm">
-                <div className="w-16 h-16 bg-[#F2EFE9] rounded-full flex items-center justify-center mb-4 text-[#2c4a52]">
+                <div className="w-16 h-16 bg-[#F2EFE9] rounded-full flex items-center justify-center mb-4 text-[#1a1a1a]">
                     <Package size={32} />
                 </div>
-                <h2 className="text-lg font-bold text-[#2c4a52] mb-2 uppercase tracking-wider">Aún no tienes pedidos</h2>
+                <h2 className="text-lg font-bold text-[#1a1a1a] mb-2 uppercase tracking-wider">Aún no tienes pedidos</h2>
                 <p className="text-gray-500 mb-6 max-w-sm text-sm">
-                    Explora nuestros productos y crea tu primera rutina de cuidado de la piel.
+                    Explora nuestros productos y crea tu primera piezas de joyería artesanal.
                 </p>
                 <Link
                     href="/tienda"
-                    className="bg-[#2c4a52] hover:bg-[#1a2c32] text-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
+                    className="bg-[#1a1a1a] hover:bg-[#000000] text-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2"
                 >
                     <ShoppingBag size={16} />
                     Ir a la Tienda
@@ -72,8 +72,8 @@ export default function OrdersPage() {
     return (
         <div>
             <div className="flex items-center gap-2 mb-8 border-b border-gray-100 pb-4">
-                <Package size={20} className="text-[#2c4a52]" />
-                <h1 className="text-xl font-bold text-[#2c4a52] uppercase tracking-wider">Mis Pedidos</h1>
+                <Package size={20} className="text-[#1a1a1a]" />
+                <h1 className="text-xl font-bold text-[#1a1a1a] uppercase tracking-wider">Mis Pedidos</h1>
             </div>
 
             <div className="space-y-4">
@@ -89,7 +89,7 @@ export default function OrdersPage() {
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3">
-                                        <span className="font-bold text-[#2c4a52] text-sm">#{order.orderNumber}</span>
+                                        <span className="font-bold text-[#1a1a1a] text-sm">#{order.orderNumber}</span>
                                         <span className={`px-2 py-0.5 text-[10px] rounded-full font-bold uppercase tracking-wider border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
                                             order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
                                                 order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
@@ -111,7 +111,7 @@ export default function OrdersPage() {
                                     </p>
                                 </div>
                                 <div className="flex flex-row items-center justify-between md:justify-end gap-4 md:gap-6 pt-4 md:pt-0 border-t md:border-t-0 border-gray-100 w-full md:w-auto">
-                                    <p className="font-bold text-lg text-[#2c4a52]">
+                                    <p className="font-bold text-lg text-[#1a1a1a]">
                                         ${order.total.toFixed(2)}
                                     </p>
                                     <div className="flex items-center gap-3">
@@ -126,7 +126,7 @@ export default function OrdersPage() {
                                         )}
                                         <Link
                                             href={`/cuenta/pedidos/${order.id}`}
-                                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#2c4a52] hover:text-[#4a727d] transition-colors group-hover:underline decoration-1 underline-offset-4"
+                                            className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#1a1a1a] hover:text-[#3d3d3d] transition-colors group-hover:underline decoration-1 underline-offset-4"
                                         >
                                             Ver Detalles
                                             <ArrowRight size={14} />

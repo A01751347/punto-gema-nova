@@ -19,8 +19,8 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const DEFAULT_FROM_EMAIL = process.env.SMTP_FROM_EMAIL || 'noreply@cremasshop.com';
-const DEFAULT_FROM_NAME = process.env.SMTP_FROM_NAME || 'Cremas Shop';
+const DEFAULT_FROM_EMAIL = process.env.SMTP_FROM_EMAIL || 'noreply@puntogemanova.com';
+const DEFAULT_FROM_NAME = process.env.SMTP_FROM_NAME || 'Punto Gema Nova';
 const DEFAULT_FROM = `"${DEFAULT_FROM_NAME}" <${DEFAULT_FROM_EMAIL}>`;
 
 export async function sendEmail({ to, subject, html, attachments }: { to: string, subject: string, html: string, attachments?: any[] }) {
@@ -64,11 +64,11 @@ export const sendOrderConfirmationEmail = async (order: any, user: any) => {
 
     const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-            <h1 style="color: #2c4a52;">¡Gracias por tu compra!</h1>
+            <h1 style="color: #1a1a1a;">¡Gracias por tu compra!</h1>
             <p>Hola ${user.firstName},</p>
             <p>Hemos recibido tu pedido <strong>#${order.orderNumber}</strong> y ya lo estamos preparando.</p>
             
-            <h3 style="color: #2c4a52; margin-top: 20px;">Resumen del Pedido</h3>
+            <h3 style="color: #1a1a1a; margin-top: 20px;">Resumen del Pedido</h3>
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                 <thead>
                     <tr style="background-color: #f9f9f9; text-align: left;">
@@ -101,7 +101,7 @@ export const sendOrderConfirmationEmail = async (order: any, user: any) => {
 export const sendInvoiceRequestNotification = async (request: any, order: any, userEmail: string) => {
     const html = `
         <div style="font-family: Arial, sans-serif; color: #333;">
-            <h2 style="color: #2c4a52;">Solicitud de Factura Recibida</h2>
+            <h2 style="color: #1a1a1a;">Solicitud de Factura Recibida</h2>
             <p>Hemos recibido tus datos fiscales para el pedido <strong>#${order.orderNumber}</strong>.</p>
             <p><strong>RFC:</strong> ${request.rfc}</p>
             <p><strong>Razón Social:</strong> ${request.razonSocial}</p>
@@ -119,7 +119,7 @@ export const sendInvoiceRequestNotification = async (request: any, order: any, u
 export const sendInvoiceGeneratedEmail = async (contactEmail: string, orderNumber: string, xmlUrl: string, pdfUrl: string) => {
     const html = `
         <div style="font-family: Arial, sans-serif; color: #333;">
-            <h2 style="color: #2c4a52;">Tu Factura está lista</h2>
+            <h2 style="color: #1a1a1a;">Tu Factura está lista</h2>
             <p>Adjuntamos la factura correspondiente a tu pedido <strong>#${orderNumber}</strong>.</p>
             <p>Gracias por tu preferencia.</p>
         </div>
@@ -152,14 +152,14 @@ export const sendShippingNotificationEmail = async (order: any, user: any, items
 
     const html = `
         <div style="font-family: Arial, sans-serif; color: #333;">
-            <h2 style="color: #2c4a52;">¡Tu paquete está en camino! 🚚</h2>
+            <h2 style="color: #1a1a1a;">¡Tu paquete está en camino! 🚚</h2>
             <p>Hola ${user.firstName},</p>
             <p>Tu pedido <strong>#${order.orderNumber}</strong> ha sido enviado.</p>
             
             ${order.trackingNumber ? `<p><strong>Número de Guía:</strong> ${order.trackingNumber}</p>` : ''}
             ${order.carrier ? `<p><strong>Paquetería:</strong> ${order.carrier}</p>` : ''}
             
-             <h3 style="color: #2c4a52; margin-top: 20px;">Lo que viene en camino:</h3>
+             <h3 style="color: #1a1a1a; margin-top: 20px;">Lo que viene en camino:</h3>
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                 <thead>
                     <tr style="background-color: #f9f9f9; text-align: left;">
@@ -194,7 +194,7 @@ export const sendAdminOrderNotificationEmail = async (order: any, user: any, adm
 
     const html = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-            <h1 style="color: #2c4a52;">¡Nuevo Pedido Recibido!</h1>
+            <h1 style="color: #1a1a1a;">¡Nuevo Pedido Recibido!</h1>
             <p>Se ha registrado un nuevo pedido en la tienda.</p>
             
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
@@ -212,7 +212,7 @@ export const sendAdminOrderNotificationEmail = async (order: any, user: any, adm
                 </tr>
             </table>
             
-            <h3 style="color: #2c4a52; margin-top: 20px;">Artículos</h3>
+            <h3 style="color: #1a1a1a; margin-top: 20px;">Artículos</h3>
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                 <thead>
                     <tr style="background-color: #f9f9f9; text-align: left;">
@@ -227,7 +227,7 @@ export const sendAdminOrderNotificationEmail = async (order: any, user: any, adm
             </table>
             
             <div style="margin-top: 30px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #2c4a52; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #1a1a1a; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
             </div>
         </div>
     `;
@@ -242,10 +242,10 @@ export const sendAdminOrderNotificationEmail = async (order: any, user: any, adm
 export const sendAdminInvoiceNotificationEmail = async (request: any, order: any, adminEmail: string) => {
     const html = `
         <div style="font-family: Arial, sans-serif; color: #333;">
-            <h2 style="color: #2c4a52;">Nueva Solicitud de Factura</h2>
+            <h2 style="color: #1a1a1a;">Nueva Solicitud de Factura</h2>
             <p>El cliente del pedido <strong>#${order.orderNumber}</strong> ha solicitado una factura.</p>
             
-            <h3 style="color: #2c4a52; margin-top: 20px;">Datos Fiscales</h3>
+            <h3 style="color: #1a1a1a; margin-top: 20px;">Datos Fiscales</h3>
             <p><strong>RFC:</strong> ${request.rfc}</p>
             <p><strong>Razón Social:</strong> ${request.razonSocial}</p>
             ${request.regimenFiscal ? `<p><strong>Régimen Fiscal:</strong> ${request.regimenFiscal}</p>` : ''}
@@ -255,7 +255,7 @@ export const sendAdminInvoiceNotificationEmail = async (request: any, order: any
             <p style="margin-top: 20px;">Por favor procede a generarla y cargarla en el sistema.</p>
             
             <div style="margin-top: 30px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #2c4a52; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin/pedidos/${order.id}" style="background-color: #1a1a1a; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Ver Pedido en Admin</a>
             </div>
         </div>
     `;

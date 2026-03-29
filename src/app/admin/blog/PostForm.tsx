@@ -160,10 +160,10 @@ export default function PostForm({ post, isEditing = false }: PostFormProps) {
                                 className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white"
                             >
                                 <option value="">Seleccionar...</option>
-                                <option value="Ciencia">Ciencia</option>
-                                <option value="Rutinas">Rutinas</option>
-                                <option value="Ingredientes">Ingredientes</option>
-                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Materiales">Materiales</option>
+                                <option value="Cuidado">Cuidado</option>
+                                <option value="Ideas">Ideas</option>
+                                <option value="Educación">Educación</option>
                                 <option value="Noticias">Noticias</option>
                             </select>
                         </div>

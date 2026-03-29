@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                         <span>{new Date(post.publishedAt || Date.now()).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#2c4a52] leading-tight mb-8">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#1a1a1a] leading-tight mb-8">
                         {post.title}
                     </h1>
                     {post.excerpt && (
@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 {/* Content */}
                 <div className="max-w-3xl mx-auto">
-                    <div className="prose prose-lg prose-headings:font-serif prose-headings:text-[#2c4a52] prose-p:text-text-secondary prose-p:font-light prose-p:leading-loose prose-a:text-[#d4af37] prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+                    <div className="prose prose-lg prose-headings:font-serif prose-headings:text-[#1a1a1a] prose-p:text-text-secondary prose-p:font-light prose-p:leading-loose prose-a:text-[#d4af37] prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
                         <ReactMarkdown>
                             {post.content}
                         </ReactMarkdown>

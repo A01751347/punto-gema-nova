@@ -5,10 +5,9 @@ import { useState } from 'react';
 
 interface FilterSidebarProps {
     categories: { id: string; name: string }[];
-    concerns: { id: string; name: string }[]; // Assuming we treat key ingredients or tags as concerns/filters later
 }
 
-export default function FilterSidebar({ categories, concerns }: FilterSidebarProps) {
+export default function FilterSidebar({ categories }: FilterSidebarProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isOpen, setIsOpen] = useState(false);
@@ -52,11 +51,11 @@ export default function FilterSidebar({ categories, concerns }: FilterSidebarPro
                             </button>
                         </li>
                         {[
-                            'Acné',
-                            'Anti-Edad',
-                            'Barrera Cutánea',
-                            'Hidratación',
-                            'Manchas'
+                            'Pulseras',
+                            'Collares',
+                            'Sets',
+                            'Personalizados',
+                            'Temporada'
                         ].map((cat) => (
                             <li key={cat}>
                                 <button
@@ -71,7 +70,27 @@ export default function FilterSidebar({ categories, concerns }: FilterSidebarPro
                     </ul>
                 </div>
 
-                {/* Placeholder for Concerns filters if needed */}
+                {/* Collection filter */}
+                <div>
+                    <h3 className="font-serif text-lg mb-4 text-text-primary">Colección</h3>
+                    <ul className="space-y-3">
+                        {[
+                            { label: 'Permanente', value: 'permanente' },
+                            { label: 'Piezas Casi Únicas', value: 'casi-unica' },
+                            { label: 'Bajo Pedido', value: 'personalizado' },
+                            { label: 'Temporada', value: 'temporada' },
+                        ].map((col) => (
+                            <li key={col.value}>
+                                <button
+                                    onClick={() => handleFilterChange('collection', searchParams.get('collection') === col.value ? null : col.value)}
+                                    className={`text-sm hover:text-primary transition-colors text-left ${searchParams.get('collection') === col.value ? 'text-primary font-medium' : 'text-text-secondary'}`}
+                                >
+                                    {col.label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

@@ -39,10 +39,10 @@ export default function Footer() {
     const footerLinks = {
         tienda: [
             { name: 'Todos los Productos', href: '/tienda' },
-            { name: 'Hidratación', href: '/tienda?category=hidratacion' },
-            { name: 'Anti-Edad', href: '/tienda?category=anti-edad' },
-            { name: 'Manchas', href: '/tienda?category=manchas' },
-            { name: 'Acné', href: '/tienda?category=acne' },
+            { name: 'Pulseras', href: '/tienda?category=pulseras' },
+            { name: 'Collares', href: '/tienda?category=collares' },
+            { name: 'Sets', href: '/tienda?category=sets' },
+            { name: 'Personalizados', href: '/tienda?category=personalizados' },
         ],
         ayuda: [
             { name: 'Preguntas Frecuentes', href: '/faq' },
@@ -53,10 +53,10 @@ export default function Footer() {
             { name: 'Contacto', href: '/contacto' },
             { name: 'Política de Privacidad', href: '/politica-privacidad' },
         ],
-        ciencia: [
-            { name: 'Ingredientes', href: '/ingredientes' },
-            { name: 'Referencias', href: '/referencias' },
-            { name: 'Metodología', href: '/metodologia' },
+        descubre: [
+            { name: 'Materiales', href: '/materiales' },
+            { name: 'Nuestro Proceso', href: '/proceso' },
+            { name: 'Regalos', href: '/regalos' },
             { name: 'Blog', href: '/blog' },
         ],
     };
@@ -67,10 +67,10 @@ export default function Footer() {
                 {/* Newsletter Section */}
                 <div className="mb-12 text-center mt-8">
                     <h3 className="text-2xl font-semibold text-text-primary mb-2">
-                        Recibe rutinas y lanzamientos
+                        Recibe novedades y colecciones
                     </h3>
                     <p className="text-text-secondary mb-6">
-                        Suscríbete a nuestro newsletter y obtén contenido exclusivo
+                        Suscríbete a nuestro newsletter y obtén acceso anticipado a nuevas piezas
                     </p>
                     <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex gap-2">
                         <input
@@ -94,9 +94,9 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                     {/* Brand Column */}
                     <div>
-                        <h4 className="text-2xl font-bold text-primary mb-4">YUTNÜÜ</h4>
+                        <h4 className="text-2xl font-bold text-primary mb-4">PUNTO GEMA NOVA</h4>
                         <p className="text-sm text-text-secondary mb-4">
-                            Cosmética natural con respaldo científico. Transparencia, trazabilidad y resultados medibles.
+                            Joyería artesanal elaborada con piedras semipreciosas, perlas y chapa de oro. Piezas únicas hechas en México.
                         </p>
                         {/* Social Media */}
                         <div className="flex space-x-4">
@@ -159,11 +159,11 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Ciencia */}
+                    {/* Descubre */}
                     <div>
-                        <h5 className="font-semibold text-text-primary mb-4">Ciencia</h5>
+                        <h5 className="font-semibold text-text-primary mb-4">Descubre</h5>
                         <ul className="space-y-2">
-                            {footerLinks.ciencia.map((link) => (
+                            {footerLinks.descubre.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
@@ -183,7 +183,7 @@ export default function Footer() {
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm">Envío Gratis +$999</span>
+                        <span className="text-sm">Envío Gratis +$1,300</span>
                     </div>
                     <div className="flex items-center space-x-2 text-text-secondary">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,8 +201,8 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="text-center text-sm text-text-secondary">
-                    <p>&copy; {new Date().getFullYear()} YUTNÜÜ. Todos los derechos reservados.</p>
-                    <p className="mt-2">Hecho en México ccon ingredientes naturales y respaldo científico.</p>
+                    <p>&copy; {new Date().getFullYear()} Punto Gema Nova. Todos los derechos reservados.</p>
+                    <p className="mt-2">Joyería artesanal hecha en México con dedicación.</p>
                 </div>
             </div>
         </footer>

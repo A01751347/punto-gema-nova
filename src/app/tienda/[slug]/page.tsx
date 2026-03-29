@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import prisma from '@/lib/db/prisma';
 import ProductGallery from '@/components/product/ProductGallery';
 import ProductInfo from '@/components/product/ProductInfo';
-import ScienceSection from '@/components/product/ScienceSection';
-import IngredientsList from '@/components/product/IngredientsList';
+import CraftsmanshipSection from '@/components/product/CraftsmanshipSection';
+import MaterialsList from '@/components/product/MaterialsList';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 interface ProductPageProps {
@@ -12,17 +12,15 @@ interface ProductPageProps {
     }>;
 }
 
-// Force dynamic rendering to ensure fresh data if valid stock changes concern us,
-// or use revalidate. For now, dynamic is safer for dev.
 export const dynamic = 'force-dynamic';
 
 async function getProduct(slug: string) {
     const product = await prisma.product.findFirst({
         where: { slug, isActive: true },
         include: {
-            ingredients: {
+            materials: {
                 include: {
-                    ingredient: true,
+                    material: true,
                 },
             },
         },
@@ -40,17 +38,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
         notFound();
     }
 
-    // Transform data for Science Section
-    const keyIngredients = product.ingredients
-        .filter(pi => pi.isKeyIngredient)
-        .map(pi => ({
-            name: pi.ingredient.name,
-            description: pi.ingredient.description,
-            benefits: pi.ingredient.benefits
+    // Transform data for Craftsmanship Section
+    const primaryMaterials = product.materials
+        .filter(pm => pm.isPrimary)
+        .map(pm => ({
+            name: pm.material.name,
+            description: pm.material.description,
+            benefits: pm.material.benefits
         }));
 
     // Transform data for Full List
-    const allIngredients = product.ingredients.map(pi => ({ name: pi.ingredient.name }));
+    const allMaterials = product.materials.map(pm => ({
+        name: pm.material.name,
+        type: pm.material.type || undefined
+    }));
 
     return (
         <div className="bg-white min-h-screen pt-8 pb-20">
@@ -72,18 +73,18 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     <ProductInfo product={product} />
                 </div>
 
-                {/* Science Section */}
+                {/* Craftsmanship Section */}
                 <div className="mb-20 lg:mb-24">
-                    <ScienceSection
-                        mechanism={product.mechanism}
-                        expectedResults={product.expectedResults}
-                        ingredients={keyIngredients}
+                    <CraftsmanshipSection
+                        careInstructions={product.careInstructions}
+                        description={product.description}
+                        materials={primaryMaterials}
                     />
                 </div>
 
-                {/* Ingredients List & Details */}
+                {/* Materials List */}
                 <div className="max-w-4xl mx-auto">
-                    <IngredientsList ingredients={allIngredients} />
+                    <MaterialsList materials={allMaterials} />
                 </div>
 
             </div>

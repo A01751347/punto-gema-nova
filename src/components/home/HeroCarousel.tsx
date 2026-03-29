@@ -69,7 +69,7 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="flex flex-col items-center text-center gap-y-8 md:gap-y-10">
                         <span className="inline-flex items-center justify-center py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in bg-white/80 backdrop-blur-sm">
-                            Ciencia + Naturaleza
+                            Joyería Artesanal
                         </span>
 
                         <h1 key={banner.id} className="text-5xl md:text-7xl font-serif font-medium leading-[1.08] md:leading-[1.05] animate-slide-up text-gray-900 drop-shadow-sm">
@@ -77,7 +77,7 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
                         </h1>
 
                         <p key={`${banner.id}-sub`} className="text-lg md:text-xl text-text-secondary max-w-2xl font-light leading-relaxed animate-slide-up bg-white/60 backdrop-blur-sm p-4 rounded-xl">
-                            {banner.subtitle || "Formulaciones de alto rendimiento que respetan la biología de tu piel."}
+                            {banner.subtitle || "Piezas únicas elaboradas a mano con piedras semipreciosas y materiales selectos."}
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-slide-up">
@@ -87,13 +87,13 @@ export default function HeroCarousel({ banners }: HeroCarouselProps) {
                                 </Button>
                             </Link>
                             {/* Optional secondary button, maybe only valid for default hero? Let's keep it robust */}
-                            <Link href="/ciencia">
+                            <Link href="/proceso">
                                 <Button
                                     size="lg"
                                     variant="ghost"
                                     className="min-w-[200px] h-14 text-lg border border-primary/20 hover:bg-white hover:border-transparent bg-white/50 backdrop-blur-md"
                                 >
-                                    Nuestra Ciencia
+                                    Nuestro Proceso
                                 </Button>
                             </Link>
                         </div>

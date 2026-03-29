@@ -121,16 +121,16 @@ function FacturacionForm() {
             {/* Visual Progress Steps */}
             <div className="flex justify-between mb-12 relative">
                 <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -z-10" />
-                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step !== 'search' ? 'text-[#d4af37]' : 'text-[#2c4a52] font-bold'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'search' ? 'bg-[#2c4a52] text-white' : 'bg-green-100 text-green-700'}`}>1</div>
+                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step !== 'search' ? 'text-[#d4af37]' : 'text-[#1a1a1a] font-bold'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'search' ? 'bg-[#1a1a1a] text-white' : 'bg-green-100 text-green-700'}`}>1</div>
                     <span className="text-xs">Buscar Orden</span>
                 </div>
-                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step === 'form' ? 'text-[#2c4a52] font-bold' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'form' ? 'bg-[#2c4a52] text-white' : 'bg-gray-100'}`}>2</div>
+                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step === 'form' ? 'text-[#1a1a1a] font-bold' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'form' ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100'}`}>2</div>
                     <span className="text-xs">Datos Fiscales</span>
                 </div>
-                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step === 'success' ? 'text-[#2c4a52] font-bold' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'success' ? 'bg-[#2c4a52] text-white' : 'bg-gray-100'}`}>3</div>
+                <div className={`flex flex-col items-center gap-2 bg-white px-2 ${step === 'success' ? 'text-[#1a1a1a] font-bold' : 'text-gray-400'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${step === 'success' ? 'bg-[#1a1a1a] text-white' : 'bg-gray-100'}`}>3</div>
                     <span className="text-xs">Descargar</span>
                 </div>
             </div>
@@ -146,7 +146,7 @@ function FacturacionForm() {
             {/* STEP 1: Search Order */}
             {step === 'search' && (
                 <form onSubmit={handleSearchOrder} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 animate-in fade-in slide-in-from-bottom-4">
-                    <h2 className="text-2xl font-serif text-[#2c4a52] mb-6">Localiza tu compra</h2>
+                    <h2 className="text-2xl font-serif text-[#1a1a1a] mb-6">Localiza tu compra</h2>
                     <div className="space-y-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Número de Pedido</label>
@@ -195,11 +195,11 @@ function FacturacionForm() {
                     <button
                         type="button"
                         onClick={() => setStep('search')}
-                        className="text-sm text-gray-400 mb-4 hover:text-[#2c4a52]"
+                        className="text-sm text-gray-400 mb-4 hover:text-[#1a1a1a]"
                     >
                         ← Regresar
                     </button>
-                    <h2 className="text-2xl font-serif text-[#2c4a52] mb-6">Datos de Facturación</h2>
+                    <h2 className="text-2xl font-serif text-[#1a1a1a] mb-6">Datos de Facturación</h2>
 
                     <div className="space-y-4">
                         <div>
@@ -297,7 +297,7 @@ function FacturacionForm() {
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
                         <CheckCircle size={40} />
                     </div>
-                    <h2 className="text-3xl font-serif text-[#2c4a52] mb-4">¡Solicitud Recibida!</h2>
+                    <h2 className="text-3xl font-serif text-[#1a1a1a] mb-4">¡Solicitud Recibida!</h2>
                     <p className="text-gray-600 mb-8 max-w-md mx-auto">
                         Hemos guardado tus datos fiscales. En un lapso de <strong>24 a 48 horas hábiles</strong> recibirás tu factura (XML y PDF) al correo: <span className="font-semibold">{fiscalData.email}</span>.
                     </p>
@@ -323,7 +323,7 @@ function FacturacionForm() {
                 <div className="text-sm text-gray-500 space-y-2">
                     <p className="font-medium text-gray-700">¿Tienes problemas?</p>
                     <p>
-                        Si tu número de orden no aparece o tuviste un error al generar la factura, por favor envíanos tus datos fiscales y el número de compra a <a href="mailto:facturacion@yutnuu.mx" className="text-[#d4af37] underline">facturacion@yutnuu.mx</a> y te ayudaremos manualmente.
+                        Si tu número de orden no aparece o tuviste un error al generar la factura, por favor envíanos tus datos fiscales y el número de compra a <a href="mailto:facturacion@puntogemanova.com" className="text-[#d4af37] underline">facturacion@puntogemanova.com</a> y te ayudaremos manualmente.
                     </p>
                 </div>
             </div>
@@ -339,7 +339,7 @@ export default function FacturacionPage() {
             <div className="bg-[#f8f9fa] py-16 border-b border-gray-100">
                 <div className="container mx-auto px-4 text-center max-w-3xl">
                     <FileText className="w-12 h-12 text-[#d4af37] mx-auto mb-6" />
-                    <h1 className="text-4xl md:text-5xl font-serif text-[#2c4a52] mb-6">Portal de Facturación</h1>
+                    <h1 className="text-4xl md:text-5xl font-serif text-[#1a1a1a] mb-6">Portal de Facturación</h1>
                     <p className="text-lg text-gray-600 font-light">
                         Solicita tu comprobante fiscal (CFDI 4.0) de forma rápida y sencilla.
                         <br />

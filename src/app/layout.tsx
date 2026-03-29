@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth/auth-context";
 import { CartProvider } from "@/lib/cart/CartContext";
@@ -10,10 +10,16 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif",
+});
+
 export const metadata: Metadata = {
-  title: "Yutnüu - Cosmética Natural con Respaldo Científico",
-  description: "Cosmética natural formulada con criterio científico. Transparencia, trazabilidad y resultados medibles.",
-  keywords: ["cosmética natural", "skincare", "cuidado de la piel", "ingredientes naturales", "ciencia"],
+  title: "Punto Gema Nova — Joyería Artesanal Elegante",
+  description: "Joyería artesanal elaborada con piedras semipreciosas, perlas y chapa de oro. Piezas únicas diseñadas para regalar, combinar y disfrutar todos los días.",
+  keywords: ["joyería artesanal", "pulseras piedras semipreciosas", "collares", "perlas", "chapa de oro", "joyería hecha en México", "regalo joyería"],
 };
 
 export default function RootLayout({
@@ -23,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} ${cormorant.variable} antialiased`}>
         <AuthProvider>
           <CartProvider>
             <div className="flex flex-col min-h-screen">

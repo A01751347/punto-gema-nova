@@ -2,93 +2,93 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Button from '@/components/ui/Button';
-import { ArrowRight, RefreshCcw, Check, Sparkles, Sprout, Scale, Flower2, Hourglass, Droplets, Sun, Search, Nut, Wind, HelpCircle, Variable } from 'lucide-react';
+import { ArrowRight, RefreshCcw, Sparkles, Gem, Crown, Flame, Calendar, Gift, PartyPopper, Briefcase, Diamond, Shell, CircleDot, HelpCircle } from 'lucide-react';
 
 // --- Types ---
-type Step = 'intro' | 'skinType' | 'concern' | 'texture' | 'result';
+type Step = 'intro' | 'style' | 'occasion' | 'material' | 'result';
 
 interface QuizState {
-    skinType: string | null;
-    concern: string | null;
-    texture: string | null;
+    style: string | null;
+    occasion: string | null;
+    material: string | null;
 }
 
 // --- Data ---
 const QUESTIONS = {
-    skinType: {
-        title: "¿Cómo sientes tu piel al despertar?",
+    style: {
+        title: '¿Qué estilo te describe mejor?',
         options: [
-            { id: 'dry', label: 'Seca y tirante', icon: <Wind size={32} /> },
-            { id: 'oily', label: 'Brillosa / Grasa', icon: <Sparkles size={32} /> },
-            { id: 'combination', label: 'Mixta (Zona T grasa)', icon: <Scale size={32} /> },
-            { id: 'normal', label: 'Equilibrada y suave', icon: <Flower2 size={32} /> },
+            { id: 'minimalista', label: 'Minimalista', subtitle: 'Piezas delicadas y sutiles', icon: <Sparkles size={32} /> },
+            { id: 'bohemio', label: 'Bohemio', subtitle: 'Colores vibrantes y texturas naturales', icon: <Gem size={32} /> },
+            { id: 'clasico', label: 'Clásico', subtitle: 'Elegancia atemporal', icon: <Crown size={32} /> },
+            { id: 'atrevido', label: 'Atrevido', subtitle: 'Piezas con presencia y personalidad', icon: <Flame size={32} /> },
         ]
     },
-    concern: {
-        title: "¿Cuál es tu principal preocupación?",
+    occasion: {
+        title: '¿Para qué ocasión buscas?',
         options: [
-            { id: 'aging', label: 'Líneas finas y arrugas', icon: <Hourglass size={32} /> },
-            { id: 'dryness', label: 'Deshidratación intensa', icon: <Droplets size={32} /> },
-            { id: 'pigmentation', label: 'Manchas y tono desigual', icon: <Sun size={32} /> },
-            { id: 'acne', label: 'Imperfecciones / Poros', icon: <Search size={32} /> },
+            { id: 'diario', label: 'Uso diario', subtitle: 'Para el día a día', icon: <Calendar size={32} /> },
+            { id: 'regalo', label: 'Regalo especial', subtitle: 'Para alguien importante', icon: <Gift size={32} /> },
+            { id: 'fiesta', label: 'Fiesta o evento', subtitle: 'Para brillar en la noche', icon: <PartyPopper size={32} /> },
+            { id: 'oficina', label: 'Oficina / profesional', subtitle: 'Elegancia discreta', icon: <Briefcase size={32} /> },
         ]
     },
-    texture: {
-        title: "¿Qué texturas prefieres?",
+    material: {
+        title: '¿Qué materiales prefieres?',
         options: [
-            { id: 'oil', label: 'Aceites nutritivos', icon: <Nut size={32} /> },
-            { id: 'cream', label: 'Cremas untuosas', icon: <Droplets size={32} /> },
-            { id: 'light', label: 'Geles y sueros ligeros', icon: <Wind size={32} /> },
-            { id: 'any', label: 'Sin preferencia', icon: <HelpCircle size={32} /> },
+            { id: 'piedras', label: 'Piedras naturales', subtitle: 'Cuarzo, amatista, jade', icon: <Diamond size={32} /> },
+            { id: 'perlas', label: 'Perlas', subtitle: 'Brillo clásico y sofisticado', icon: <Shell size={32} /> },
+            { id: 'chapa-oro', label: 'Chapa de oro', subtitle: 'Tono cálido y duradero', icon: <CircleDot size={32} /> },
+            { id: 'sorpresa', label: 'Sin preferencia, sorpréndanme', subtitle: 'Déjanos elegir por ti', icon: <HelpCircle size={32} /> },
         ]
     }
 };
 
-const RECOMMENDATIONS: Record<string, any> = {
-    'oil': {
-        name: 'Aceite de Tuna Puro',
-        image: 'https://placehold.co/600x600/f4f4f0/d4af37?text=Aceite+Tuna',
-        description: 'Tu piel pide a gritos nuestra joya del desierto. Nutrición profunda y antioxidantes potentes para reparar la barrera cutánea.',
-        slug: 'aceite-tuna-roll-on',
+interface Recommendation {
+    bracelet: string;
+    necklace: string;
+    description: string;
+}
+
+const RECOMMENDATIONS: Record<string, Recommendation> = {
+    minimalista: {
+        bracelet: 'Pulsera Minimalista Oro',
+        necklace: 'Collar Amatista Solitario',
+        description: 'Tu estilo refleja sofisticación sutil. Piezas delicadas que complementan sin sobrecargar, perfectas para quienes aprecian la belleza en lo simple.',
     },
-    'serum': {
-        name: 'Suero Facial Yutnüu',
-        image: 'https://placehold.co/600x600/e2e8f0/2c4a52?text=Suero+Facial',
-        description: 'Necesitas una dosis concentrada de activos ligeros. Nuestro suero penetra rápido para tratar líneas finas sin sensación grasa.',
-        slug: 'suero-facial',
+    bohemio: {
+        bracelet: 'Pulsera Mix Bohemio',
+        necklace: 'Collar Cascada de Jade',
+        description: 'Tu espíritu libre merece piezas llenas de vida y color. Materiales naturales que conectan con la tierra y expresan tu autenticidad.',
     },
-    'cream': {
-        name: 'Crema Facial Hidratante',
-        image: 'https://placehold.co/600x600/ffffff/2c4a52?text=Crema+Facial',
-        description: 'La base perfecta. Hidratación equilibrada que sella la humedad y suaviza la textura de tu piel instantáneamente.',
-        slug: 'crema-facial',
+    clasico: {
+        bracelet: 'Pulsera Perlas Clásica',
+        necklace: 'Collar Gotas de Perla',
+        description: 'Tu elegancia no pasa de moda. Piezas atemporales que elevan cualquier look con gracia y distinción, como una herencia que perdura.',
     },
-    'kit': {
-        name: 'Kit Ritual Completo',
-        image: 'https://placehold.co/600x600/f8fafc/2c4a52?text=Ritual+Completo',
-        description: 'Tu piel se beneficiará del "layering" completo. Limpieza, tratamiento y sellado para una transformación total.',
-        slug: 'kit-rutina-completa',
-    }
+    atrevido: {
+        bracelet: 'Pulsera Doble Vuelta',
+        necklace: 'Collar Cadena y Perlas de Oro',
+        description: 'No tienes miedo de destacar. Piezas con carácter que hacen una declaración y reflejan tu personalidad audaz y única.',
+    },
 };
 
 export default function QuizPage() {
     const [currentStep, setCurrentStep] = useState<Step>('intro');
     const [answers, setAnswers] = useState<QuizState>({
-        skinType: null,
-        concern: null,
-        texture: null,
+        style: null,
+        occasion: null,
+        material: null,
     });
     const [isCalculating, setIsCalculating] = useState(false);
 
     const handleOptionSelect = (key: keyof QuizState, value: string) => {
         setAnswers(prev => ({ ...prev, [key]: value }));
 
-        // Advance step
-        if (key === 'skinType') setCurrentStep('concern');
-        if (key === 'concern') setCurrentStep('texture');
-        if (key === 'texture') {
+        if (key === 'style') setCurrentStep('occasion');
+        if (key === 'occasion') setCurrentStep('material');
+        if (key === 'material') {
             setIsCalculating(true);
             setTimeout(() => {
                 setIsCalculating(false);
@@ -97,21 +97,16 @@ export default function QuizPage() {
         }
     };
 
-    const getRecommendation = () => {
-        const { concern, texture, skinType } = answers;
-
-        // Simple Logic Tree
-        if (concern === 'aging' && skinType === 'dry') return RECOMMENDATIONS['oil'];
-        if (concern === 'acne' || texture === 'light') return RECOMMENDATIONS['serum'];
-        if (skinType === 'oily' && texture !== 'oil') return RECOMMENDATIONS['serum'];
-        if (skinType === 'dry' && texture === 'cream') return RECOMMENDATIONS['cream'];
-
-        // Default hero
-        return RECOMMENDATIONS['oil'];
+    const getRecommendation = (): Recommendation => {
+        const { style } = answers;
+        if (style && RECOMMENDATIONS[style]) {
+            return RECOMMENDATIONS[style];
+        }
+        return RECOMMENDATIONS['minimalista'];
     };
 
     const resetQuiz = () => {
-        setAnswers({ skinType: null, concern: null, texture: null });
+        setAnswers({ style: null, occasion: null, material: null });
         setCurrentStep('intro');
     };
 
@@ -120,14 +115,14 @@ export default function QuizPage() {
     return (
         <main className="min-h-screen bg-cream-light pt-20 pb-20 px-4 flex flex-col items-center justify-center">
 
-            {/* Progress Bar (if started) */}
+            {/* Progress Bar */}
             {currentStep !== 'intro' && currentStep !== 'result' && (
                 <div className="w-full max-w-md h-1 bg-gray-200 rounded-full mb-12 overflow-hidden">
                     <div
                         className="h-full bg-accent transition-all duration-500 ease-out"
                         style={{
-                            width: currentStep === 'skinType' ? '33%' :
-                                currentStep === 'concern' ? '66%' : '100%'
+                            width: currentStep === 'style' ? '33%' :
+                                currentStep === 'occasion' ? '66%' : '100%'
                         }}
                     />
                 </div>
@@ -142,25 +137,25 @@ export default function QuizPage() {
                 {currentStep === 'intro' && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <span className="inline-block p-4 rounded-full bg-accent/10 text-accent mb-4">
-                            <Sparkles size={32} />
+                            <Gem size={32} />
                         </span>
                         <h1 className="text-4xl md:text-5xl font-serif text-primary">
-                            Descubre tu Ritual Ideal
+                            Encuentra tu Estilo
                         </h1>
                         <p className="text-xl text-text-secondary font-light">
-                            Responde 3 preguntas sencillas y nuestros expertos diseñarán la rutina perfecta para las necesidades únicas de tu piel.
+                            Responde 3 preguntas sencillas y te recomendaremos las piezas de joyería artesanal perfectas para ti.
                         </p>
                         <Button
-                            onClick={() => setCurrentStep('skinType')}
+                            onClick={() => setCurrentStep('style')}
                             className="px-12 py-4 h-auto text-lg w-full md:w-auto mt-8"
                         >
-                            Comenzar Diagnóstico
+                            Comenzar Quiz
                         </Button>
                     </div>
                 )}
 
                 {/* --- STEPS --- */}
-                {(['skinType', 'concern', 'texture'] as const).map((stepKey) => {
+                {(['style', 'occasion', 'material'] as const).map((stepKey) => {
                     if (currentStep !== stepKey) return null;
                     const question = QUESTIONS[stepKey];
 
@@ -179,9 +174,14 @@ export default function QuizPage() {
                                         <span className="text-4xl group-hover:scale-110 transition-transform block">
                                             {option.icon}
                                         </span>
-                                        <span className="font-medium text-lg text-primary group-hover:text-accent">
-                                            {option.label}
-                                        </span>
+                                        <div>
+                                            <span className="font-medium text-lg text-primary group-hover:text-accent block">
+                                                {option.label}
+                                            </span>
+                                            <span className="text-sm text-text-secondary">
+                                                {option.subtitle}
+                                            </span>
+                                        </div>
                                     </button>
                                 ))}
                             </div>
@@ -194,7 +194,7 @@ export default function QuizPage() {
                     <div className="absolute inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-6">
                         <div className="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin" />
                         <p className="text-xl font-serif text-primary animate-pulse">
-                            Analizando tu perfil...
+                            Encontrando tu estilo perfecto...
                         </p>
                     </div>
                 )}
@@ -203,19 +203,21 @@ export default function QuizPage() {
                 {currentStep === 'result' && (
                     <div className="text-center animate-in zoom-in-95 duration-700">
                         <span className="text-xs font-bold tracking-widest text-accent uppercase mb-4 block">
-                            Tu Aliado Perfecto
+                            Tu Estilo Perfecto
                         </span>
                         <h2 className="text-3xl md:text-4xl font-serif text-primary mb-6">
-                            {result.name}
+                            Te recomendamos
                         </h2>
 
-                        <div className="relative w-full aspect-square max-w-xs mx-auto mb-8 rounded-2xl overflow-hidden shadow-lg group">
-                            <Image
-                                src={result.image}
-                                alt={result.name}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
+                        <div className="space-y-4 mb-8">
+                            <div className="p-6 rounded-2xl bg-accent/5 border border-accent/20">
+                                <p className="text-sm uppercase tracking-wider text-accent mb-1">Pulsera</p>
+                                <p className="text-xl font-serif text-primary">{result.bracelet}</p>
+                            </div>
+                            <div className="p-6 rounded-2xl bg-accent/5 border border-accent/20">
+                                <p className="text-sm uppercase tracking-wider text-accent mb-1">Collar</p>
+                                <p className="text-xl font-serif text-primary">{result.necklace}</p>
+                            </div>
                         </div>
 
                         <p className="text-text-secondary text-lg font-light mb-10 max-w-lg mx-auto leading-relaxed">
@@ -223,7 +225,7 @@ export default function QuizPage() {
                         </p>
 
                         <div className="flex flex-col md:flex-row gap-4 justify-center">
-                            <Link href={`/tienda`}>
+                            <Link href="/tienda">
                                 <Button className="w-full md:w-auto px-8 py-3 shadow-lg">
                                     Ver en Tienda <ArrowRight size={18} className="ml-2" />
                                 </Button>

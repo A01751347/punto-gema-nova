@@ -54,7 +54,7 @@ export default function AdminBillingPage() {
 
     return (
         <div className="p-8">
-            <h1 className="text-2xl font-bold text-[#2c4a52] mb-6 flex items-center gap-2">
+            <h1 className="text-2xl font-bold text-[#1a1a1a] mb-6 flex items-center gap-2">
                 <FileText /> Solicitudes de Facturación
             </h1>
 
@@ -78,9 +78,9 @@ export default function AdminBillingPage() {
                         ) : (
                             requests.map((req) => (
                                 <tr key={req.id} className="border-b border-gray-100 hover:bg-gray-50/50">
-                                    <td className="p-4 font-medium text-[#2c4a52]">#{req.order?.orderNumber || req.orderId}</td> {/* Note: Should map relation to get orderNumber properly if needed, currently using ID or OrderNumber from relation if included. In billing-actions we included order but only select total. Let's assume orderId for now or fix action */}
+                                    <td className="p-4 font-medium text-[#1a1a1a]">#{req.order?.orderNumber || req.orderId}</td> {/* Note: Should map relation to get orderNumber properly if needed, currently using ID or OrderNumber from relation if included. In billing-actions we included order but only select total. Let's assume orderId for now or fix action */}
                                     <td className="p-4">
-                                        <div className="font-bold text-[#2c4a52]">{req.razonSocial}</div>
+                                        <div className="font-bold text-[#1a1a1a]">{req.razonSocial}</div>
                                         <div className="text-xs text-gray-500">{req.rfc}</div>
                                         <div className="text-xs text-blue-500">{req.email}</div>
                                     </td>

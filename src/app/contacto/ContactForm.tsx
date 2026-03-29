@@ -47,7 +47,7 @@ export default function ContactForm() {
                         name="name"
                         id="name"
                         required
-                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300"
+                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#1a1a1a] focus:bg-white transition-colors placeholder:text-gray-300"
                         placeholder="Tu nombre"
                     />
                 </div>
@@ -58,7 +58,7 @@ export default function ContactForm() {
                         name="email"
                         id="email"
                         required
-                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300"
+                        className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#1a1a1a] focus:bg-white transition-colors placeholder:text-gray-300"
                         placeholder="correo@ejemplo.com"
                     />
                 </div>
@@ -69,7 +69,7 @@ export default function ContactForm() {
                 <select
                     id="subject"
                     name="subject"
-                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors text-gray-700"
+                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#1a1a1a] focus:bg-white transition-colors text-gray-700"
                 >
                     <option>Información de Producto</option>
                     <option>Mi Pedido</option>
@@ -85,7 +85,7 @@ export default function ContactForm() {
                     name="message"
                     required
                     rows={4}
-                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#2c4a52] focus:bg-white transition-colors placeholder:text-gray-300 resize-none"
+                    className="w-full bg-gray-50 border-b-2 border-gray-100 p-3 focus:outline-none focus:border-[#1a1a1a] focus:bg-white transition-colors placeholder:text-gray-300 resize-none"
                     placeholder="¿En qué podemos ayudarte?"
                 ></textarea>
             </div>

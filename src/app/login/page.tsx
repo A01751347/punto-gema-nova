@@ -43,7 +43,7 @@ export default function LoginPage() {
             <div className="w-full max-w-md space-y-8">
                 <div className="text-center">
                     <h1 className="text-4xl font-serif text-text-primary mb-2">Bienvenido</h1>
-                    <p className="text-text-secondary">Inicia sesión en tu cuenta Yutnüu</p>
+                    <p className="text-text-secondary">Inicia sesión en tu cuenta</p>
                 </div>
 
                 <div className="bg-white p-8 rounded-2xl shadow-soft-lg border border-gray-100">

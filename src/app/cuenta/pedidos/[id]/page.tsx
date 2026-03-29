@@ -94,12 +94,12 @@ export default function OrderDetailPage() {
     return (
         <div className="max-w-4xl mx-auto">
             <div className="mb-6">
-                <Link href="/cuenta/pedidos" className="inline-flex items-center text-sm text-gray-500 hover:text-[#2c4a52] transition-colors mb-4">
+                <Link href="/cuenta/pedidos" className="inline-flex items-center text-sm text-gray-500 hover:text-[#1a1a1a] transition-colors mb-4">
                     <ChevronLeft size={16} className="mr-1" /> Volver a mis pedidos
                 </Link>
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-xl font-bold text-[#2c4a52]">Pedido #{order.orderNumber}</h1>
+                        <h1 className="text-xl font-bold text-[#1a1a1a]">Pedido #{order.orderNumber}</h1>
                         <p className="text-xs text-gray-500 mt-1">{formatDate(order.createdAt)}</p>
                     </div>
                     <div>
@@ -119,8 +119,8 @@ export default function OrderDetailPage() {
                 <div className="lg:col-span-2 space-y-6">
                     <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                         <div className="px-5 py-3 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
-                            <Package size={14} className="text-[#2c4a52]" />
-                            <h3 className="font-bold text-[#2c4a52] text-xs uppercase tracking-wider">Productos</h3>
+                            <Package size={14} className="text-[#1a1a1a]" />
+                            <h3 className="font-bold text-[#1a1a1a] text-xs uppercase tracking-wider">Productos</h3>
                         </div>
                         <div className="divide-y divide-gray-100">
                             {order.items.map((item) => (
@@ -140,11 +140,11 @@ export default function OrderDetailPage() {
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0 py-0.5">
-                                        <h4 className="font-medium text-[#2c4a52] text-sm truncate">{item.name}</h4>
+                                        <h4 className="font-medium text-[#1a1a1a] text-sm truncate">{item.name}</h4>
                                         <p className="text-xs text-gray-500 mt-0.5">Cantidad: {item.quantity}</p>
                                     </div>
                                     <div className="py-0.5 text-right">
-                                        <p className="font-medium text-[#2c4a52] text-sm">${(item.price * item.quantity).toFixed(2)}</p>
+                                        <p className="font-medium text-[#1a1a1a] text-sm">${(item.price * item.quantity).toFixed(2)}</p>
                                         <p className="text-[10px] text-gray-400">${item.price.toFixed(2)} c/u</p>
                                     </div>
                                 </div>
@@ -154,13 +154,13 @@ export default function OrderDetailPage() {
 
                     <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 flex flex-col sm:flex-row gap-6">
                         <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-3 text-[#2c4a52]">
+                            <div className="flex items-center gap-2 mb-3 text-[#1a1a1a]">
                                 <MapPin size={14} />
                                 <h3 className="font-bold text-xs uppercase tracking-wider">Dirección de Envío</h3>
                             </div>
                             {order.shippingAddress ? (
                                 <div className="text-sm text-gray-600 pl-6 space-y-0.5">
-                                    <p className="font-medium text-[#2c4a52]">
+                                    <p className="font-medium text-[#1a1a1a]">
                                         {order.shippingAddress.firstName} {order.shippingAddress.lastName}
                                     </p>
                                     <p className="text-xs">{order.shippingAddress.address1}</p>
@@ -173,7 +173,7 @@ export default function OrderDetailPage() {
                             )}
                         </div>
                         <div className="flex-1 border-t sm:border-t-0 sm:border-l border-gray-100 pt-4 sm:pt-0 sm:pl-6">
-                            <div className="flex items-center gap-2 mb-3 text-[#2c4a52]">
+                            <div className="flex items-center gap-2 mb-3 text-[#1a1a1a]">
                                 <Truck size={14} />
                                 <h3 className="font-bold text-xs uppercase tracking-wider">Método de Envío</h3>
                             </div>
@@ -188,7 +188,7 @@ export default function OrderDetailPage() {
                 {/* Right Column: Summary */}
                 <div className="space-y-6">
                     <div className="bg-[#F2EFE9] rounded-xl border border-[#E6E0D9] p-5 shadow-sm sticky top-24">
-                        <h3 className="font-medium text-[#2c4a52] mb-4 pb-3 border-b border-[#E6E0D9]">Resumen</h3>
+                        <h3 className="font-medium text-[#1a1a1a] mb-4 pb-3 border-b border-[#E6E0D9]">Resumen</h3>
                         <div className="space-y-2 text-sm">
                             <div className="flex justify-between text-gray-600">
                                 <span>Subtotal</span>
@@ -205,18 +205,18 @@ export default function OrderDetailPage() {
                             </div>
 
                             <div className="border-t border-[#E6E0D9] pt-3 mt-2 flex justify-between items-end">
-                                <span className="font-medium text-[#2c4a52]">Total</span>
-                                <span className="font-bold text-lg text-[#2c4a52]">${order.total.toFixed(2)}</span>
+                                <span className="font-medium text-[#1a1a1a]">Total</span>
+                                <span className="font-bold text-lg text-[#1a1a1a]">${order.total.toFixed(2)}</span>
                             </div>
                         </div>
-                        <div className="mt-4 pt-3 border-t border-[#E6E0D9] flex items-center justify-center gap-2 text-xs text-[#2c4a52]/60">
+                        <div className="mt-4 pt-3 border-t border-[#E6E0D9] flex items-center justify-center gap-2 text-xs text-[#1a1a1a]/60">
                             <CreditCard size={12} />
                             <span>Pago Digital Seguro</span>
                         </div>
                     </div>
 
                     <div className="text-center">
-                        <Link href="/faq" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-[#2c4a52] transition-colors">
+                        <Link href="/faq" className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-[#1a1a1a] transition-colors">
                             <HelpCircle size={12} /> ¿Ayuda con tu pedido?
                         </Link>
                     </div>
