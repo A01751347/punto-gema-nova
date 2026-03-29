@@ -13,6 +13,7 @@ export default function FilterSidebar({ categories }: FilterSidebarProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const currentCategory = searchParams.get('category');
+    const currentCollection = searchParams.get('collection');
 
     const handleFilterChange = (key: string, value: string | null) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -25,27 +26,27 @@ export default function FilterSidebar({ categories }: FilterSidebarProps) {
     };
 
     return (
-        <div className="w-full md:w-64 flex-shrink-0">
-            <div className="md:hidden mb-6">
+        <div className="w-full md:w-52 flex-shrink-0">
+            {/* Mobile toggle */}
+            <div className="md:hidden mb-4">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-full py-3 px-4 bg-white border border-gray-200 rounded-lg flex justify-between items-center text-sm font-medium"
+                    className="w-full py-3 px-4 border border-gray-200 flex justify-between items-center text-sm"
                 >
                     <span>Filtros</span>
-                    <span>{isOpen ? '−' : '+'}</span>
+                    <span className="text-text-light">{isOpen ? '−' : '+'}</span>
                 </button>
             </div>
 
             <div className={`space-y-8 ${isOpen ? 'block' : 'hidden md:block'}`}>
                 {/* Categories */}
                 <div>
-                    <h3 className="font-serif text-lg mb-4 text-text-primary">Categorías</h3>
-                    <ul className="space-y-3">
+                    <h3 className="text-xs tracking-[0.15em] uppercase text-text-light mb-4">Categoria</h3>
+                    <ul className="space-y-2.5">
                         <li>
                             <button
                                 onClick={() => handleFilterChange('category', null)}
-                                className={`text-sm hover:text-primary transition-colors ${!currentCategory ? 'text-primary font-medium' : 'text-text-secondary'
-                                    }`}
+                                className={`text-sm transition-colors ${!currentCategory ? 'text-primary font-medium' : 'text-text-secondary hover:text-primary'}`}
                             >
                                 Ver todo
                             </button>
@@ -60,8 +61,7 @@ export default function FilterSidebar({ categories }: FilterSidebarProps) {
                             <li key={cat}>
                                 <button
                                     onClick={() => handleFilterChange('category', cat)}
-                                    className={`text-sm hover:text-primary transition-colors text-left ${currentCategory === cat ? 'text-primary font-medium' : 'text-text-secondary'
-                                        }`}
+                                    className={`text-sm transition-colors text-left ${currentCategory === cat ? 'text-primary font-medium' : 'text-text-secondary hover:text-primary'}`}
                                 >
                                     {cat}
                                 </button>
@@ -70,20 +70,20 @@ export default function FilterSidebar({ categories }: FilterSidebarProps) {
                     </ul>
                 </div>
 
-                {/* Collection filter */}
+                {/* Collection */}
                 <div>
-                    <h3 className="font-serif text-lg mb-4 text-text-primary">Colección</h3>
-                    <ul className="space-y-3">
+                    <h3 className="text-xs tracking-[0.15em] uppercase text-text-light mb-4">Coleccion</h3>
+                    <ul className="space-y-2.5">
                         {[
                             { label: 'Permanente', value: 'permanente' },
-                            { label: 'Piezas Casi Únicas', value: 'casi-unica' },
+                            { label: 'Casi Unicas', value: 'casi-unica' },
                             { label: 'Bajo Pedido', value: 'personalizado' },
                             { label: 'Temporada', value: 'temporada' },
                         ].map((col) => (
                             <li key={col.value}>
                                 <button
-                                    onClick={() => handleFilterChange('collection', searchParams.get('collection') === col.value ? null : col.value)}
-                                    className={`text-sm hover:text-primary transition-colors text-left ${searchParams.get('collection') === col.value ? 'text-primary font-medium' : 'text-text-secondary'}`}
+                                    onClick={() => handleFilterChange('collection', currentCollection === col.value ? null : col.value)}
+                                    className={`text-sm transition-colors text-left ${currentCollection === col.value ? 'text-primary font-medium' : 'text-text-secondary hover:text-primary'}`}
                                 >
                                     {col.label}
                                 </button>

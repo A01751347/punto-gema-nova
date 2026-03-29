@@ -5,15 +5,13 @@ import CartItem from '@/components/cart/CartItem';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { ShoppingBag, X, Truck, Sparkles } from 'lucide-react';
 
 export default function CartDrawer() {
     const { isCartOpen, closeCart, items, subtotal, totalItems } = useCart();
-    const FREE_SHIPPING_THRESHOLD = 999;
-    const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
+    const FREE_SHIPPING_THRESHOLD = 1300;
     const remaining = Math.max(FREE_SHIPPING_THRESHOLD - subtotal, 0);
+    const progress = Math.min((subtotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
 
-    // Disable body scroll when open
     useEffect(() => {
         if (isCartOpen) {
             document.body.style.overflow = 'hidden';
@@ -29,69 +27,58 @@ export default function CartDrawer() {
         <div className="fixed inset-0 z-[100] flex justify-end">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in cursor-pointer"
+                className="absolute inset-0 bg-black/30 animate-fade-in cursor-pointer"
                 onClick={closeCart}
             />
 
-            {/* Drawer Panel */}
-            <div className="relative w-full max-w-lg bg-white h-full shadow-2xl flex flex-col animate-slide-in-right transform">
+            {/* Drawer */}
+            <div className="relative w-full max-w-md bg-white h-full flex flex-col animate-slide-in-right">
 
                 {/* Header */}
-                <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-10">
-                    <h2 className="text-2xl font-serif text-primary flex items-center gap-2">
-                        Tu Carrito <span className="text-base text-gray-400 font-sans font-light">({totalItems})</span>
-                    </h2>
+                <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+                    <div>
+                        <h2 className="text-lg font-serif">Carrito</h2>
+                        <span className="text-xs text-text-light">{totalItems} {totalItems === 1 ? 'pieza' : 'piezas'}</span>
+                    </div>
                     <button
                         onClick={closeCart}
-                        className="p-2 -mr-2 text-gray-400 hover:text-primary transition-colors"
+                        className="p-2 -mr-2 text-text-light hover:text-primary transition-colors text-sm"
                     >
-                        <X size={24} />
+                        Cerrar
                     </button>
                 </div>
 
-                {/* Free Shipping Progress */}
-                <div className="px-6 py-5 bg-gray-50/30 border-b border-gray-100">
-                    {remaining > 0 ? (
-                        <div className="flex items-center justify-center gap-2 mb-3 text-sm text-text-secondary">
-                            <Truck size={16} className="text-gray-400" />
-                            <p>
-                                Te faltan <span className="font-bold text-primary">${remaining.toFixed(2)}</span> para envío gratis
-                            </p>
+                {/* Shipping progress */}
+                {items.length > 0 && (
+                    <div className="px-6 py-4 border-b border-gray-100">
+                        <p className="text-xs text-text-secondary mb-2">
+                            {remaining > 0 ? (
+                                <>Agrega <span className="font-medium text-primary">${remaining.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span> para envio gratis</>
+                            ) : (
+                                <span className="text-accent font-medium">Envio gratis incluido</span>
+                            )}
+                        </p>
+                        <div className="w-full h-px bg-gray-200">
+                            <div
+                                className="h-full bg-accent transition-all duration-500"
+                                style={{ width: `${progress}%` }}
+                            />
                         </div>
-                    ) : (
-                        <div className="flex items-center justify-center gap-2 mb-3 text-green-700 text-sm font-medium">
-                            <Sparkles size={16} />
-                            <p>¡Felicidades! Tienes envío gratis</p>
-                        </div>
-                    )}
-                    <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                            className="h-full bg-primary transition-all duration-500 ease-out"
-                            style={{ width: `${progress}%` }}
-                        />
                     </div>
-                </div>
+                )}
 
-                {/* Content */}
+                {/* Items */}
                 <div className="flex-1 overflow-y-auto p-6">
                     {items.length === 0 ? (
-                        <div className="h-full flex flex-col items-center justify-center text-center space-y-6 animate-fade-in">
-                            <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-2 relative group">
-                                <div className="absolute inset-0 bg-primary/5 rounded-full scale-100 group-hover:scale-110 transition-transform duration-500" />
-                                <ShoppingBag size={40} className="text-gray-300 relative z-10" />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-serif text-primary mb-3">Tu carrito está vacío</h3>
-                                <p className="text-text-secondary font-light max-w-[250px] mx-auto leading-relaxed text-sm">
-                                    Parece que aún no has descubierto tus piezas de Punto Gema Nova.
-                                </p>
-                            </div>
-                            <Button onClick={closeCart} className="mt-2 w-full max-w-[200px] shadow-sm hover:shadow-md transition-all">
-                                Explorar Tienda
+                        <div className="h-full flex flex-col items-center justify-center text-center">
+                            <p className="text-lg font-serif mb-2">Carrito vacio</p>
+                            <p className="text-sm text-text-light mb-6">Explora nuestra coleccion de joyeria artesanal.</p>
+                            <Button onClick={closeCart} className="h-10 px-6 text-sm tracking-wider uppercase">
+                                Ver Tienda
                             </Button>
                         </div>
                     ) : (
-                        <div className="space-y-2">
+                        <div className="space-y-0">
                             {items.map((item) => (
                                 <CartItem key={item.id} item={item} isCompact={true} />
                             ))}
@@ -101,43 +88,44 @@ export default function CartDrawer() {
 
                 {/* Footer */}
                 {items.length > 0 && (
-                    <div className="p-6 border-t border-gray-100 bg-white shadow-[0_-5px_20px_rgba(0,0,0,0.03)] z-10">
-                        <div className="space-y-3 mb-6">
-                            <div className="flex justify-between items-center text-base text-text-secondary">
+                    <div className="p-6 border-t border-gray-100 bg-white">
+                        <div className="space-y-2 mb-5">
+                            <div className="flex justify-between text-sm text-text-secondary">
                                 <span>Subtotal</span>
-                                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                                <span>${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="flex justify-between items-center text-base text-text-secondary">
-                                <span>Envío</span>
+                            <div className="flex justify-between text-sm text-text-secondary">
+                                <span>Envio</span>
                                 {remaining <= 0 ? (
-                                    <span className="text-green-700 font-medium">Gratis</span>
+                                    <span className="text-accent">Gratis</span>
                                 ) : (
-                                    <span className="text-sm">Calculado en checkout</span>
+                                    <span className="text-text-light">En checkout</span>
                                 )}
                             </div>
-                            <div className="flex justify-between items-center text-xl font-medium text-primary pt-4 border-t border-gray-100">
-                                <span>Total Estimado</span>
-                                <span>${subtotal.toFixed(2)}</span>
+                            <div className="flex justify-between items-end pt-3 border-t border-gray-100">
+                                <span className="text-sm font-medium">Total</span>
+                                <span className="text-xl font-serif">${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                             </div>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-2">
                             <Link href="/checkout" onClick={closeCart}>
-                                <Button className="w-full py-4 text-base font-medium shadow-md hover:shadow-lg transition-shadow bg-primary text-white">
+                                <Button className="w-full h-12 text-sm tracking-wider uppercase">
                                     Finalizar Compra
                                 </Button>
                             </Link>
-                            <div className="grid grid-cols-2 pt-4 gap-3">
-                                <Link href="/carrito" onClick={closeCart}>
-                                    <Button variant="ghost" className="w-full text-base py-3 px-0 text-text-secondary hover:text-primary hover:bg-gray-50 border border-gray-300">
+                            <div className="flex gap-2">
+                                <Link href="/carrito" onClick={closeCart} className="flex-1">
+                                    <Button variant="outline" className="w-full h-10 text-xs tracking-wider uppercase">
                                         Ver Carrito
                                     </Button>
                                 </Link>
-                                <Link href="/tienda" onClick={closeCart}>
-                                    <Button variant="outline" className="w-full text-base py-3 px-0 text-text-secondary hover:text-primary border-gray-200">
-                                        Seguir Comprando
-                                    </Button>
-                                </Link>
+                                <button
+                                    onClick={closeCart}
+                                    className="flex-1 h-10 text-xs tracking-wider uppercase text-text-light hover:text-primary transition-colors border border-gray-200"
+                                >
+                                    Seguir Comprando
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -10,82 +10,77 @@ export default function CartPage() {
 
     if (items.length === 0) {
         return (
-            <div className="min-h-[70vh] flex flex-col items-center justify-center bg-white px-4">
-                <h1 className="text-3xl md:text-5xl font-serif text-text-primary mb-6">Tu Carrito</h1>
-                <p className="text-lg text-text-secondary font-light mb-8">
-                    Aún no tienes productos en tu carrito.
+            <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
+                <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">Carrito</span>
+                <h1 className="text-3xl md:text-5xl font-serif mb-4">Tu Carrito</h1>
+                <p className="text-text-secondary mb-8">
+                    Aun no tienes piezas en tu carrito.
                 </p>
                 <Link href="/tienda">
-                    <Button size="lg">Explorar Tienda</Button>
+                    <Button size="lg" className="h-12 px-8 text-sm tracking-wider uppercase">Explorar Tienda</Button>
                 </Link>
             </div>
         );
     }
 
-    const FREE_SHIPPING_THRESHOLD = 999;
+    const FREE_SHIPPING_THRESHOLD = 1300;
     const remaining = Math.max(FREE_SHIPPING_THRESHOLD - subtotal, 0);
 
     return (
-        <div className="bg-white min-h-screen pt-0 pb-20">
+        <div className="bg-white min-h-screen pb-20">
             <div className="container mx-auto px-4">
-                <h1 className="text-3xl md:text-5xl font-serif text-text-primary mt-12 mb-12 text-center md:text-left">
-                    Tu Carrito
-                </h1>
+                <div className="pt-12 pb-8 border-b border-gray-100 mb-10">
+                    <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-3">Carrito</span>
+                    <h1 className="text-3xl md:text-4xl font-serif">Tu Carrito</h1>
+                </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-                    {/* Cart Items List */}
-                    <div className="lg:col-span-2 space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+                    {/* Items */}
+                    <div className="lg:col-span-2">
                         {items.map((item) => (
                             <CartItem key={item.id} item={item} />
                         ))}
                     </div>
 
-                    {/* Order Summary */}
+                    {/* Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-[#F2EFE9] p-8 rounded-xl sticky top-28 shadow-sm border border-[#E6E0D9]">
-                            <h2 className="text-xl font-medium text-[#1a1a1a] mb-6 pb-4 border-b border-[#E6E0D9]">Resumen del Pedido</h2>
+                        <div className="bg-cream p-8 sticky top-28">
+                            <h2 className="text-xs tracking-[0.15em] uppercase text-text-light mb-8">Resumen</h2>
 
                             <div className="space-y-4 mb-8">
-                                <div className="flex justify-between text-gray-600 text-sm">
+                                <div className="flex justify-between text-sm text-text-secondary">
                                     <span>Subtotal</span>
-                                    <span>${subtotal.toFixed(2)}</span>
+                                    <span>${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                                 </div>
-                                <div className="flex justify-between text-gray-600 text-sm">
-                                    <span>Envío</span>
+                                <div className="flex justify-between text-sm text-text-secondary">
+                                    <span>Envio</span>
                                     {remaining <= 0 ? (
-                                        <span className="text-[#1a1a1a] font-medium">Gratis</span>
+                                        <span className="text-accent font-medium">Gratis</span>
                                     ) : (
-                                        <span className="text-gray-500 italic">Calculado al final</span>
+                                        <span className="text-text-light">Calculado al checkout</span>
                                     )}
                                 </div>
                                 {remaining > 0 && (
-                                    <div className="py-2 px-3 bg-white/60 rounded text-xs text-gray-600 text-center mt-2">
-                                        Agrega <span className="font-bold text-[#1a1a1a]">${remaining.toFixed(2)}</span> para envío gratis
-                                    </div>
+                                    <p className="text-xs text-text-light pt-1">
+                                        Agrega ${remaining.toLocaleString('es-MX', { minimumFractionDigits: 2 })} mas para envio gratis.
+                                    </p>
                                 )}
-                                <div className="border-t border-[#E6E0D9] pt-6 flex justify-between items-end">
-                                    <span className="text-base font-medium text-[#1a1a1a]">Total Estimado</span>
-                                    <span className="text-3xl font-medium text-[#1a1a1a]">${subtotal.toFixed(2)}</span>
+                                <div className="border-t border-gray-200 pt-4 flex justify-between items-end">
+                                    <span className="text-sm font-medium">Total Estimado</span>
+                                    <span className="text-2xl font-serif">${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</span>
                                 </div>
                             </div>
 
                             <Link href="/checkout">
-                                <Button className="w-full py-4 text-base bg-[#1a1a1a] hover:bg-[#000000] text-white shadow-none rounded-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                                <Button className="w-full h-12 text-sm tracking-wider uppercase">
                                     Continuar Compra
                                 </Button>
                             </Link>
 
-                            <div className="text-center">
-                                <Link href="/tienda" className="text-sm text-text-secondary hover:text-primary underline">
+                            <div className="text-center mt-4">
+                                <Link href="/tienda" className="text-xs text-text-light hover:text-primary transition-colors border-b border-text-light/30 pb-0.5">
                                     Seguir Comprando
                                 </Link>
-                            </div>
-
-                            <div className="mt-8 flex items-center justify-center gap-4 text-primary/40">
-                                {/* Payment Icons Placeholders */}
-                                <div className="w-8 h-5 bg-gray-200 rounded"></div>
-                                <div className="w-8 h-5 bg-gray-200 rounded"></div>
-                                <div className="w-8 h-5 bg-gray-200 rounded"></div>
                             </div>
                         </div>
                     </div>

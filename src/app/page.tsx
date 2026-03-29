@@ -52,322 +52,205 @@ export default async function Home() {
       {heroBanners.length > 0 ? (
         <HeroCarousel banners={heroBanners} />
       ) : (
-        <section className="relative min-h-[90svh] flex items-center justify-center overflow-hidden bg-cream-light">
-          <div className="absolute top-0 left-0 w-full h-[30vh] bg-gradient-to-b from-white to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-full h-[30vh] bg-gradient-to-t from-white to-transparent pointer-events-none" />
+        <section className="relative min-h-[85svh] flex items-center bg-cream">
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl">
+              <span className="text-xs tracking-[0.3em] uppercase text-accent mb-6 block">
+                Joyeria Artesanal Mexicana
+              </span>
 
-          <div className="container mx-auto px-4 relative z-10 py-24 md:py-32">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="flex flex-col items-center text-center gap-y-8 md:gap-y-10">
-                <span className="inline-flex items-center justify-center py-1 px-3 border border-primary/30 rounded-full text-primary text-sm tracking-widest uppercase animate-fade-in bg-white/80 backdrop-blur-sm">
-                  Joyería Artesanal
-                </span>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif leading-[1.05] mb-8">
+                Piezas que<br />
+                cuentan <em className="text-accent">historias</em>
+              </h1>
 
-                <h1 className="text-5xl md:text-7xl font-serif font-medium leading-[1.08] md:leading-[1.05] animate-slide-up text-gray-900 drop-shadow-sm">
-                  Piezas que cuentan<br />
-                  <span className="italic text-primary">historias.</span>
-                </h1>
+              <p className="text-lg text-text-secondary max-w-xl leading-relaxed mb-10">
+                Elaborada a mano con piedras semipreciosas, perlas y chapa de oro.
+                Disenada para regalar, combinar y usar todos los dias.
+              </p>
 
-                <p className="text-lg md:text-xl text-text-secondary max-w-2xl font-light leading-relaxed animate-slide-up bg-white/60 backdrop-blur-sm p-4 rounded-xl">
-                  Joyería artesanal elaborada a mano con piedras semipreciosas, perlas y chapa de oro.
-                  Diseñada para regalar, combinar y usar todos los días.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center animate-slide-up">
-                  <Link href="/tienda">
-                    <Button size="lg" className="min-w-[200px] h-14 text-lg shadow-lg">
-                      Ver Colección
-                    </Button>
-                  </Link>
-
-                  <Link href="/proceso">
-                    <Button
-                      size="lg"
-                      variant="ghost"
-                      className="min-w-[200px] h-14 text-lg border border-primary/20 hover:bg-white hover:border-transparent bg-white/50 backdrop-blur-md"
-                    >
-                      Nuestro Proceso
-                    </Button>
-                  </Link>
-                </div>
+              <div className="flex flex-wrap gap-4">
+                <Link href="/tienda">
+                  <Button size="lg" className="h-13 px-8 text-sm tracking-wider uppercase">
+                    Ver Coleccion
+                  </Button>
+                </Link>
+                <Link href="/proceso">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-13 px-8 text-sm tracking-wider uppercase"
+                  >
+                    Nuestro Proceso
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
+
+          {/* Decorative side element */}
+          <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-2/5 bg-cream-dark" />
         </section>
       )}
 
       {/* Value Proposition */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-24 md:py-32">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-serif text-text-primary animate-fade-in">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">Nuestra Promesa</span>
+            <h2 className="text-4xl md:text-5xl leading-tight">
               Cada pieza tiene una historia.
             </h2>
-
-            <p className="mt-6 text-text-secondary text-lg font-light leading-relaxed animate-slide-up">
-              Seleccionamos piedras semipreciosas y materiales de calidad para crear joyería artesanal
-              con carácter y detalle. Cada pieza es elaborada a mano en México.
+            <p className="mt-6 text-text-secondary text-lg leading-relaxed">
+              Seleccionamos piedras semipreciosas y materiales de calidad para crear
+              joyeria artesanal con caracter y detalle.
             </p>
           </div>
 
-          <div className="mt-20 md:mt-28 lg:mt-32">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
-              {/* Card 1 */}
-              <div className="text-center group md:translate-y-0 animate-slide-up">
-                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
-                        transition-all duration-500 ease-out
-                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
-                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
-                          transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2">
-                    <span className="text-3xl font-serif text-primary">1</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
-                      Hecho a Mano
-                    </h3>
-                    <p className="text-text-secondary font-light leading-relaxed">
-                      Cada pieza es elaborada individualmente con atención al detalle.
-                      No hay dos iguales.
-                    </p>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200">
+            {[
+              {
+                title: 'Hecho a Mano',
+                text: 'Cada pieza es elaborada individualmente con atencion al detalle. No hay dos iguales.',
+              },
+              {
+                title: 'Piedras Autenticas',
+                text: 'Piedras semipreciosas naturales: cuarzo rosa, amatista, jade, perlas de rio y mas.',
+              },
+              {
+                title: 'Diseno con Alma',
+                text: 'Piezas disenadas para complementar tu estilo con elegancia y sencillez.',
+              },
+            ].map((card, i) => (
+              <div key={i} className="bg-white p-10 md:p-12">
+                <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-6">0{i + 1}</span>
+                <h3 className="text-xl mb-4">{card.title}</h3>
+                <p className="text-text-secondary leading-relaxed">{card.text}</p>
               </div>
-
-              {/* Card 2 */}
-              <div className="text-center group md:translate-y-10 animate-slide-up [animation-delay:120ms]">
-                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
-                        transition-all duration-500 ease-out
-                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
-                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
-                          transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-2">
-                    <span className="text-3xl font-serif text-primary">2</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
-                      Piedras Auténticas
-                    </h3>
-                    <p className="text-text-secondary font-light leading-relaxed">
-                      Trabajamos con piedras semipreciosas naturales: cuarzo rosa, amatista, jade, perlas de río y más.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="text-center group md:-translate-y-2 animate-slide-up [animation-delay:240ms]">
-                <div className="mx-auto w-full max-w-sm rounded-3xl p-8 md:p-9 bg-white/50 backdrop-blur-sm border border-primary/10
-                        transition-all duration-500 ease-out
-                        hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 hover:ring-1 hover:ring-primary/20">
-                  <div className="w-20 h-20 mx-auto mb-7 rounded-full bg-cream flex items-center justify-center
-                          transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1">
-                    <span className="text-3xl font-serif text-primary">3</span>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-medium text-text-primary transition-transform duration-500 group-hover:scale-[1.02]">
-                      Diseño con Alma
-                    </h3>
-                    <p className="text-text-secondary font-light leading-relaxed">
-                      Piezas diseñadas para complementar tu estilo con elegancia y sencillez.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 md:py-28 bg-cream-light/50">
+      <section className="py-20 md:py-28 bg-cream">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-4 md:gap-6">
-            <div className="space-y-2">
-              <span className="text-sm font-bold tracking-widest text-primary/60 uppercase block">
-                Favoritos
-              </span>
-              <h2 className="text-3xl md:text-5xl font-serif text-text-primary">
-                Bestsellers
-              </h2>
+          <div className="flex justify-between items-end mb-14">
+            <div>
+              <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-3">Favoritos</span>
+              <h2 className="text-3xl md:text-4xl">Bestsellers</h2>
             </div>
-
-            <Link href="/tienda" className="hidden md:block">
-              <span className="text-primary hover:text-primary-light border-b border-primary/30 hover:border-primary transition-colors pb-1">
-                Ver toda la tienda
-              </span>
+            <Link href="/tienda" className="hidden md:block text-sm tracking-wider uppercase text-text-secondary hover:text-primary transition-colors border-b border-text-secondary/30 pb-0.5">
+              Ver todo
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {featuredProducts.map((product: any) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
 
-          <div className="mt-10 md:mt-12 text-center md:hidden">
+          <div className="mt-10 text-center md:hidden">
             <Link href="/tienda">
-              <Button variant="outline" className="w-full">
-                Ver toda la tienda
-              </Button>
+              <Button variant="outline" className="w-full">Ver toda la tienda</Button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Artisanal Process */}
-      <section className="py-24 md:py-32 bg-[#1a1a1a] text-white overflow-hidden relative isolate">
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-[#d4af37]/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-[#c9b99a]/10 rounded-full blur-3xl -z-10" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
-
-            <div className="lg:col-span-7 space-y-10">
-              <div>
-                <span className="text-[#c9b99a] font-bold tracking-widest uppercase text-sm mb-3 block">
-                  Proceso Artesanal
-                </span>
-                <h2 className="text-4xl md:text-6xl font-serif leading-[1.05] mb-6">
-                  Artesanía con<br />
-                  <span className="italic text-[#d4af37]">propósito.</span>
-                </h2>
-                <p className="text-lg text-white/80 font-light max-w-xl leading-relaxed">
-                  Del diseño a tus manos. Cada pieza pasa por un proceso cuidadoso de selección de materiales,
-                  diseño y elaboración manual que garantiza calidad y autenticidad.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-white/10 pt-8">
-                <div className="space-y-2">
-                  <h4 className="text-4xl font-serif text-[#d4af37]">100%</h4>
-                  <p className="font-medium text-white text-lg">Artesanal</p>
-                  <p className="text-white/60 text-sm font-light leading-relaxed">
-                    Cada pieza es elaborada completamente a mano con dedicación y cuidado.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-4xl font-serif text-[#d4af37]">8+</h4>
-                  <p className="font-medium text-white text-lg">Piedras Naturales</p>
-                  <p className="text-white/60 text-sm font-light leading-relaxed">
-                    Cuarzo, amatista, jade, perlas y más. Todas seleccionadas individualmente.
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-4xl font-serif text-[#d4af37]">MX</h4>
-                  <p className="font-medium text-white text-lg">Hecho en México</p>
-                  <p className="text-white/60 text-sm font-light leading-relaxed">
-                    Diseñado y elaborado con orgullo en México.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Link href="/proceso">
-                  <Button
-                    variant="outline"
-                    className="h-14 px-8 text-lg border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#1a1a1a] transition-all duration-300"
-                  >
-                    Conoce Nuestro Proceso
-                  </Button>
-                </Link>
-              </div>
+      {/* Artisanal Process — horizontal layout */}
+      <section className="py-24 md:py-32 bg-primary text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">
+                Proceso Artesanal
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-8 text-white">
+                Artesania con<br />
+                <em className="text-accent">proposito.</em>
+              </h2>
+              <p className="text-white/70 text-lg leading-relaxed max-w-md mb-10">
+                Del diseno a tus manos. Cada pieza pasa por un proceso cuidadoso
+                de seleccion, diseno y elaboracion manual.
+              </p>
+              <Link href="/proceso">
+                <Button
+                  variant="outline"
+                  className="border-accent text-accent hover:bg-accent hover:text-white transition-all h-12 px-8 text-sm tracking-wider uppercase"
+                >
+                  Conoce el Proceso
+                </Button>
+              </Link>
             </div>
 
-            {/* Visual Area */}
-            <div className="lg:col-span-5 relative">
-              <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/20 to-transparent opacity-50" />
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border border-white/20 flex items-center justify-center relative">
-                    <div className="w-32 h-32 md:w-40 md:h-40 bg-[#d4af37] rounded-full blur-[60px] opacity-40 animate-pulse" />
-                    <div className="absolute inset-0 border border-white/10 rounded-full animate-spin-slow" style={{ animationDuration: '20s' }} />
-
-                    <div className="text-center relative z-10">
-                      <span className="block text-2xl md:text-3xl font-serif italic text-[#d4af37] mb-1">Artesanal</span>
-                      <span className="text-[10px] tracking-[0.2em] uppercase text-[#d4af37]/80">Hecho a Mano</span>
-                    </div>
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+              {[
+                { number: '100%', label: 'Artesanal', text: 'Elaborada completamente a mano con dedicacion.' },
+                { number: '8+', label: 'Piedras Naturales', text: 'Cuarzo, amatista, jade, perlas. Seleccionadas individualmente.' },
+                { number: 'MX', label: 'Hecho en Mexico', text: 'Disenado y elaborado con orgullo en Mexico.' },
+              ].map((stat, i) => (
+                <div key={i} className="border-t border-white/15 pt-6">
+                  <span className="text-3xl md:text-4xl font-serif text-accent block mb-2">{stat.number}</span>
+                  <span className="text-sm font-medium text-white block mb-3">{stat.label}</span>
+                  <p className="text-white/50 text-sm leading-relaxed">{stat.text}</p>
                 </div>
-
-                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-[#1a1a1a] to-transparent">
-                  <p className="text-white/90 text-sm font-light text-center border-t border-white/10 pt-4">
-                    "Piedras semipreciosas seleccionadas una a una."
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
-
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-24 md:py-32">
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-12 md:mb-16 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-serif text-text-primary">
-              Historias Reales
-            </h2>
+          <div className="text-center mb-16">
+            <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">Testimonios</span>
+            <h2 className="text-3xl md:text-4xl">Historias Reales</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-            <div className="bg-cream-light p-8 md:p-10 pt-12 md:pt-14 rounded-xl relative overflow-hidden">
-              <span className="text-6xl text-primary/20 absolute top-4 left-4 font-serif z-0">
-                &ldquo;
-              </span>
-              <p className="text-lg text-text-primary font-light italic leading-relaxed mb-6 relative z-10">
-                La Pulsera Luna de Cuarzo es hermosa. Se nota que está hecha con cuidado y las piedras
-                son realmente naturales. La uso todos los días y siempre recibo cumplidos.
-              </p>
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white font-bold text-xs">
-                  AS
-                </div>
-                <div className="space-y-1">
-                  <p className="font-medium text-text-primary leading-none">Ana Sofía M.</p>
-                  <p className="text-xs text-text-secondary uppercase tracking-wider">
-                    Cliente Verificada
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-cream-light p-8 md:p-10 pt-12 md:pt-14 rounded-xl relative overflow-hidden">
-              <span className="text-6xl text-primary/20 absolute top-4 left-4 font-serif z-0">
-                &ldquo;
-              </span>
-              <p className="text-lg text-text-primary font-light italic leading-relaxed mb-6 relative z-10">
-                Compré el Set Madre e Hija como regalo de cumpleaños y fue un éxito total.
-                El empaque es precioso y las pulseras son delicadas pero resistentes. Mi mamá no se la quita.
-              </p>
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white font-bold text-xs">
-                  CR
-                </div>
-                <div className="space-y-1">
-                  <p className="font-medium text-text-primary leading-none">Carolina R.</p>
-                  <p className="text-xs text-text-secondary uppercase tracking-wider">
-                    Cliente Verificada
-                  </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                quote: 'La Pulsera Luna de Cuarzo es hermosa. Se nota que esta hecha con cuidado y las piedras son realmente naturales. La uso todos los dias y siempre recibo cumplidos.',
+                name: 'Ana Sofia M.',
+                initials: 'AS',
+              },
+              {
+                quote: 'Compre el Set Madre e Hija como regalo de cumpleanos y fue un exito total. El empaque es precioso y las pulseras son delicadas pero resistentes.',
+                name: 'Carolina R.',
+                initials: 'CR',
+              },
+            ].map((t, i) => (
+              <div key={i} className="border border-gray-100 p-8 md:p-10">
+                <p className="text-lg text-text-primary leading-relaxed mb-8 italic">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-accent/15 text-accent rounded-full flex items-center justify-center text-xs font-medium">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-text-primary">{t.name}</p>
+                    <p className="text-xs text-text-light">Cliente verificada</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 md:py-24 bg-cream text-center">
-        <div className="container mx-auto px-4 space-y-8">
-          <h2 className="text-3xl md:text-5xl font-serif text-text-primary leading-[1.12]">
+      <section className="py-20 md:py-28 bg-cream text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl mb-8">
             Encuentra la pieza perfecta.
           </h2>
           <Link href="/tienda">
-            <Button size="lg" className="px-12 py-4 text-lg shadow-xl">
-              Explorar Colección
+            <Button size="lg" className="h-14 px-12 text-sm tracking-wider uppercase">
+              Explorar Coleccion
             </Button>
           </Link>
         </div>

@@ -6,15 +6,9 @@ import { getAdminStatsAction } from '@/app/actions/admin/admin-actions';
 import Link from 'next/link';
 import {
     ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-    BarChart, Bar, Cell
 } from 'recharts';
-import {
-    DollarSign, ShoppingBag, Users, TrendingUp, AlertTriangle,
-    ArrowRight, Package, Clock, Mail
-} from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
-
-// Inline helper if utils not found or to be safe
 const toCurrency = (amount: number) => {
     return new Intl.NumberFormat('es-MX', {
         style: 'currency',
@@ -33,9 +27,7 @@ export default function AdminDashboardPage() {
             setIsLoading(true);
             if (user?.email) {
                 const { success, stats: fetchedStats } = await getAdminStatsAction(user.email, timeRange);
-                if (success) {
-                    setStats(fetchedStats);
-                }
+                if (success) setStats(fetchedStats);
             }
             setIsLoading(false);
         };
@@ -45,187 +37,130 @@ export default function AdminDashboardPage() {
     if (isLoading) {
         return (
             <div className="flex h-96 items-center justify-center">
-                <div className="text-[#1a1a1a] animate-pulse">Cargando tablero...</div>
+                <p className="text-sm text-text-secondary">Cargando tablero...</p>
             </div>
         );
     }
 
-    if (!stats) return <div className="p-8">No se pudieron cargar las estadísticas.</div>;
+    if (!stats) return <div className="p-8 text-text-secondary">No se pudieron cargar las estadisticas.</div>;
 
     return (
         <div className="space-y-8 pb-12">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-serif text-[#1a1a1a] mb-2">Panel de Control</h1>
-                    <p className="text-gray-500">Resumen general de tu tienda y rendimiento.</p>
+                    <span className="text-xs tracking-[0.2em] uppercase text-accent block mb-2">Dashboard</span>
+                    <h1 className="text-2xl md:text-3xl font-serif">Panel de Control</h1>
                 </div>
-                <div>
-                    <select
-                        className="border border-gray-200 rounded-lg text-sm text-gray-700 py-2 px-3 outline-none focus:ring-2 focus:ring-[#1a1a1a]/30 cursor-pointer shadow-sm"
-                        value={timeRange}
-                        onChange={(e) => setTimeRange(e.target.value)}
-                    >
-                        <option value="1m">Último mes</option>
-                        <option value="3m">Últimos 3 meses</option>
-                        <option value="6m">Últimos 6 meses</option>
-                        <option value="1y">Último año</option>
-                        <option value="all">Todo el tiempo</option>
-                    </select>
-                </div>
+                <select
+                    className="border border-gray-200 text-sm text-text-secondary py-2 px-3 bg-white focus:outline-none focus:border-primary"
+                    value={timeRange}
+                    onChange={(e) => setTimeRange(e.target.value)}
+                >
+                    <option value="1m">Ultimo mes</option>
+                    <option value="3m">Ultimos 3 meses</option>
+                    <option value="6m">Ultimos 6 meses</option>
+                    <option value="1y">Ultimo ano</option>
+                    <option value="all">Todo</option>
+                </select>
             </div>
 
-            {/* Top Metrics Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <StatCard
-                    title="Ingresos Totales"
-                    value={toCurrency(stats.totalRevenue)}
-                    icon={<DollarSign className="text-green-600" size={24} />}
-                    trend={stats.trends?.revenue}
-                    color="green"
-                />
-                <StatCard
-                    title="Pedidos Totales"
-                    value={stats.totalOrders}
-                    icon={<ShoppingBag className="text-blue-600" size={24} />}
-                    trend={stats.trends?.orders}
-                    color="blue"
-                />
-                <StatCard
-                    title="Nuevos Clientes"
-                    value={stats.totalCustomers}
-                    icon={<Users className="text-purple-600" size={24} />}
-                    trend={stats.trends?.customers}
-                    color="purple"
-                />
-                <StatCard
-                    title="Ticket Promedio"
-                    value={toCurrency(stats.avgOrderValue)}
-                    icon={<TrendingUp className="text-[#d4af37]" size={24} />}
-                    trend={stats.trends?.avg}
-                    color="yellow"
-                />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                {/* Sales Chart Area */}
-                <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-lg font-bold text-[#1a1a1a]">Ventas en el periodo (o últ. 30 días)</h2>
+            {/* Metrics */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200">
+                {[
+                    { label: 'Ingresos', value: toCurrency(stats.totalRevenue), trend: stats.trends?.revenue },
+                    { label: 'Pedidos', value: stats.totalOrders, trend: stats.trends?.orders },
+                    { label: 'Clientes', value: stats.totalCustomers, trend: stats.trends?.customers },
+                    { label: 'Ticket Promedio', value: toCurrency(stats.avgOrderValue), trend: stats.trends?.avg },
+                ].map((m, i) => (
+                    <div key={i} className="bg-white p-5 md:p-6">
+                        <p className="text-xs text-text-light uppercase tracking-wider mb-2">{m.label}</p>
+                        <p className="text-xl md:text-2xl font-serif">{m.value}</p>
+                        {m.trend && <span className="text-[10px] text-green-600 mt-1 block">{m.trend}</span>}
                     </div>
-                    <div className="h-[300px] w-full">
+                ))}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Chart */}
+                <div className="lg:col-span-2 bg-white p-6 border border-gray-100">
+                    <h2 className="text-xs tracking-[0.15em] uppercase text-text-light mb-6">Ventas</h2>
+                    <div className="h-[280px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={stats.salesGraph}>
                                 <defs>
                                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#1a1a1a" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#1a1a1a" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#c4918a" stopOpacity={0.15} />
+                                        <stop offset="95%" stopColor="#c4918a" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f1f1" />
-                                <XAxis
-                                    dataKey="name"
-                                    tick={{ fontSize: 10, fill: '#9ca3af' }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                    interval={3}
-                                />
-                                <YAxis
-                                    tick={{ fontSize: 10, fill: '#9ca3af' }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                    tickFormatter={(value) => `$${value}`}
-                                />
+                                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#9a9a9a' }} axisLine={false} tickLine={false} interval={3} />
+                                <YAxis tick={{ fontSize: 10, fill: '#9a9a9a' }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
                                 <Tooltip
-                                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                    contentStyle={{ border: '1px solid #e5e5e5', boxShadow: 'none', fontSize: '12px' }}
                                     formatter={(value: any) => [toCurrency(value), 'Ventas']}
                                 />
-                                <Area
-                                    type="monotone"
-                                    dataKey="ventas"
-                                    stroke="#1a1a1a"
-                                    strokeWidth={2}
-                                    fillOpacity={1}
-                                    fill="url(#colorSales)"
-                                />
+                                <Area type="monotone" dataKey="ventas" stroke="#c4918a" strokeWidth={1.5} fillOpacity={1} fill="url(#colorSales)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
-                {/* Top Products */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
-                    <h2 className="text-lg font-bold text-[#1a1a1a] mb-6">Más Vendidos</h2>
+                {/* Top products */}
+                <div className="bg-white p-6 border border-gray-100 flex flex-col">
+                    <h2 className="text-xs tracking-[0.15em] uppercase text-text-light mb-6">Mas Vendidos</h2>
                     <div className="flex-1">
                         {stats.topProducts.length > 0 ? (
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 {stats.topProducts.map((product: any, index: number) => (
-                                    <div key={index} className="flex items-center gap-4">
-                                        <div className="font-bold text-gray-300 text-lg w-4">#{index + 1}</div>
+                                    <div key={index} className="flex items-center gap-3">
+                                        <span className="text-xs text-text-light w-5">{index + 1}.</span>
                                         <div className="flex-1">
-                                            <div className="text-sm font-medium text-gray-800 line-clamp-1">{product.name}</div>
-                                            <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-                                                <div
-                                                    className="bg-[#d4af37] h-1.5 rounded-full"
-                                                    style={{ width: `${(product.quantity / stats.topProducts[0].quantity) * 100}%` }}
-                                                />
+                                            <p className="text-sm line-clamp-1">{product.name}</p>
+                                            <div className="w-full bg-gray-100 h-px mt-2">
+                                                <div className="bg-accent h-px" style={{ width: `${(product.quantity / stats.topProducts[0].quantity) * 100}%` }} />
                                             </div>
                                         </div>
-                                        <div className="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                                            {product.quantity} u
-                                        </div>
+                                        <span className="text-xs text-text-light">{product.quantity}u</span>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-400 text-sm text-center py-10">No hay datos suficientes</p>
+                            <p className="text-sm text-text-light text-center py-10">Sin datos</p>
                         )}
                     </div>
-                    <Link href="/admin/productos" className="mt-6 text-sm text-[#1a1a1a] font-semibold flex items-center justify-center hover:underline">
-                        Ver inventario <ArrowRight size={14} className="ml-1" />
+                    <Link href="/admin/productos" className="mt-4 text-xs text-accent hover:text-accent-dark transition-colors text-center">
+                        Ver inventario &rarr;
                     </Link>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Recent Orders Table */}
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
-                        <h2 className="font-bold text-[#1a1a1a]">Pedidos Recientes</h2>
-                        <Link href="/admin/pedidos" className="text-xs text-gray-500 hover:text-[#1a1a1a]">
-                            Ver todos
-                        </Link>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Recent orders */}
+                <div className="bg-white border border-gray-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <h2 className="text-xs tracking-[0.15em] uppercase text-text-light">Pedidos Recientes</h2>
+                        <Link href="/admin/pedidos" className="text-xs text-text-light hover:text-primary">Ver todos</Link>
                     </div>
                     <div className="divide-y divide-gray-100">
                         {stats.recentOrders.length === 0 ? (
-                            <div className="p-8 text-center text-gray-400">No hay pedidos recientes.</div>
+                            <div className="p-8 text-center text-text-light text-sm">No hay pedidos recientes.</div>
                         ) : (
                             stats.recentOrders.map((order: any) => (
                                 <Link
                                     href={`/admin/pedidos/${order.id}`}
                                     key={order.id}
-                                    className="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors group"
+                                    className="px-6 py-4 flex items-center justify-between hover:bg-cream/50 transition-colors"
                                 >
-                                    <div className="flex items-center gap-4">
-                                        <div className="bg-gray-100 p-2 rounded-lg text-gray-500 group-hover:bg-[#1a1a1a] group-hover:text-white transition-colors">
-                                            <Package size={20} />
-                                        </div>
-                                        <div>
-                                            <div className="font-semibold text-gray-900 text-sm">
-                                                {order.user?.firstName || 'Invitado'} {order.user?.lastName}
-                                            </div>
-                                            <div className="text-xs text-gray-500 flex items-center gap-1">
-                                                <Clock size={10} />
-                                                {new Date(order.createdAt).toLocaleDateString()}
-                                            </div>
-                                        </div>
+                                    <div>
+                                        <p className="text-sm font-medium">{order.user?.firstName || 'Invitado'} {order.user?.lastName}</p>
+                                        <p className="text-xs text-text-light mt-0.5">{new Date(order.createdAt).toLocaleDateString('es-MX')}</p>
                                     </div>
                                     <div className="text-right">
-                                        <div className="font-bold text-[#1a1a1a] text-sm">{toCurrency(order.total)}</div>
-                                        <span className={`text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold ${order.status === 'PENDING' ? 'bg-yellow-50 text-yellow-700' :
-                                            order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700' :
-                                                order.status === 'DELIVERED' ? 'bg-green-50 text-green-700' :
-                                                    'bg-gray-100 text-gray-600'
+                                        <p className="text-sm font-medium">{toCurrency(order.total)}</p>
+                                        <span className={`text-[10px] uppercase tracking-wider ${order.status === 'PENDING' ? 'text-yellow-600' :
+                                            order.status === 'SHIPPED' ? 'text-blue-600' :
+                                                order.status === 'DELIVERED' ? 'text-green-600' : 'text-text-light'
                                             }`}>
                                             {order.status}
                                         </span>
@@ -236,41 +171,30 @@ export default function AdminDashboardPage() {
                     </div>
                 </div>
 
-                {/* Low Stock Alerts */}
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-center">
-                        <h2 className="font-bold text-[#1a1a1a] flex items-center gap-2">
-                            <AlertTriangle size={18} className="text-red-500" /> Alertas de Inventario
-                        </h2>
+                {/* Stock alerts */}
+                <div className="bg-white border border-gray-100 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <h2 className="text-xs tracking-[0.15em] uppercase text-text-light">Alertas de Inventario</h2>
                         {stats.lowStockCount > 0 && (
-                            <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full font-bold">
-                                {stats.lowStockCount} artículos
-                            </span>
+                            <span className="text-xs text-red-500">{stats.lowStockCount} items</span>
                         )}
                     </div>
-                    <div className="p-8 flex flex-col items-center justify-center text-center h-64">
+                    <div className="p-8 flex flex-col items-center justify-center text-center h-56">
                         {stats.lowStockCount > 0 ? (
-                            <div className="max-w-xs">
-                                <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <AlertTriangle size={32} className="text-red-500" />
-                                </div>
-                                <h3 className="text-gray-900 font-bold mb-2">Atención Requerida</h3>
-                                <p className="text-gray-500 text-sm mb-6">
-                                    Hay {stats.lowStockCount} productos con inventario bajo (menos de 5 unidades).
+                            <div>
+                                <p className="text-lg font-serif mb-2">Atencion</p>
+                                <p className="text-sm text-text-secondary mb-4">
+                                    {stats.lowStockCount} productos con inventario bajo (&lt;5 unidades).
                                 </p>
-                                <Link href="/admin/productos" className="inline-block bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50">
+                                <Link href="/admin/productos" className="text-xs text-accent hover:text-accent-dark border-b border-accent/30 pb-0.5">
                                     Gestionar Inventario
                                 </Link>
                             </div>
                         ) : (
                             <div className="text-center">
-                                <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <CheckCircle size={32} className="text-green-500" />
-                                </div>
-                                <h3 className="text-gray-900 font-bold mb-2">Todo en órden</h3>
-                                <p className="text-gray-500 text-sm">
-                                    El inventario se ve saludable.
-                                </p>
+                                <CheckCircle size={24} className="text-green-400 mx-auto mb-3" />
+                                <p className="text-sm font-medium mb-1">Todo en orden</p>
+                                <p className="text-xs text-text-light">Inventario saludable.</p>
                             </div>
                         )}
                     </div>
@@ -279,33 +203,3 @@ export default function AdminDashboardPage() {
         </div>
     );
 }
-
-function StatCard({ title, value, icon, trend, color }: any) {
-    const bgColors: any = {
-        green: 'bg-green-50',
-        blue: 'bg-blue-50',
-        purple: 'bg-purple-50',
-        yellow: 'bg-yellow-50',
-    };
-
-    return (
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex justify-between items-start mb-4">
-                <div className={`p-3 rounded-xl ${bgColors[color] || 'bg-gray-50'}`}>
-                    {icon}
-                </div>
-                {trend && (
-                    <span className="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded-full font-bold">
-                        {trend}
-                    </span>
-                )}
-            </div>
-            <div>
-                <p className="text-sm text-gray-500 font-medium mb-1">{title}</p>
-                <h3 className="text-2xl font-bold text-[#1a1a1a]">{value}</h3>
-            </div>
-        </div>
-    );
-}
-
-import { CheckCircle } from 'lucide-react';

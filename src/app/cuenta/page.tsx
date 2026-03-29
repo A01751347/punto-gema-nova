@@ -2,7 +2,6 @@
 
 import { useAuth } from '@/lib/auth/auth-context';
 import Link from 'next/link';
-import { Package, User, ChevronRight, Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { getUserOrdersAction } from '@/app/actions/order-actions';
 
@@ -15,9 +14,7 @@ export default function DashboardPage() {
         async function fetchOrders() {
             if (user?.email) {
                 const res = await getUserOrdersAction(user.email);
-                if (res.success && res.orders) {
-                    setOrders(res.orders);
-                }
+                if (res.success && res.orders) setOrders(res.orders);
             }
             setLoadingOrders(false);
         }
@@ -34,99 +31,84 @@ export default function DashboardPage() {
 
     return (
         <div>
-            {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-[#1a1a1a] mb-2">
+                <span className="text-xs tracking-[0.2em] uppercase text-accent block mb-2">Bienvenida</span>
+                <h1 className="text-2xl font-serif mb-2">
                     Hola, {user?.firstName || 'Usuario'}
                 </h1>
-                <p className="text-sm text-gray-500 max-w-2xl">
-                    Desde tu panel de control puedes ver tus pedidos recientes, gestionar tus direcciones y editar tu contraseña y detalles de la cuenta.
+                <p className="text-sm text-text-secondary">
+                    Desde aqui puedes ver tus pedidos, direcciones y detalles de cuenta.
                 </p>
             </div>
 
-            {/* Quick Actions Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Recent Orders Preview */}
-                <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col">
-                    <div className="flex justify-between items-center mb-6 pb-3 border-b border-gray-100">
-                        <div className="flex items-center gap-2">
-                            <Package size={16} className="text-[#1a1a1a]" />
-                            <h2 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider">Pedidos Recientes</h2>
-                        </div>
-                        <Link href="/cuenta/pedidos" className="text-xs text-gray-500 hover:text-[#1a1a1a] transition-colors">
+                {/* Recent Orders */}
+                <div className="bg-white border border-gray-100 p-6">
+                    <div className="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
+                        <h2 className="text-xs tracking-[0.15em] uppercase text-text-light">Pedidos Recientes</h2>
+                        <Link href="/cuenta/pedidos" className="text-xs text-text-light hover:text-primary transition-colors">
                             Ver todos
                         </Link>
                     </div>
 
-                    <div className="flex-1">
-                        {loadingOrders ? (
-                            <div className="space-y-3">
-                                <div className="h-10 bg-gray-50 rounded animate-pulse" />
-                                <div className="h-10 bg-gray-50 rounded animate-pulse" />
-                            </div>
-                        ) : orders.length > 0 ? (
-                            <div className="space-y-3">
-                                {orders.slice(0, 3).map((order) => (
-                                    <Link
-                                        key={order.id}
-                                        href={`/cuenta/pedidos/${order.id}`}
-                                        className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 group"
-                                    >
-                                        <div>
-                                            <p className="text-sm font-medium text-[#1a1a1a] group-hover:text-primary-light">#{order.orderNumber}</p>
-                                            <div className="flex items-center gap-2 text-xs text-gray-400 mt-0.5">
-                                                <Clock size={10} />
-                                                <span>{formatDate(order.createdAt)}</span>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center gap-3">
-                                            <span className={`px-2 py-0.5 text-[10px] rounded-full font-bold uppercase tracking-wider border ${order.status === 'DELIVERED' ? 'bg-green-50 text-green-700 border-green-200' :
-                                                    order.status === 'SHIPPED' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                                        order.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-200' :
-                                                            'bg-yellow-50 text-yellow-700 border-yellow-200'
-                                                }`}>
-                                                {order.status === 'PENDING' ? 'Pendiente' : order.status}
-                                            </span>
-                                            <ChevronRight size={14} className="text-gray-300 group-hover:text-[#1a1a1a]" />
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-6">
-                                <p className="text-sm text-gray-400 mb-4">No tienes pedidos recientes.</p>
-                                <Link href="/tienda" className="inline-flex items-center px-4 py-2 bg-[#F2EFE9] text-[#1a1a1a] text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-[#E6E0D9] transition-colors">
-                                    Ir a la tienda
+                    {loadingOrders ? (
+                        <div className="space-y-3">
+                            <div className="h-10 bg-gray-50 animate-pulse" />
+                            <div className="h-10 bg-gray-50 animate-pulse" />
+                        </div>
+                    ) : orders.length > 0 ? (
+                        <div className="space-y-0">
+                            {orders.slice(0, 3).map((order) => (
+                                <Link
+                                    key={order.id}
+                                    href={`/cuenta/pedidos/${order.id}`}
+                                    className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0 hover:bg-cream/30 -mx-2 px-2 transition-colors"
+                                >
+                                    <div>
+                                        <p className="text-sm font-medium">#{order.orderNumber}</p>
+                                        <p className="text-xs text-text-light mt-0.5">{formatDate(order.createdAt)}</p>
+                                    </div>
+                                    <span className={`text-[10px] uppercase tracking-wider ${order.status === 'DELIVERED' ? 'text-green-600' :
+                                        order.status === 'SHIPPED' ? 'text-blue-600' :
+                                            order.status === 'CANCELLED' ? 'text-red-500' :
+                                                'text-yellow-600'
+                                        }`}>
+                                        {order.status === 'PENDING' ? 'Pendiente' : order.status}
+                                    </span>
                                 </Link>
-                            </div>
-                        )}
-                    </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <p className="text-sm text-text-light mb-3">No tienes pedidos.</p>
+                            <Link href="/tienda" className="text-xs text-accent hover:text-accent-dark border-b border-accent/30 pb-0.5">
+                                Ir a la tienda
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
-                {/* Account Details Preview */}
-                <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow h-fit">
-                    <div className="flex justify-between items-center mb-6 pb-3 border-b border-gray-100">
-                        <div className="flex items-center gap-2">
-                            <User size={16} className="text-[#1a1a1a]" />
-                            <h2 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider">Detalles de la Cuenta</h2>
-                        </div>
-                        <Link href="/cuenta/perfil" className="text-xs text-gray-500 hover:text-[#1a1a1a] transition-colors">
+                {/* Account Details */}
+                <div className="bg-white border border-gray-100 p-6 h-fit">
+                    <div className="flex justify-between items-center mb-5 pb-3 border-b border-gray-100">
+                        <h2 className="text-xs tracking-[0.15em] uppercase text-text-light">Detalles de Cuenta</h2>
+                        <Link href="/cuenta/perfil" className="text-xs text-text-light hover:text-primary transition-colors">
                             Editar
                         </Link>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         <div>
-                            <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Nombre</p>
-                            <p className="text-[#1a1a1a] font-medium text-sm">{user?.firstName} {user?.lastName}</p>
+                            <p className="text-[10px] uppercase tracking-wider text-text-light mb-1">Nombre</p>
+                            <p className="text-sm font-medium">{user?.firstName} {user?.lastName}</p>
                         </div>
                         <div>
-                            <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Email</p>
-                            <p className="text-gray-600 text-sm">{user?.email}</p>
+                            <p className="text-[10px] uppercase tracking-wider text-text-light mb-1">Email</p>
+                            <p className="text-sm text-text-secondary">{user?.email}</p>
                         </div>
                         {user?.phone && (
                             <div>
-                                <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Teléfono</p>
-                                <p className="text-gray-600 text-sm">{user.phone}</p>
+                                <p className="text-[10px] uppercase tracking-wider text-text-light mb-1">Telefono</p>
+                                <p className="text-sm text-text-secondary">{user.phone}</p>
                             </div>
                         )}
                     </div>

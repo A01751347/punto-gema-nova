@@ -24,7 +24,7 @@ async function getProducts(searchParams: { category?: string; sort?: string }) {
             categories: {
                 some: {
                     category: {
-                        name: category // TODO: Change to slug match for robustness
+                        name: category
                     }
                 }
             }
@@ -57,46 +57,48 @@ export default async function ShopPage({
     const categories = await getCategories();
 
     return (
-        <div className="bg-white min-h-screen pt-0 pb-20">
+        <div className="bg-white min-h-screen">
             {/* Header */}
-            <div className="bg-cream-light py-16 md:py-24 mb-12">
-                <div className="container mx-auto px-4 text-center">
-                    <span className="text-sm font-bold tracking-widest text-primary/60 uppercase mb-4 block">
-                        Colección Completa
+            <div className="py-16 md:py-24 bg-cream border-b border-gray-100">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">
+                        Coleccion Completa
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-serif text-text-primary mb-6">
+                    <h1 className="text-4xl md:text-6xl mb-4">
                         Tienda
                     </h1>
-                    <p className="text-lg text-text-secondary max-w-2xl mx-auto font-light">
-                        Explora nuestra colección de joyería artesanal elaborada con piedras semipreciosas y materiales selectos.
+                    <p className="text-text-secondary max-w-xl leading-relaxed">
+                        Joyeria artesanal elaborada con piedras semipreciosas y materiales selectos.
                     </p>
                 </div>
             </div>
 
-            <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row gap-12">
+            <div className="container mx-auto px-4 py-12 md:py-16">
+                <div className="flex flex-col md:flex-row gap-10 md:gap-14">
                     {/* Sidebar */}
                     <FilterSidebar categories={categories} />
 
-                    {/* Main Content */}
+                    {/* Main */}
                     <div className="flex-1">
-                        <div className="flex justify-between items-center mb-8">
-                            <span className="text-text-secondary text-sm">
-                                {products.length} productos encontrados
+                        <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+                            <span className="text-sm text-text-light">
+                                {products.length} {products.length === 1 ? 'pieza' : 'piezas'}
                             </span>
                             <SortDropdown />
                         </div>
 
                         {products.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                                 {products.map((product) => (
                                     <ProductCard key={product.id} product={product as any} />
                                 ))}
                             </div>
                         ) : (
-                            <div className="py-20 text-center">
-                                <p className="text-text-secondary text-lg">No encontramos productos en esta selección.</p>
-                                <a href="/tienda" className="text-primary hover:underline mt-4 inline-block">Ver todos los productos</a>
+                            <div className="py-24 text-center">
+                                <p className="text-text-secondary mb-4">No encontramos piezas en esta seleccion.</p>
+                                <a href="/tienda" className="text-sm text-accent hover:text-accent-dark transition-colors border-b border-accent/30 pb-0.5">
+                                    Ver todas las piezas
+                                </a>
                             </div>
                         )}
                     </div>

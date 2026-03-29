@@ -17,109 +17,85 @@ export default function Footer() {
         try {
             const response = await fetch('/api/newsletter/subscribe', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
             });
 
             if (response.ok) {
-                setSubscribeMessage('¡Gracias por suscribirte!');
+                setSubscribeMessage('Gracias por suscribirte.');
                 setEmail('');
             } else {
                 setSubscribeMessage('Error al suscribirse. Intenta de nuevo.');
             }
-        } catch (error) {
+        } catch {
             setSubscribeMessage('Error al suscribirse. Intenta de nuevo.');
         } finally {
             setIsSubscribing(false);
         }
     };
 
-    const footerLinks = {
-        tienda: [
-            { name: 'Todos los Productos', href: '/tienda' },
-            { name: 'Pulseras', href: '/tienda?category=pulseras' },
-            { name: 'Collares', href: '/tienda?category=collares' },
-            { name: 'Sets', href: '/tienda?category=sets' },
-            { name: 'Personalizados', href: '/tienda?category=personalizados' },
-        ],
-        ayuda: [
-            { name: 'Preguntas Frecuentes', href: '/faq' },
-            { name: 'Rastrear Pedido', href: '/rastreo' },
-            { name: 'Envíos (Política)', href: '/envios' },
-            { name: 'Devoluciones', href: '/devoluciones' },
-            { name: 'Facturación / CFDI', href: '/facturacion' },
-            { name: 'Contacto', href: '/contacto' },
-            { name: 'Política de Privacidad', href: '/politica-privacidad' },
-        ],
-        descubre: [
-            { name: 'Materiales', href: '/materiales' },
-            { name: 'Nuestro Proceso', href: '/proceso' },
-            { name: 'Regalos', href: '/regalos' },
-            { name: 'Blog', href: '/blog' },
-        ],
-    };
-
     return (
-        <footer className="bg-cream-light border-t border-cream">
-            <div className="container mx-auto py-12">
-                {/* Newsletter Section */}
-                <div className="mb-12 text-center mt-8">
-                    <h3 className="text-2xl font-semibold text-text-primary mb-2">
-                        Recibe novedades y colecciones
-                    </h3>
-                    <p className="text-text-secondary mb-6">
-                        Suscríbete a nuestro newsletter y obtén acceso anticipado a nuevas piezas
-                    </p>
-                    <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex gap-2">
+        <footer className="bg-primary text-white">
+            {/* Newsletter band */}
+            <div className="border-b border-white/10">
+                <div className="container mx-auto py-12 md:py-16 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="text-center md:text-left">
+                        <h3 className="font-serif text-2xl md:text-3xl tracking-wide mb-1">
+                            Se parte del mundo Gema
+                        </h3>
+                        <p className="text-white/60 text-sm">
+                            Nuevas piezas, ofertas y colecciones directo a tu correo.
+                        </p>
+                    </div>
+                    <form onSubmit={handleNewsletterSubmit} className="flex w-full md:w-auto max-w-md gap-0">
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="tu@email.com"
                             required
-                            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="flex-1 md:w-64 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-accent"
                         />
-                        <Button type="submit" isLoading={isSubscribing}>
-                            Suscribirse
-                        </Button>
+                        <button
+                            type="submit"
+                            disabled={isSubscribing}
+                            className="px-6 py-3 bg-accent text-white text-sm tracking-wider uppercase hover:bg-accent-dark transition-colors disabled:opacity-50"
+                        >
+                            {isSubscribing ? '...' : 'Unirme'}
+                        </button>
                     </form>
                     {subscribeMessage && (
-                        <p className="mt-2 text-sm text-primary">{subscribeMessage}</p>
+                        <p className="text-accent text-sm md:absolute">{subscribeMessage}</p>
                     )}
                 </div>
+            </div>
 
-                {/* Links Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                    {/* Brand Column */}
-                    <div>
-                        <h4 className="text-2xl font-bold text-primary mb-4">PUNTO GEMA NOVA</h4>
-                        <p className="text-sm text-text-secondary mb-4">
-                            Joyería artesanal elaborada con piedras semipreciosas, perlas y chapa de oro. Piezas únicas hechas en México.
+            {/* Main footer */}
+            <div className="container mx-auto py-12">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-6">
+                    {/* Brand */}
+                    <div className="col-span-2 md:col-span-1">
+                        <div className="mb-4">
+                            <span className="font-serif text-xl tracking-[0.15em]">PUNTO GEMA</span>
+                            <span className="block text-[10px] tracking-[0.35em] text-white/50 uppercase">nova</span>
+                        </div>
+                        <p className="text-white/50 text-sm leading-relaxed mb-5">
+                            Joyeria artesanal con piedras semipreciosas y materiales selectos. Hecho en Mexico.
                         </p>
-                        {/* Social Media */}
-                        <div className="flex space-x-4">
-                            <a
-                                href="https://instagram.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-text-secondary hover:text-primary transition-colors"
-                                aria-label="Instagram"
-                            >
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <div className="flex gap-4">
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors" aria-label="Instagram">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                                 </svg>
                             </a>
-                            <a
-                                href="https://facebook.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-text-secondary hover:text-primary transition-colors"
-                                aria-label="Facebook"
-                            >
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors" aria-label="Facebook">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                </svg>
+                            </a>
+                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors" aria-label="TikTok">
+                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
                                 </svg>
                             </a>
                         </div>
@@ -127,31 +103,17 @@ export default function Footer() {
 
                     {/* Tienda */}
                     <div>
-                        <h5 className="font-semibold text-text-primary mb-4">Tienda</h5>
-                        <ul className="space-y-2">
-                            {footerLinks.tienda.map((link) => (
+                        <h5 className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">Tienda</h5>
+                        <ul className="space-y-2.5">
+                            {[
+                                { name: 'Ver Todo', href: '/tienda' },
+                                { name: 'Pulseras', href: '/tienda?category=pulseras' },
+                                { name: 'Collares', href: '/tienda?category=collares' },
+                                { name: 'Sets', href: '/tienda?category=sets' },
+                                { name: 'Personalizados', href: '/personalizados' },
+                            ].map((link) => (
                                 <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-sm text-text-secondary hover:text-primary transition-colors"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Ayuda */}
-                    <div>
-                        <h5 className="font-semibold text-text-primary mb-4">Ayuda</h5>
-                        <ul className="space-y-2">
-                            {footerLinks.ayuda.map((link) => (
-                                <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-sm text-text-secondary hover:text-primary transition-colors"
-                                    >
+                                    <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
                                         {link.name}
                                     </Link>
                                 </li>
@@ -161,14 +123,54 @@ export default function Footer() {
 
                     {/* Descubre */}
                     <div>
-                        <h5 className="font-semibold text-text-primary mb-4">Descubre</h5>
-                        <ul className="space-y-2">
-                            {footerLinks.descubre.map((link) => (
+                        <h5 className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">Descubre</h5>
+                        <ul className="space-y-2.5">
+                            {[
+                                { name: 'Colecciones', href: '/colecciones' },
+                                { name: 'Materiales', href: '/materiales' },
+                                { name: 'Nuestro Proceso', href: '/proceso' },
+                                { name: 'Regalos', href: '/regalos' },
+                                { name: 'Blog', href: '/blog' },
+                            ].map((link) => (
                                 <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-sm text-text-secondary hover:text-primary transition-colors"
-                                    >
+                                    <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Ayuda */}
+                    <div>
+                        <h5 className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">Ayuda</h5>
+                        <ul className="space-y-2.5">
+                            {[
+                                { name: 'FAQ', href: '/faq' },
+                                { name: 'Rastrear Pedido', href: '/rastreo' },
+                                { name: 'Envios', href: '/envios' },
+                                { name: 'Devoluciones', href: '/devoluciones' },
+                                { name: 'Contacto', href: '/contacto' },
+                            ].map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                                        {link.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Legal */}
+                    <div>
+                        <h5 className="text-xs tracking-[0.15em] uppercase text-white/40 mb-4">Legal</h5>
+                        <ul className="space-y-2.5">
+                            {[
+                                { name: 'Facturacion', href: '/facturacion' },
+                                { name: 'Privacidad', href: '/politica-privacidad' },
+                            ].map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="text-sm text-white/60 hover:text-white transition-colors">
                                         {link.name}
                                     </Link>
                                 </li>
@@ -176,33 +178,17 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                {/* Trust Badges */}
-                <div className="flex flex-wrap justify-center items-center gap-8 mb-8 py-8 border-y border-cream">
-                    <div className="flex items-center space-x-2 text-text-secondary">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-sm">Envío Gratis +$1,300</span>
+            {/* Bottom bar */}
+            <div className="border-t border-white/10">
+                <div className="container mx-auto py-5 flex flex-col md:flex-row items-center justify-between gap-2">
+                    <p className="text-white/30 text-xs">&copy; {new Date().getFullYear()} Punto Gema Nova. Todos los derechos reservados.</p>
+                    <div className="flex items-center gap-6 text-white/30 text-xs">
+                        <span>Envio gratis +$1,300</span>
+                        <span>Pago seguro</span>
+                        <span>Hecho en Mexico</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-text-secondary">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                        <span className="text-sm">Pago Seguro</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-text-secondary">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                        </svg>
-                        <span className="text-sm">Devoluciones 30 días</span>
-                    </div>
-                </div>
-
-                {/* Bottom Bar */}
-                <div className="text-center text-sm text-text-secondary">
-                    <p>&copy; {new Date().getFullYear()} Punto Gema Nova. Todos los derechos reservados.</p>
-                    <p className="mt-2">Joyería artesanal hecha en México con dedicación.</p>
                 </div>
             </div>
         </footer>

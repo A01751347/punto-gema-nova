@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth/auth-context';
-import { Home, Package, MapPin, User, LogOut } from 'lucide-react';
 
 export default function AccountSidebar() {
     const pathname = usePathname();
@@ -11,10 +10,10 @@ export default function AccountSidebar() {
     const { logout } = useAuth();
 
     const menuItems = [
-        { label: 'Resumen', href: '/cuenta', icon: Home },
-        { label: 'Mis Pedidos', href: '/cuenta/pedidos', icon: Package },
-        { label: 'Direcciones', href: '/cuenta/direcciones', icon: MapPin },
-        { label: 'Mi Perfil', href: '/cuenta/perfil', icon: User },
+        { label: 'Resumen', href: '/cuenta' },
+        { label: 'Mis Pedidos', href: '/cuenta/pedidos' },
+        { label: 'Direcciones', href: '/cuenta/direcciones' },
+        { label: 'Mi Perfil', href: '/cuenta/perfil' },
     ];
 
     const handleLogout = () => {
@@ -23,34 +22,31 @@ export default function AccountSidebar() {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h3 className="text-xs font-bold text-[#1a1a1a] uppercase tracking-wider mb-6 px-4">Mi Cuenta</h3>
-            <nav className="space-y-1">
+        <div className="bg-white border border-gray-100 p-5">
+            <h3 className="text-xs tracking-[0.15em] uppercase text-text-light mb-5 px-3">Mi Cuenta</h3>
+            <nav className="space-y-0.5">
                 {menuItems.map((item) => {
                     const isActive = pathname === item.href;
-                    const Icon = item.icon;
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200 text-sm ${isActive
-                                ? 'bg-[#F2EFE9] text-[#1a1a1a] font-bold'
-                                : 'text-gray-500 hover:bg-gray-50 hover:text-[#1a1a1a]'
+                            className={`block px-3 py-2.5 text-sm transition-colors ${isActive
+                                ? 'bg-cream text-primary font-medium'
+                                : 'text-text-secondary hover:text-primary hover:bg-cream/50'
                                 }`}
                         >
-                            <Icon size={16} className={isActive ? 'text-[#1a1a1a]' : 'text-gray-400'} />
                             {item.label}
                         </Link>
                     );
                 })}
 
-                <div className="pt-4 mt-4 border-t border-gray-100">
+                <div className="pt-3 mt-3 border-t border-gray-100">
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-red-500 hover:bg-red-50 transition-all duration-200 text-sm font-medium group"
+                        className="w-full text-left px-3 py-2.5 text-sm text-red-400 hover:text-red-500 hover:bg-red-50/50 transition-colors"
                     >
-                        <LogOut size={16} className="text-red-400 group-hover:text-red-500" />
-                        Cerrar Sesión
+                        Cerrar Sesion
                     </button>
                 </div>
             </nav>
