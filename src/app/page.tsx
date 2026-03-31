@@ -1,8 +1,14 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import ProductCard from "@/components/shop/ProductCard";
+import ShopTheLook from "@/components/home/ShopTheLook";
+import HeroSection from "@/components/home/HeroSection";
+import StickyCTA from "@/components/home/StickyCTA";
+import InstagramFeed from "@/components/home/InstagramFeed";
+import Testimonials from "@/components/home/Testimonials";
+import Marquee from "@/components/ui/Marquee";
+import AnimateOnScroll from "@/components/ui/AnimateOnScroll";
 import prisma from "@/lib/db/prisma";
-import HeroCarousel from "@/components/home/HeroCarousel";
 
 async function getFeaturedProducts() {
   try {
@@ -30,231 +36,214 @@ async function getFeaturedProducts() {
   }
 }
 
-async function getHomeBanners() {
-  try {
-    const banners = await prisma.banner.findMany({
-      where: { isActive: true, position: 'hero' },
-      orderBy: { sortOrder: 'asc' }
-    });
-    return banners;
-  } catch (e) {
-    return [];
-  }
-}
-
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
-  const heroBanners = await getHomeBanners();
+
+  const lookProducts = featuredProducts.length >= 2 ? featuredProducts : [];
 
   return (
     <div className="bg-white text-text-primary">
-      {/* Hero Section */}
-      {heroBanners.length > 0 ? (
-        <HeroCarousel banners={heroBanners} />
-      ) : (
-        <section className="relative min-h-[85svh] flex items-center bg-cream">
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-3xl">
-              <span className="text-xs tracking-[0.3em] uppercase text-accent mb-6 block">
-                Joyeria Artesanal Mexicana
-              </span>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif leading-[1.05] mb-8">
-                Piezas que<br />
-                cuentan <em className="text-accent">historias</em>
-              </h1>
+      {/* 👇 SOLO el hero */}
+      <div className="-mt-20 md:-mt-[120px]">
+        <HeroSection />
+      </div>
+      {/* 2. Marquee Banner — Animated scrolling text */}
+      <Marquee
+        items={[
+          'Envío gratis en compras +$1,300 MXN',
+          'Joyería artesanal hecha en México',
+          'Piedras semipreciosas naturales',
+          'Piezas únicas diseñadas con alma',
+          'Chapa de oro de la más alta calidad',
+        ]}
+        className="py-4 bg-primary text-white text-xs tracking-[0.2em] uppercase"
+        speed={35}
+      />
 
-              <p className="text-lg text-text-secondary max-w-xl leading-relaxed mb-10">
-                Elaborada a mano con piedras semipreciosas, perlas y chapa de oro.
-                Disenada para regalar, combinar y usar todos los dias.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Link href="/tienda">
-                  <Button size="lg" className="h-13 px-8 text-sm tracking-wider uppercase">
-                    Ver Coleccion
-                  </Button>
-                </Link>
-                <Link href="/proceso">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="h-13 px-8 text-sm tracking-wider uppercase"
-                  >
-                    Nuestro Proceso
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Decorative side element */}
-          <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-2/5 bg-cream-dark" />
-        </section>
-      )}
-
-      {/* Value Proposition */}
-      <section className="py-24 md:py-32">
+      {/* 3. Categorías Visuales con animaciones stagger */}
+      <section className="py-20 md:py-32 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">Nuestra Promesa</span>
-            <h2 className="text-4xl md:text-5xl leading-tight">
-              Cada pieza tiene una historia.
-            </h2>
-            <p className="mt-6 text-text-secondary text-lg leading-relaxed">
-              Seleccionamos piedras semipreciosas y materiales de calidad para crear
-              joyeria artesanal con caracter y detalle.
-            </p>
+          <AnimateOnScroll animation="fade-up" className="text-center mb-14">
+            <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-3">Explora</span>
+            <h2 className="text-3xl md:text-4xl font-serif">Encuentra Tu Pieza</h2>
+          </AnimateOnScroll>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+            <AnimateOnScroll animation="fade-up" delay={0}>
+              <Link href="/colecciones" className="relative h-[55vh] md:h-[65vh] group overflow-hidden block img-zoom">
+                <img
+                  src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800&auto=format&fit=crop"
+                  alt="Aros y Aretes"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-colors duration-500" />
+
+                {/* Content overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                  <span className="text-[10px] tracking-[0.3em] uppercase block mb-2 text-white/80">Joyería Cotidiana</span>
+                  <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">Aros & Aretes</h2>
+                  <span className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-white/90 group-hover:gap-3 transition-all">
+                    Explorar
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll animation="fade-up" delay={150}>
+              <Link href="/colecciones" className="relative h-[55vh] md:h-[65vh] group overflow-hidden block img-zoom">
+                <img
+                  src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop"
+                  alt="Collares de Perla"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-colors duration-500" />
+
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                  <span className="text-[10px] tracking-[0.3em] uppercase block mb-2 text-white/80">Para Ocasiones</span>
+                  <h2 className="text-3xl md:text-4xl font-serif text-white mb-4">Collares de Perla</h2>
+                  <span className="inline-flex items-center gap-2 text-xs tracking-wider uppercase text-white/90 group-hover:gap-3 transition-all">
+                    Explorar
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
+            </AnimateOnScroll>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-200">
+          {/* Extra category row — 3 smaller cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mt-4 lg:mt-6">
             {[
-              {
-                title: 'Hecho a Mano',
-                text: 'Cada pieza es elaborada individualmente con atencion al detalle. No hay dos iguales.',
-              },
-              {
-                title: 'Piedras Autenticas',
-                text: 'Piedras semipreciosas naturales: cuarzo rosa, amatista, jade, perlas de rio y mas.',
-              },
-              {
-                title: 'Diseno con Alma',
-                text: 'Piezas disenadas para complementar tu estilo con elegancia y sencillez.',
-              },
-            ].map((card, i) => (
-              <div key={i} className="bg-white p-10 md:p-12">
-                <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-6">0{i + 1}</span>
-                <h3 className="text-xl mb-4">{card.title}</h3>
-                <p className="text-text-secondary leading-relaxed">{card.text}</p>
-              </div>
+              { title: 'Pulseras', label: 'Best Seller', img: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=600&auto=format&fit=crop' },
+              { title: 'Sets', label: 'Para Regalar', img: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?q=80&w=600&auto=format&fit=crop' },
+              { title: 'Personalizados', label: 'Bajo Pedido', img: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6c3?q=80&w=600&auto=format&fit=crop' },
+            ].map((cat, i) => (
+              <AnimateOnScroll key={cat.title} animation="fade-up" delay={i * 100 + 200}>
+                <Link href="/tienda" className="relative h-[35vh] group overflow-hidden block img-zoom">
+                  <img
+                    src={cat.img}
+                    alt={cat.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/25 transition-colors duration-500" />
+                  <div className="absolute top-4 left-4">
+                    <span className="glass text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 text-primary">{cat.label}</span>
+                  </div>
+                  <div className="absolute bottom-6 left-6">
+                    <h3 className="text-xl md:text-2xl font-serif text-white">{cat.title}</h3>
+                  </div>
+                </Link>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-20 md:py-28 bg-cream">
+      {/* 4. Bestsellers — Catálogo Elegante */}
+      <section className="py-20 md:py-28 bg-cream-light">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-end mb-14">
+          <AnimateOnScroll animation="fade-up" className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
             <div>
-              <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-3">Favoritos</span>
-              <h2 className="text-3xl md:text-4xl">Bestsellers</h2>
+              <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-3">La Selección</span>
+              <h2 className="text-3xl md:text-4xl font-serif">Bestsellers</h2>
             </div>
-            <Link href="/tienda" className="hidden md:block text-sm tracking-wider uppercase text-text-secondary hover:text-primary transition-colors border-b border-text-secondary/30 pb-0.5">
-              Ver todo
+            <Link href="/tienda" className="text-xs tracking-wider uppercase text-text-secondary hover:text-primary transition-colors border-b border-text-secondary/30 pb-1">
+              Ver todos
             </Link>
-          </div>
+          </AnimateOnScroll>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {featuredProducts.map((product: any) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            {featuredProducts.map((product: any, i: number) => (
+              <AnimateOnScroll key={product.id} animation="fade-up" delay={i * 100}>
+                <ProductCard product={product} />
+              </AnimateOnScroll>
             ))}
           </div>
 
-          <div className="mt-10 text-center md:hidden">
-            <Link href="/tienda">
-              <Button variant="outline" className="w-full">Ver toda la tienda</Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Artisanal Process — horizontal layout */}
-      <section className="py-24 md:py-32 bg-primary text-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">
-                Proceso Artesanal
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-8 text-white">
-                Artesania con<br />
-                <em className="text-accent">proposito.</em>
-              </h2>
-              <p className="text-white/70 text-lg leading-relaxed max-w-md mb-10">
-                Del diseno a tus manos. Cada pieza pasa por un proceso cuidadoso
-                de seleccion, diseno y elaboracion manual.
-              </p>
-              <Link href="/proceso">
-                <Button
-                  variant="outline"
-                  className="border-accent text-accent hover:bg-accent hover:text-white transition-all h-12 px-8 text-sm tracking-wider uppercase"
-                >
-                  Conoce el Proceso
+          {featuredProducts.length === 0 && (
+            <AnimateOnScroll animation="fade-in" className="text-center py-16">
+              <p className="text-text-secondary text-sm">Pronto agregaremos nuestros productos destacados.</p>
+              <Link href="/tienda" className="inline-block mt-4">
+                <Button variant="outline" className="text-xs tracking-wider uppercase">
+                  Ir a la Tienda
                 </Button>
               </Link>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              {[
-                { number: '100%', label: 'Artesanal', text: 'Elaborada completamente a mano con dedicacion.' },
-                { number: '8+', label: 'Piedras Naturales', text: 'Cuarzo, amatista, jade, perlas. Seleccionadas individualmente.' },
-                { number: 'MX', label: 'Hecho en Mexico', text: 'Disenado y elaborado con orgullo en Mexico.' },
-              ].map((stat, i) => (
-                <div key={i} className="border-t border-white/15 pt-6">
-                  <span className="text-3xl md:text-4xl font-serif text-accent block mb-2">{stat.number}</span>
-                  <span className="text-sm font-medium text-white block mb-3">{stat.label}</span>
-                  <p className="text-white/50 text-sm leading-relaxed">{stat.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+            </AnimateOnScroll>
+          )}
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 md:py-32">
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-16">
-            <span className="text-xs tracking-[0.3em] uppercase text-accent block mb-4">Testimonios</span>
-            <h2 className="text-3xl md:text-4xl">Historias Reales</h2>
-          </div>
+      {/* 5. Módulo Editorial: Shop The Look */}
+      <ShopTheLook products={lookProducts} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* 6. Valores / Features strip */}
+      <section className="py-14 bg-cream border-y border-cream-dark">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             {[
-              {
-                quote: 'La Pulsera Luna de Cuarzo es hermosa. Se nota que esta hecha con cuidado y las piedras son realmente naturales. La uso todos los dias y siempre recibo cumplidos.',
-                name: 'Ana Sofia M.',
-                initials: 'AS',
-              },
-              {
-                quote: 'Compre el Set Madre e Hija como regalo de cumpleanos y fue un exito total. El empaque es precioso y las pulseras son delicadas pero resistentes.',
-                name: 'Carolina R.',
-                initials: 'CR',
-              },
-            ].map((t, i) => (
-              <div key={i} className="border border-gray-100 p-8 md:p-10">
-                <p className="text-lg text-text-primary leading-relaxed mb-8 italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-accent/15 text-accent rounded-full flex items-center justify-center text-xs font-medium">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-text-primary">{t.name}</p>
-                    <p className="text-xs text-text-light">Cliente verificada</p>
-                  </div>
+              { icon: '✦', title: 'Hecho a Mano', desc: 'Cada pieza es artesanal' },
+              { icon: '◈', title: 'Envío Gratis', desc: 'En compras +$1,300' },
+              { icon: '♡', title: 'Piedras Reales', desc: 'Semipreciosas naturales' },
+              { icon: '✧', title: 'Diseño Mexicano', desc: 'Con alma y tradición' },
+            ].map((item, i) => (
+              <AnimateOnScroll key={item.title} animation="fade-up" delay={i * 80}>
+                <div className="text-center">
+                  <span className="text-2xl mb-3 block text-accent">{item.icon}</span>
+                  <h4 className="text-sm font-medium tracking-wide mb-1">{item.title}</h4>
+                  <p className="text-xs text-text-secondary">{item.desc}</p>
                 </div>
-              </div>
+              </AnimateOnScroll>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 md:py-28 bg-cream text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl mb-8">
-            Encuentra la pieza perfecta.
-          </h2>
-          <Link href="/tienda">
-            <Button size="lg" className="h-14 px-12 text-sm tracking-wider uppercase">
-              Explorar Coleccion
-            </Button>
-          </Link>
+      {/* 7. Testimoniales */}
+      <Testimonials />
+
+      {/* 8. Promesa de Marca — Hecho en México */}
+      <section className="relative py-32 md:py-40 text-white text-center px-4 overflow-hidden">
+        {/* Background image with parallax feel */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=1600&auto=format&fit=crop"
+            alt="Proceso artesanal"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-primary/85" />
+        </div>
+
+        <div className="container mx-auto max-w-3xl relative z-10">
+          <AnimateOnScroll animation="fade-up">
+            <span className="text-xs tracking-[0.3em] uppercase text-accent mb-6 block">Nuestro Propósito</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif leading-tight mb-8 text-white">
+              Joyería hecha a mano en México<br className="hidden md:block" />
+              con atención en cada detalle.
+            </h2>
+            <p className="text-white/80 text-lg leading-relaxed mb-12 max-w-2xl mx-auto font-light">
+              Seleccionamos piedras semipreciosas naturales y materiales auténticos
+              para crear piezas diseñadas no para brillar más que tú, sino para complementar tu día a día.
+            </p>
+            <Link href="/proceso">
+              <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white transition-all h-14 px-10 text-xs tracking-[0.2em] uppercase">
+                Conoce el Proceso
+              </Button>
+            </Link>
+          </AnimateOnScroll>
         </div>
       </section>
+
+      {/* 9. Instagram Feed */}
+      <InstagramFeed />
+
+      {/* 10. Sticky CTA for mobile & desktop */}
+      <StickyCTA />
+
     </div>
   );
 }

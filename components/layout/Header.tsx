@@ -33,10 +33,19 @@ export default function Header() {
 
     const isActive = (href: string) => pathname === href || pathname?.startsWith(href + '/');
 
+    const isHome = pathname === '/';
+    const isTransparent = isHome && !scrolled;
+
     return (
-        <header className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-white'}`}>
-            {/* Top bar */}
-            <div className="hidden md:block bg-primary text-white text-center py-1.5">
+        <header
+            className={`sticky top-0 z-40 w-full transition-all duration-300 ${scrolled
+                    ? 'bg-white/95 backdrop-blur-md shadow-sm'
+                    : isHome
+                        ? 'bg-transparent text-white'
+                        : 'bg-white'
+                }`}
+        >  {/* Top bar */}
+            <div className={`hidden md:block text-center py-1.5 ${isTransparent ? 'bg-white/10 backdrop-blur-sm text-white' : 'bg-primary text-white'}`}>
                 <p className="text-xs tracking-[0.2em] uppercase">Envio gratis en compras +$1,300 MXN</p>
             </div>
 
@@ -60,7 +69,7 @@ export default function Header() {
                         </button>
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="hidden md:block p-2 text-text-secondary hover:text-primary transition-colors"
+                            className={`hidden md:block p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-text-secondary hover:text-primary'}`}
                             aria-label="Buscar"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,10 +80,10 @@ export default function Header() {
 
                     {/* Center: Logo */}
                     <Link href="/" className="flex flex-col items-center group w-1/3">
-                        <span className="font-serif text-2xl md:text-3xl tracking-[0.15em] text-primary">
+                        <span className={`font-serif text-2xl md:text-3xl tracking-[0.15em] transition-colors ${isTransparent ? 'text-white' : 'text-primary'}`}>
                             PUNTO GEMA
                         </span>
-                        <span className="text-[10px] md:text-xs tracking-[0.35em] text-text-secondary uppercase -mt-0.5">
+                        <span className={`text-[10px] md:text-xs tracking-[0.35em] uppercase -mt-0.5 transition-colors ${isTransparent ? 'text-white/70' : 'text-text-secondary'}`}>
                             nova
                         </span>
                     </Link>
@@ -83,7 +92,7 @@ export default function Header() {
                     <div className="flex items-center justify-end gap-3 w-1/3">
                         <button
                             onClick={() => setIsSearchOpen(true)}
-                            className="md:hidden p-2 text-text-secondary hover:text-primary transition-colors"
+                            className={`md:hidden p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-text-secondary hover:text-primary'}`}
                             aria-label="Buscar"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +104,7 @@ export default function Header() {
                             <div className="relative">
                                 <button
                                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                                    className="p-2 text-text-secondary hover:text-primary transition-colors"
+                                    className={`p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-text-secondary hover:text-primary'}`}
                                     aria-label="Mi cuenta"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +136,7 @@ export default function Header() {
                                 )}
                             </div>
                         ) : (
-                            <Link href="/login" className="p-2 text-text-secondary hover:text-primary transition-colors" aria-label="Iniciar sesion">
+                            <Link href="/login" className={`p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-text-secondary hover:text-primary'}`} aria-label="Iniciar sesion">
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
@@ -136,7 +145,7 @@ export default function Header() {
 
                         <button
                             onClick={toggleCart}
-                            className="relative p-2 text-text-secondary hover:text-primary transition-colors"
+                            className={`relative p-2 transition-colors ${isTransparent ? 'text-white/80 hover:text-white' : 'text-text-secondary hover:text-primary'}`}
                             aria-label="Carrito"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,9 +167,9 @@ export default function Header() {
                             key={item.name}
                             href={item.href}
                             className={`text-[13px] tracking-[0.12em] uppercase transition-colors pb-0.5 ${isActive(item.href)
-                                ? 'text-primary border-b border-primary'
-                                : 'text-text-secondary hover:text-primary'
-                            }`}
+                                ? isTransparent ? 'text-white border-b border-white' : 'text-primary border-b border-primary'
+                                : isTransparent ? 'text-white/70 hover:text-white' : 'text-text-secondary hover:text-primary'
+                                }`}
                         >
                             {item.name}
                         </Link>
@@ -179,7 +188,7 @@ export default function Header() {
                                 className={`text-sm tracking-[0.1em] uppercase transition-colors ${isActive(item.href)
                                     ? 'text-primary font-medium'
                                     : 'text-text-secondary hover:text-primary'
-                                }`}
+                                    }`}
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 {item.name}
