@@ -51,9 +51,10 @@ async function getCategories() {
 export default async function ShopPage({
     searchParams,
 }: {
-    searchParams: { category?: string; sort?: string }
+    searchParams: Promise<{ category?: string; sort?: string }>
 }) {
-    const products = await getProducts(searchParams);
+    const resolvedParams = await searchParams;
+    const products = await getProducts(resolvedParams);
     const categories = await getCategories();
 
     return (
