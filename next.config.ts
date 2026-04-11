@@ -14,11 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cremas-assets.s3.us-east-1.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'yutnu-images.s3.us-east-2.amazonaws.com',
+        hostname: 'punto-gema-nova-assets.s3.us-east-1.amazonaws.com',
       },
       {
         protocol: 'https',

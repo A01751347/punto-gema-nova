@@ -1,6 +1,6 @@
-# ESTRUCTURA COMPLETA DEL PROYECTO - E-COMMERCE PLANTILLA
+# ESTRUCTURA COMPLETA DEL PROYECTO - E-COMMERCE PUNTO GEMA NOVA
 
-> **Proyecto original:** YUTNUU (Dermocosmetics E-Commerce)
+> **Proyecto:** Punto Gema Nova (Joyeria Artesanal E-Commerce)
 > **Framework:** Next.js 16.1.1 + React 19 + TypeScript + Tailwind CSS 4
 > **Base de datos:** PostgreSQL (Neon) + Prisma ORM
 > **Autenticacion:** AWS Cognito
@@ -39,7 +39,7 @@
 ## 1. ESTRUCTURA DE DIRECTORIOS
 
 ```
-cremas/
+punto-gema-nova/
 ├── .claude/                          # Configuracion Claude IDE
 ├── components/                       # Componentes legacy (fuera de src)
 │   ├── layout/                       # Header, Footer, SearchOverlay
@@ -78,7 +78,6 @@ cremas/
 │   │   │   ├── success/[orderId]/    # Pago exitoso
 │   │   │   ├── failure/[orderId]/    # Pago fallido
 │   │   │   └── pending/[orderId]/    # Pago pendiente
-│   │   ├── ciencia/                  # Pagina ciencia
 │   │   ├── contacto/                 # Formulario contacto
 │   │   ├── cuenta/                   # Panel usuario
 │   │   │   ├── direcciones/          # CRUD direcciones
@@ -88,16 +87,11 @@ cremas/
 │   │   ├── envios/                   # Info envios
 │   │   ├── facturacion/              # Facturacion usuario
 │   │   ├── faq/                      # Preguntas frecuentes
-│   │   ├── ingredientes/             # Ingredientes
 │   │   ├── login/                    # Inicio sesion
-│   │   ├── metodologia/              # Metodologia
 │   │   ├── politica-privacidad/      # Privacidad
-│   │   ├── quiz/                     # Quiz de piel
 │   │   ├── rastreo/                  # Rastreo pedidos
 │   │   ├── recuperar-password/       # Recuperar contrasenya
-│   │   ├── referencias/              # Referencias cientificas
 │   │   ├── registro/                 # Registro usuario
-│   │   ├── rutinas/                  # Rutinas
 │   │   ├── sobre-nosotros/           # Sobre nosotros
 │   │   ├── tienda/                   # Catalogo tienda
 │   │   │   └── [slug]/              # Detalle producto
@@ -112,7 +106,6 @@ cremas/
 │       ├── blog/                     # Blog actions
 │       ├── cart/                     # CartContext
 │       ├── email/                    # Email service
-│       ├── ingredients/              # Ingredient actions
 │       └── payment/                  # MercadoPago config
 └── types/                            # Tipos TypeScript compartidos
 ```
@@ -123,19 +116,15 @@ cremas/
 
 | Archivo | Descripcion | Que cambiar |
 |---------|-------------|-------------|
-| `package.json` | Dependencias y scripts del proyecto | Nombre del proyecto (`"name": "cremas"`) |
+| `package.json` | Dependencias y scripts del proyecto | Ya actualizado a `"name": "punto-gema-nova"` |
 | `next.config.ts` | Configuracion de Next.js | Dominios de imagenes, redirects |
-| `tailwind.config.ts` | Tema de Tailwind (colores, fuentes) | Colores brand: cream, primary, secondary, accent |
+| `tailwind.config.ts` | Tema de Tailwind (colores, fuentes) | Colores brand |
 | `postcss.config.mjs` | Config PostCSS | No requiere cambios |
 | `tsconfig.json` | Config TypeScript | No requiere cambios |
 | `eslint.config.mjs` | Config ESLint | No requiere cambios |
 | `.env` | Variables de entorno | TODAS las variables (DB, AWS, MercadoPago, email) |
 | `env.example` | Template de variables de entorno | Actualizar con nuevas variables |
 | `.gitignore` | Archivos ignorados por Git | No requiere cambios |
-| `DOCUMENTACION_PROYECTO_COTIZACION.md` | Doc del proyecto original | Eliminar o reescribir |
-| `ESTRATEGIA_NOTIFICACIONES_ADMIN.md` | Estrategia de notificaciones | Eliminar o reescribir |
-| `debug-fetch.js` | Script debug | Eliminar |
-| `debug-products.js` | Script debug | Eliminar |
 
 ---
 
@@ -182,8 +171,8 @@ cremas/
 
 | Archivo | Ruta URL | Descripcion |
 |---------|----------|-------------|
-| `src/app/tienda/page.tsx` | `/tienda` | Catalogo de productos (filtros, busqueda) |
-| `src/app/tienda/[slug]/page.tsx` | `/tienda/:slug` | Pagina de detalle de producto |
+| `src/app/tienda/page.tsx` | `/tienda` | Catalogo de joyeria artesanal (filtros, busqueda) |
+| `src/app/tienda/[slug]/page.tsx` | `/tienda/:slug` | Pagina de detalle de pieza |
 | `src/app/carrito/page.tsx` | `/carrito` | Carrito de compras |
 | `src/app/checkout/page.tsx` | `/checkout` | Proceso de pago |
 | `src/app/checkout/success/[orderId]/page.tsx` | `/checkout/success/:orderId` | Confirmacion de pago exitoso |
@@ -209,7 +198,7 @@ cremas/
 ### Gestion de Productos
 | Archivo | Ruta URL | Descripcion |
 |---------|----------|-------------|
-| `src/app/admin/productos/page.tsx` | `/admin/productos` | Lista de productos |
+| `src/app/admin/productos/page.tsx` | `/admin/productos` | Lista de productos (joyeria) |
 | `src/app/admin/productos/nuevo/page.tsx` | `/admin/productos/nuevo` | Crear nuevo producto |
 | `src/app/admin/productos/editar/[id]/page.tsx` | `/admin/productos/editar/:id` | Editar producto existente |
 
@@ -256,15 +245,8 @@ cremas/
 
 | Archivo | Ruta URL | Descripcion | Contenido especifico |
 |---------|----------|-------------|----------------------|
-| `src/app/sobre-nosotros/page.tsx` | `/sobre-nosotros` | Pagina "Sobre Nosotros" | Historia de la marca YUTNUU |
-| `src/app/metodologia/page.tsx` | `/metodologia` | Metodologia | Proceso cientifico de las cremas |
-| `src/app/ciencia/page.tsx` | `/ciencia` | Ciencia detras de los productos | Respaldo cientifico |
-| `src/app/rutinas/page.tsx` | `/rutinas` | Rutinas de cuidado de piel | Rutinas AM/PM |
-| `src/app/ingredientes/page.tsx` | `/ingredientes` | Listado de ingredientes | Base de datos de ingredientes |
-| `src/app/ingredientes/[slug]/page.tsx` | `/ingredientes/:slug` | Detalle de ingrediente | Info cientifica del ingrediente |
-| `src/app/referencias/page.tsx` | `/referencias` | Referencias cientificas | Papers y estudios |
-| `src/app/quiz/page.tsx` | `/quiz` | Quiz de tipo de piel | Cuestionario interactivo |
-| `src/app/blog/page.tsx` | `/blog` | Listado de articulos | Blog de skincare |
+| `src/app/sobre-nosotros/page.tsx` | `/sobre-nosotros` | Pagina "Sobre Nosotros" | Historia de Punto Gema Nova, joyeria artesanal |
+| `src/app/blog/page.tsx` | `/blog` | Listado de articulos | Blog de joyeria, tendencias y cuidado de piezas |
 | `src/app/blog/[slug]/page.tsx` | `/blog/:slug` | Articulo individual | Post completo |
 
 ---
@@ -341,8 +323,6 @@ cremas/
 |---------|-------------|
 | `src/components/product/ProductInfo.tsx` | Info del producto (nombre, precio, descripcion, CTA) |
 | `src/components/product/ProductGallery.tsx` | Galeria de imagenes del producto |
-| `src/components/product/ScienceSection.tsx` | Seccion cientifica del producto (mecanismo, resultados) |
-| `src/components/product/IngredientsList.tsx` | Lista de ingredientes del producto |
 
 ### Carrito
 | Archivo | Descripcion |
@@ -395,7 +375,6 @@ cremas/
 | `src/lib/payment/mercadopago.ts` | Configuracion e instancia de MercadoPago SDK |
 | `src/lib/cart/CartContext.tsx` | Context de React para estado del carrito (add, remove, clear) |
 | `src/lib/blog/actions.ts` | Funciones para obtener posts del blog (getAll, getBySlug) |
-| `src/lib/ingredients/actions.ts` | Funciones para obtener ingredientes |
 | `src/lib/email/email-service.ts` | Servicio de email (templates, envio) |
 
 ---
@@ -429,23 +408,14 @@ cremas/
 
 | Modelo | Tabla | Descripcion | Campos clave |
 |--------|-------|-------------|--------------|
-| `User` | `users` | Usuarios registrados | email, cognitoId, role, skinType, skinConcerns |
-| `Product` | `products` | Productos del catalogo | slug, name, price, stock, images, benefits, howToUse |
-| `Category` | `categories` | Categorias de productos | slug, name, sortOrder |
+| `User` | `users` | Usuarios registrados | email, cognitoId, role |
+| `Product` | `products` | Piezas de joyeria del catalogo | slug, name, price, stock, images, material, careInstructions |
+| `Category` | `categories` | Categorias de joyeria (anillos, collares, pulseras, aretes) | slug, name, sortOrder |
 | `ProductCategory` | `product_categories` | Relacion Producto-Categoria (N:M) | productId, categoryId |
-| `Ingredient` | `ingredients` | Ingredientes activos | slug, name, benefits, precautions |
-| `ProductIngredient` | `product_ingredients` | Relacion Producto-Ingrediente (N:M) | concentration, isKeyIngredient |
-| `Reference` | `references` | Referencias cientificas | title, url, authors, year |
-| `IngredientReference` | `ingredient_references` | Relacion Ingrediente-Referencia (N:M) | ingredientId, referenceId |
 | `Address` | `addresses` | Direcciones de envio | address1, city, state, postalCode, country (default "MX") |
 | `Order` | `orders` | Ordenes de compra | orderNumber, status, paymentStatus, total, trackingNumber |
 | `OrderItem` | `order_items` | Items de cada orden | productId, name, sku, price, quantity |
 | `Review` | `reviews` | Resenyas de productos | rating (1-5), comment, isVerified |
-| `Routine` | `routines` | Rutinas de skincare | skinType, concerns, timeframe |
-| `RoutineProduct` | `routine_products` | Productos en rutinas | step, timeOfDay, instructions |
-| `Bundle` | `bundles` | Paquetes de productos | price, compareAtPrice |
-| `BundleProduct` | `bundle_products` | Productos en paquetes | quantity |
-| `QuizResult` | `quiz_results` | Resultados del quiz | skinType, concerns, recommendedProducts |
 | `Coupon` | `coupons` | Cupones de descuento | code, discountType, discountValue, usageLimit |
 | `BlogPost` | `blog_posts` | Articulos del blog | slug, title, content, tags, isPublished |
 | `NewsletterSubscriber` | `newsletter_subscribers` | Suscriptores newsletter | email, isActive |
@@ -464,35 +434,29 @@ cremas/
 ### Seeds
 | Archivo | Descripcion |
 |---------|-------------|
-| `prisma/seed.ts` | Seed inicial de datos (usuarios, categorias, productos) |
+| `prisma/seed.ts` | Seed inicial de datos (usuarios, categorias, productos de joyeria) |
 | `prisma/seed-orders.ts` | Seed de ordenes de ejemplo |
 
 ---
 
 ## 18. SCRIPTS DE UTILIDAD
 
-| Archivo | Descripcion | Accion |
-|---------|-------------|--------|
-| `scripts/check-products.js` | Valida productos en la BD | Eliminar o adaptar |
-| `scripts/list-categories.js` | Lista categorias existentes | Eliminar o adaptar |
-| `scripts/seed-blog.js` | Inserta posts de blog de ejemplo | Reescribir con nuevo contenido |
-| `scripts/seed-yutnuu.js` | Inserta productos YUTNUU | Reescribir con nuevos productos |
-| `scripts/test-email.js` | Prueba envio de emails | Mantener, actualizar config |
+| Archivo | Descripcion |
+|---------|-------------|
+| `scripts/check-products.js` | Valida productos en la BD |
+| `scripts/list-categories.js` | Lista categorias existentes |
+| `scripts/seed-blog.js` | Inserta posts de blog de ejemplo (joyeria y cuidado de piezas) |
+| `scripts/seed-pgn.js` | Inserta productos de joyeria Punto Gema Nova |
+| `scripts/test-email.js` | Prueba envio de emails |
 
 ---
 
 ## 19. ASSETS PUBLICOS
 
-| Archivo | Descripcion | Accion |
-|---------|-------------|--------|
-| `public/favicon.ico` | Via `src/app/favicon.ico` | Reemplazar |
-| `public/images/banner-tuna.png` | Banner de tuna/YUTNUU | Reemplazar |
-| `public/images/tuna.png` | Imagen de tuna | Reemplazar |
-| `public/file.svg` | SVG generico Next.js | Eliminar |
-| `public/globe.svg` | SVG generico Next.js | Eliminar |
-| `public/next.svg` | Logo Next.js | Eliminar |
-| `public/vercel.svg` | Logo Vercel | Eliminar |
-| `public/window.svg` | SVG generico Next.js | Eliminar |
+| Archivo | Descripcion |
+|---------|-------------|
+| `public/favicon.ico` | Via `src/app/favicon.ico` |
+| `public/images/` | Imagenes del sitio |
 
 ---
 
@@ -532,54 +496,11 @@ cremas/
 
 ---
 
-## 21. RESUMEN DE CAMBIOS NECESARIOS
+## 21. RESUMEN
 
-### Para convertir en plantilla reutilizable:
-
-#### Identidad de Marca (PRIORIDAD ALTA)
-- [ ] `src/app/layout.tsx` — Nombre del sitio, metadata, fonts
-- [ ] `tailwind.config.ts` — Paleta de colores (cream, primary, secondary, accent)
-- [ ] `src/app/globals.css` — Variables CSS custom
-- [ ] `components/layout/Header.tsx` — Logo, nombre, navegacion
-- [ ] `components/layout/Footer.tsx` — Info de marca, links, copyright
-- [ ] `public/favicon.ico` — Favicon
-- [ ] `public/images/*` — Todas las imagenes
-
-#### Contenido Especifico de Dermocosmetics (REESCRIBIR)
-- [ ] `src/app/page.tsx` — Home page completa
-- [ ] `src/app/sobre-nosotros/page.tsx` — Historia de marca
-- [ ] `src/app/metodologia/page.tsx` — Contenido de metodologia
-- [ ] `src/app/ciencia/page.tsx` — Contenido cientifico
-- [ ] `src/app/rutinas/page.tsx` — Rutinas (especifico skincare)
-- [ ] `src/app/ingredientes/*` — Todo el sistema de ingredientes
-- [ ] `src/app/referencias/page.tsx` — Referencias cientificas
-- [ ] `src/app/quiz/page.tsx` — Quiz de piel (especifico skincare)
-- [ ] `src/app/faq/page.tsx` — Preguntas frecuentes
-- [ ] `src/app/envios/page.tsx` — Politica de envios
-- [ ] `src/app/devoluciones/page.tsx` — Politica de devoluciones
-- [ ] `src/app/politica-privacidad/page.tsx` — Aviso de privacidad
-
-#### Base de Datos (ADAPTAR)
-- [ ] `prisma/schema.prisma` — Campos especificos (skinType, skinConcerns, etc.)
-- [ ] `prisma/seed.ts` — Datos de seed
-- [ ] `scripts/seed-yutnuu.js` — Productos de ejemplo
-- [ ] `scripts/seed-blog.js` — Posts de ejemplo
-
-#### Configuracion (ACTUALIZAR)
-- [ ] `.env` — Todas las credenciales y URLs
-- [ ] `package.json` — Nombre del proyecto
-
-#### Paginas Especificas que PUEDEN NO NECESITARSE
-- Ingredientes (`/ingredientes`) — Solo si vendes productos con ingredientes
-- Rutinas (`/rutinas`) — Solo para skincare/salud
-- Quiz (`/quiz`) — Solo si necesitas recomendaciones
-- Ciencia (`/ciencia`) — Solo para productos cientificos
-- Referencias (`/referencias`) — Solo para respaldo academico
-- Facturacion (`/facturacion`) — Solo para Mexico (RFC, CFDI)
-
-#### Funcionalidad que SE MANTIENE (es generica)
+### Funcionalidad completa del e-commerce de joyeria artesanal:
 - Sistema de autenticacion completo
-- CRUD de productos
+- CRUD de productos de joyeria
 - Carrito de compras
 - Checkout con MercadoPago
 - Gestion de pedidos (usuario y admin)
@@ -591,6 +512,7 @@ cremas/
 - Banners de marketing
 - Rastreo de pedidos
 - Sistema de emails
+- Facturacion (Mexico: RFC, CFDI)
 
 ---
 
@@ -598,18 +520,16 @@ cremas/
 
 | Categoria | Cantidad |
 |-----------|----------|
-| Paginas (`page.tsx`) | **51** |
+| Paginas (`page.tsx`) | **~45** |
 | Layouts (`layout.tsx`) | **3** |
 | API Routes (`route.ts`) | **3** |
 | Server Actions (`.ts`) | **18** |
 | Componentes src/ (`.tsx`) | **10** |
 | Componentes legacy/ (`.tsx`) | **12** |
-| Componentes inline en paginas | **3** |
-| Librerias src/lib/ | **5** |
+| Librerias src/lib/ | **4** |
 | Librerias lib/ | **6** |
 | Types | **1** |
 | Prisma (schema + seeds) | **3** |
 | Scripts | **5** |
-| Assets publicos | **7** |
-| Config raiz | **~13** |
-| **TOTAL ARCHIVOS DEL PROYECTO** | **~140** |
+| Config raiz | **~10** |
+| **TOTAL ARCHIVOS DEL PROYECTO** | **~120** |

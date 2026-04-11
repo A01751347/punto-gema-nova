@@ -8,7 +8,7 @@ async function testEmail() {
     console.log('Loading environment variables...');
     const smtpPass = process.env.SMTP_PASS || process.env.SMTP_PASSWORD;
     const smtpFrom = process.env.SMTP_FROM ||
-        (process.env.SMTP_FROM_EMAIL ? `"${process.env.SMTP_FROM_NAME || 'Cremas Shop'}" <${process.env.SMTP_FROM_EMAIL}>` : null);
+        (process.env.SMTP_FROM_EMAIL ? `"${process.env.SMTP_FROM_NAME || 'Punto Gema Nova'}" <${process.env.SMTP_FROM_EMAIL}>` : null);
 
     console.log('SMTP Config:', {
         host: process.env.SMTP_HOST,
@@ -46,7 +46,7 @@ async function testEmail() {
         const info = await transporter.sendMail({
             from: smtpFrom || process.env.SMTP_USER,
             to: testTo,
-            subject: 'Test Email from Cremas Shop Script',
+            subject: 'Test Email from Punto Gema Nova Script',
             html: '<h1>It works!</h1><p>Your SMTP configuration is correct.</p>'
         });
 
