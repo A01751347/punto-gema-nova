@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Cotización · Plataforma de operación MyTicket MX</title>
+<style>
+/*FONTS*/
+:root{
+  --ink:#120E1C;
+  --ink-2:#1C1630;
+  --plum:#2A2140;
+  --crimson:#D81E3F;
+  --crimson-soft:#F6E4E8;
+  --amber:#F2B138;
+  --amber-soft:#FDF3DF;
+  --text:#231D33;
+  --muted:#6B6479;
+  --line:#E6E2EE;
+  --surface:#F8F6FB;
+  --white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Inter',Liberation Sans,sans-serif;color:var(--text);font-size:10.2pt;line-height:1.5;letter-spacing:-.005em}
+@page{size:letter;margin:0}
+.page{width:8.5in;height:11in;position:relative;overflow:hidden;background:#fff;page-break-after:always;padding:.62in .72in .55in}
+.page:last-child{page-break-after:auto}
+.page.dark{background:var(--ink);color:#EFEBF5}
+
+h1,h2,h3,h4,.num,.price{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-.02em}
+h2{font-size:22.5pt;line-height:1.1;font-weight:700;color:var(--ink)}
+h3{font-size:12.6pt;font-weight:700;color:var(--ink);line-height:1.25}
+h4{font-size:10.4pt;font-weight:700;color:var(--ink)}
+p{margin:0 0 .5em}
+strong{font-weight:600;color:var(--ink)}
+.lead{font-size:11.4pt;line-height:1.55;color:#3B3450}
+.muted{color:var(--muted)}
+.small{font-size:8.6pt;line-height:1.45}
+
+/* header / footer */
+.eyebrow{display:flex;align-items:center;gap:.5rem;font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.eyebrow .chip{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:6px;background:var(--ink);color:var(--amber);font-family:'Space Grotesk',sans-serif;font-size:9pt;font-weight:700;letter-spacing:0}
+.rule{height:3px;width:54px;background:var(--crimson);border-radius:2px;margin:.42rem 0 .75rem}
+.foot{position:absolute;left:.72in;right:.72in;bottom:.42in;display:flex;justify-content:space-between;align-items:center;font-size:7.6pt;letter-spacing:.06em;color:#9A93A8;text-transform:uppercase;border-top:1px solid var(--line);padding-top:7px}
+.foot b{font-weight:600;color:#6B6479}
+
+/* cover */
+.cover-glow{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+.g1{width:9in;height:5in;left:-2.4in;top:-2.6in;background:radial-gradient(circle,#D81E3F 0%,rgba(216,30,63,0) 68%)}
+.g2{width:7in;height:5in;right:-2.2in;bottom:-1.6in;background:radial-gradient(circle,#F2B138 0%,rgba(242,177,56,0) 66%);opacity:.42}
+.cover-inner{position:relative;height:100%;display:flex;flex-direction:column}
+.brandmark{display:flex;align-items:center;gap:.55rem;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13pt;color:#fff;letter-spacing:-.02em}
+.brandmark .tk{position:relative;display:inline-block;padding:.24rem .62rem;border:1.6px solid rgba(255,255,255,.55);border-radius:7px;font-size:10.5pt;letter-spacing:.02em}
+.brandmark .tk:before,.brandmark .tk:after{content:'';position:absolute;top:50%;width:9px;height:9px;border-radius:50%;background:var(--ink);transform:translateY(-50%)}
+.brandmark .tk:before{left:-5.5px}.brandmark .tk:after{right:-5.5px}
+.cover-title{font-size:41pt;line-height:1.02;font-weight:700;color:#fff;letter-spacing:-.035em}
+.cover-title em{font-style:normal;color:var(--amber)}
+.cover-deck{font-size:12.6pt;line-height:1.55;color:#C9C1DC;max-width:5.3in}
+.perf{height:0;border-top:1.6px dashed rgba(255,255,255,.28);margin:0}
+.metagrid{display:grid;grid-template-columns:1fr 1fr;gap:.62rem 1.6rem}
+.metagrid .k{font-size:7.6pt;letter-spacing:.15em;text-transform:uppercase;color:#8E85A6;font-weight:600}
+.metagrid .v{font-size:10.6pt;color:#fff;font-weight:500}
+.cover-foot{display:flex;justify-content:space-between;align-items:flex-end;color:#A79EBD;font-size:9pt}
+.cover-foot b{display:block;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:11pt;letter-spacing:-.02em}
+
+/* blocks */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .62rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:.52rem .62rem}
+.card h4{margin-bottom:.16rem;font-size:10pt}
+.card p{font-size:9pt;line-height:1.45;color:#4A4360;margin:0}
+.card.accent{border-left:3px solid var(--crimson)}
+.step{position:relative;background:#fff;border:1px solid var(--line);border-radius:9px;padding:.5rem .6rem .55rem}
+.step .n{font-family:'Space Grotesk',sans-serif;font-size:15pt;font-weight:700;color:var(--crimson);line-height:1;opacity:.85}
+.step p{font-size:9pt;line-height:1.4;margin:.2rem 0 0;color:#4A4360}
+.quote{border-left:3px solid var(--amber);background:var(--amber-soft);border-radius:0 9px 9px 0;padding:.6rem .8rem;font-size:10.6pt;line-height:1.5;color:#3B3450}
+.quote b{font-weight:600;color:var(--ink)}
+
+ul.ticks{list-style:none;margin:0}
+ul.ticks li{position:relative;padding-left:.82rem;margin-bottom:.24rem;font-size:9.6pt;line-height:1.45;color:#3F3856}
+ul.ticks li:before{content:'';position:absolute;left:0;top:.42em;width:5px;height:5px;border-radius:50%;background:var(--crimson)}
+ul.ticks.gold li:before{background:var(--amber)}
+ul.ticks.tight li{margin-bottom:.12rem}
+
+.sub{margin-top:.62rem}
+.sub .stitle{display:flex;align-items:baseline;gap:.45rem;margin-bottom:.22rem}
+.sub .stitle .sn{font-family:'Space Grotesk',sans-serif;font-size:8.6pt;font-weight:700;color:var(--crimson);letter-spacing:.02em}
+.sub .stitle h3{font-size:11.4pt}
+.sub .sdesc{font-size:9.4pt;color:var(--muted);margin:-.05rem 0 .26rem}
+
+table{width:100%;border-collapse:collapse;font-size:9.4pt}
+th{text-align:left;font-size:7.6pt;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 .5rem .34rem;border-bottom:1.5px solid var(--ink)}
+td{padding:.42rem .5rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+td.r,th.r{text-align:right}
+td .fname{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ink)}
+tr.total td{border-bottom:none;border-top:1.5px solid var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11.4pt;color:var(--ink);padding-top:.5rem}
+tr.total td.r{color:var(--crimson)}
+
+.phasehead{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.pricetag{flex:none;background:var(--ink);color:#fff;border-radius:9px;padding:.34rem .7rem .4rem;text-align:right}
+.pricetag .l{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:#9A90B4;font-weight:600}
+.pricetag .v{font-family:'Space Grotesk',sans-serif;font-size:16pt;font-weight:700;color:var(--amber);line-height:1.05;letter-spacing:-.02em}
+.kicker{font-size:11pt;color:var(--crimson);font-weight:600;margin:.15rem 0 .5rem}
+
+.stripe{display:flex;gap:.5rem;margin-top:.55rem}
+.stripe .box{flex:1;border:1px solid var(--line);border-radius:9px;padding:.45rem .55rem;background:#fff}
+.stripe .box .k{font-size:7.4pt;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stripe .box .v{font-size:9.6pt;font-weight:600;color:var(--ink);line-height:1.3}
+
+.note{background:var(--crimson-soft);border-radius:9px;padding:.55rem .7rem;font-size:9.4pt;line-height:1.48;color:#4A3140}
+.note b{color:#8E1226}
+.dark-note{background:var(--ink);color:#DCD5EA;border-radius:10px;padding:.62rem .78rem;font-size:9.6pt;line-height:1.5}
+.dark-note b{color:var(--amber);font-weight:600}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.2rem 0 .1rem}
+.road .r{border:1px solid var(--line);border-top:4px solid var(--crimson);border-radius:9px;padding:.5rem .55rem;background:#fff}
+.road .r:nth-child(2){border-top-color:#B4213F}
+.road .r:nth-child(3){border-top-color:#8E2444}
+.road .r:nth-child(4){border-top-color:var(--amber)}
+.road .r .f{font-family:'Space Grotesk',sans-serif;font-size:8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.road .r .t{font-family:'Space Grotesk',sans-serif;font-size:11pt;font-weight:700;color:var(--ink);line-height:1.15;margin:.12rem 0 .2rem}
+.road .r .d{font-size:8.6pt;line-height:1.4;color:#4A4360}
+.road .r .p{font-family:'Space Grotesk',sans-serif;font-size:11pt;font-weight:700;color:var(--crimson);margin-top:.3rem}
+
+/* closing */
+.close-title{font-family:'Space Grotesk',sans-serif;font-size:28pt;font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.03em}
+.sign{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,255,255,.18);padding-top:.7rem}
+.flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--line);font-size:12pt}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. PORTADA ============ -->
+<section class="page dark">
+  <div class="cover-glow g1"></div>
+  <div class="cover-glow g2"></div>
+  <div class="cover-inner">
+    <div class="brandmark"><span class="tk">MY TICKET</span><span style="color:#A79EBD;font-weight:500;font-size:10pt">MX</span></div>
+
+    <div style="margin-top:1.5in">
+      <div style="font-size:8pt;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:.55rem">Cotización · MT-2026-237</div>
+      <h1 class="cover-title">Plataforma<br>de <em>operación</em></h1>
+      <div style="height:3px;width:70px;background:var(--crimson);border-radius:2px;margin:.9rem 0 .85rem"></div>
+      <p class="cover-deck">La tienda ya vende. Lo que falta es el sistema que la opera.
+      Cuatro fases para pasar de la captura manual a una plataforma propia — cada una útil por sí sola.</p>
+    </div>
+
+    <div style="flex:1"></div>
+
+    <div class="perf" style="margin-bottom:.85rem"></div>
+    <div class="metagrid" style="margin-bottom:1.1rem">
+      <div><div class="k">Cliente</div><div class="v">Israel Lerma — MyTicket MX</div></div>
+      <div><div class="k">Preparado por</div><div class="v">Santiago Serrano</div></div>
+      <div><div class="k">Fecha</div><div class="v">18 de agosto de 2026</div></div>
+      <div><div class="k">Vigencia</div><div class="v">30 días naturales</div></div>
+    </div>
+
+    <div class="cover-foot">
+      <div><b>Santiago Serrano</b>Desarrollo de plataformas</div>
+      <div style="text-align:right">santiago@serranom.com<br>+52 55 1298 5667</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. ENTENDIMIENTO ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">01</span> Entendimiento del proyecto</div>
+  <div class="rule"></div>
+  <h2>Lo difícil ya está resuelto.<br>Lo que falta es la operación.</h2>
+
+  <p class="lead" style="margin-top:.6rem">MyTicket ya tiene tráfico calificado que llega con intención de compra, posicionamiento en búsqueda,
+  convenios con productores y clientes que regresan y recomiendan. <strong>La tienda funciona.</strong></p>
+  <p class="lead">Lo que no existe todavía es la capa de operación. Hoy, cada boleto vendido requiere seis pasos manuales.</p>
+
+  <div style="margin-top:.85rem;font-size:7.8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.4rem">Los seis pasos que cuesta hoy cada boleto</div>
+  <div class="grid3" style="gap:.5rem">
+    <div class="step"><div class="n">1</div><p>Ver la orden en Shopify y copiarla al Excel en Drive</p></div>
+    <div class="step"><div class="n">2</div><p>Copiar ese renglón y pegarlo en el chat de WhatsApp de la taquilla</p></div>
+    <div class="step"><div class="n">3</div><p>Esperar a que la taquilla regrese los lugares asignados</p></div>
+    <div class="step"><div class="n">4</div><p>Regresar al Excel y anotar esos lugares</p></div>
+    <div class="step"><div class="n">5</div><p>Redactar y enviar el correo al cliente con lugares, teatro y recomendaciones</p></div>
+    <div class="step"><div class="n">6</div><p>Marcar la «X» para no perder el hilo</p></div>
+  </div>
+
+  <div class="quote" style="margin-top:.9rem">En un día de cien órdenes, con la misma persona atendiendo WhatsApp en paralelo,
+  <b>el sistema operativo del negocio es la memoria de quien esté de turno.</b> Ese es el techo actual.</div>
+
+  <div class="stripe" style="margin-top:.9rem">
+    <div class="box"><div class="k">Hoy</div><div class="v">6 pasos manuales por orden</div></div>
+    <div class="box"><div class="k">Después de la Fase 1</div><div class="v">2 pasos: capturar asientos y confirmar</div></div>
+    <div class="box"><div class="k">Fuente de verdad</div><div class="v">Una sola, no tres</div></div>
+  </div>
+
+  <p class="lead" style="margin-top:.9rem">Nada de esto se arregla contratando más manos: se arregla escribiendo una sola vez
+  lo que hoy se transcribe cinco veces. <strong>Eso es la Fase 1.</strong></p>
+
+  <div class="foot"><span><b>MyTicket MX</b> · Plataforma de operación</span><span>MT-2026-237 · 02</span></div>
+</section>
+
+<!-- ============ 3. DIAGNÓSTICO ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">02</span> Lo que encontramos en el diagnóstico</div>
+  <div class="rule"></div>
+  <h2>Siete hallazgos que explican<br>el trabajo manual de hoy</h2>
+  <p class="lead" style="margin-top:.55rem;margin-bottom:.85rem">Ninguno es un problema de esfuerzo del equipo. Todos son consecuencia de operar un negocio de funciones
+  con herramientas hechas para vender productos.</p>
+
+  <div class="grid2">
+    <div class="card accent">
+      <h4>El dato que se captura a mano ya existe</h4>
+      <p>Cada columna del Excel —orden, fecha, función, sección, cantidad, nombre, correo— sale directo de la orden de Shopify. Los únicos datos verdaderamente humanos son las notas y el estado. El resto es transcripción.</p>
+    </div>
+    <div class="card accent">
+      <h4>Las variantes no tienen año</h4>
+      <p>La función se llama «lunes 19 de agosto - 20:00 hrs», sin año. De ahí salen síntomas que ya viven: funciones pasadas que siguen listadas, imposibilidad de ordenar cronológicamente y la limpieza manual de cada lunes, producto por producto.</p>
+    </div>
+    <div class="card accent">
+      <h4>Las ventas fuera de Shopify rompen la numeración</h4>
+      <p>Cuando el cliente prefiere transferir directo, se le inventa un número de orden y se marca con apóstrofe o con «A». Hoy no existe una fuente única de verdad de las ventas.</p>
+    </div>
+    <div class="card accent">
+      <h4>Las órdenes pendientes de Clip son una fuga medible</h4>
+      <p>Muchas se quedan colgadas para siempre, algunas se marcan pagadas a mano, y hay comisión cobrada sobre ventas que nunca entraron.</p>
+    </div>
+    <div class="card accent">
+      <h4>La taquilla nunca va a salir de WhatsApp</h4>
+      <p>Operan puntos de venta de Ticketmaster sin navegador; lo que usan son celulares personales. Construirles un portal es tirar dinero: la automatización tiene que salir hacia WhatsApp, no jalarlos a un panel.</p>
+    </div>
+    <div class="card accent">
+      <h4>Hay tres modelos de productor, no uno</h4>
+      <p>Asignación por venta, cupo con precorte y lista al corte. Hoy los tres se manejan con criterio humano, sin que el sistema sepa cuál aplica a cada obra.</p>
+    </div>
+  </div>
+
+  <div class="dark-note" style="margin-top:.6rem">
+    <b>Y el chatbot actual cuesta $187 USD al mes</b> — y contesta mal la pregunta más frecuente, porque no lee disponibilidad real.
+    Al mismo tiempo se pierden ventas de 6 a 10 de la mañana, cuando la gente pregunta y nadie contesta.
+  </div>
+
+  <div class="foot"><span><b>MyTicket MX</b> · Plataforma de operación</span><span>MT-2026-237 · 03</span></div>
+</section>
+
+<!-- ============ 4. LA PROPUESTA ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">03</span> La propuesta</div>
+  <div class="rule"></div>
+  <h2>Cuatro fases. Cada una funciona<br>por sí sola y prepara la siguiente.</h2>
+  <p class="lead" style="margin-top:.55rem;margin-bottom:.9rem">No es un proyecto de todo o nada. La Fase 1 resuelve el dolor de hoy y se paga con el tiempo que libera;
+  las demás se deciden con el sistema ya operando.</p>
+
+  <div class="road">
+    <div class="r">
+      <div class="f">Fase 1</div>
+      <div class="t">Portal de operación</div>
+      <div class="d">Se acaba la captura manual. Panel completo, manifiestos y correos automáticos.</div>
+      <div class="p">$30,000</div>
+    </div>
+    <div class="r">
+      <div class="f">Fase 2</div>
+      <div class="t">Agente IA de ventas</div>
+      <div class="d">Atención y venta 24/7 por WhatsApp, con datos reales de disponibilidad.</div>
+      <div class="p">$52,000</div>
+    </div>
+    <div class="r">
+      <div class="f">Fase 3</div>
+      <div class="t">Plataforma propia</div>
+      <div class="d">Catálogo, cupos y reglas de productor fuera de Shopify.</div>
+      <div class="p">$60,000</div>
+    </div>
+    <div class="r">
+      <div class="f">Fase 4</div>
+      <div class="t">Boletera, primera etapa</div>
+      <div class="d">Boleto digital propio con QR y validación en puerta.</div>
+      <div class="p">$40,000</div>
+    </div>
+  </div>
+
+  <table style="margin-top:1rem">
+    <thead><tr><th style="width:24%">Fase</th><th>Alcance</th><th class="r" style="width:17%">Inversión</th><th class="r" style="width:16%">Entrega</th></tr></thead>
+    <tbody>
+      <tr><td><span class="fname">1 · Portal de operación</span></td><td>Espejo de órdenes, portal, ventas manuales, manifiestos, correos y catálogo.</td><td class="r">$30,000</td><td class="r">5–6 semanas</td></tr>
+      <tr><td><span class="fname">2 · Agente IA de ventas</span></td><td>WhatsApp Cloud API, bandeja compartida y venta asistida 24/7.</td><td class="r">$52,000</td><td class="r">5–7 semanas</td></tr>
+      <tr><td><span class="fname">3 · Plataforma propia</span></td><td>Catálogo de funciones, motor de cupos, conciliación y portal de productores.</td><td class="r">$60,000</td><td class="r">10–12 semanas</td></tr>
+      <tr><td><span class="fname">4 · Boletera, 1.ª etapa</span></td><td>Boleto digital con QR, validación en puerta e inventario propio.</td><td class="r">$40,000</td><td class="r">8–10 semanas</td></tr>
+      <tr class="total"><td>Ruta completa</td><td></td><td class="r">$182,000</td><td class="r"></td></tr>
+    </tbody>
+  </table>
+  <p class="small muted" style="margin-top:.42rem">Montos en pesos mexicanos, más IVA. Los tiempos de entrega corren a partir del anticipo de cada fase y son independientes entre sí.</p>
+
+  <div class="quote" style="margin-top:.95rem">La secuencia importa: la Fase 1 crea la base de datos real que la Fase 2 necesita para contestar bien,
+  y las dos juntas producen los números con los que se deciden la Fase 3 y la Fase 4. <b>Se puede parar en cualquier punto sin perder lo construido.</b></div>
+
+  <div class="foot"><span><b>MyTicket MX</b> · Plataforma de operación</span><span>MT-2026-237 · 04</span></div>
+</section>
+
+<!-- ============ 5. FASE 1 — parte 1 ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">04</span> Fase 1 · Portal de operación</div>
+  <div class="rule"></div>
+  <div class="phasehead">
+    <div>
+      <h2>Que nadie vuelva a copiar<br>una orden a mano</h2>
+    </div>
+    <div class="pricetag"><div class="l">Inversión</div><div class="v">$30,000</div></div>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.1</span><h3>Espejo automático de órdenes</h3></div>
+    <p class="sdesc">Cada venta que entra a Shopify aparece sola en el sistema, en segundos, con todos sus datos ya estructurados.</p>
+    <ul class="ticks">
+      <li>Conexión por webhooks nativos de Shopify — sin apps de renta mensual, sin topes de órdenes</li>
+      <li>A prueba de duplicados: si Shopify reintenta el envío, no se duplica el renglón</li>
+      <li>Cancelaciones y modificaciones se reflejan solas, en lugar de dejar renglones muertos</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.2</span><h3>Portal de órdenes</h3></div>
+    <p class="sdesc">Un sitio propio, con acceso por usuario, donde vive toda la operación.</p>
+    <ul class="ticks">
+      <li>Vista única de todas las órdenes, con filtros por función, teatro, día y estado</li>
+      <li>Estados de gestión con historial: nuevo → enviado a taquilla → asientos asignados → confirmado al cliente → entregado</li>
+      <li>Captura de asientos en un solo lugar: el «F1, F2» que regresa la taquilla se anota una vez y de ahí se usa en todo lo demás</li>
+      <li>Campo de notas, igual que hoy — cambios de obra, boletos extra, acuerdos especiales</li>
+      <li>Vista del día: qué funciones hay hoy, cuántos boletos se vendieron de cada una, qué falta por confirmar</li>
+      <li>Buscador por nombre, correo o número de orden, para cuando la taquilla escribe «tengo aquí a Santiago y no me has mandado su orden»</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.3</span><h3>Ventas manuales integradas</h3></div>
+    <p class="sdesc">Las ventas cerradas por WhatsApp con transferencia directa dejan de ser ciudadanos de segunda.</p>
+    <ul class="ticks">
+      <li>Formulario de captura con los mismos campos que una orden web</li>
+      <li>Folio real con prefijo propio (<strong>MT-1032</strong>) — se acaba el número inventado con apóstrofe</li>
+      <li>Entran al mismo flujo, a la misma lista y a los mismos manifiestos</li>
+      <li>Marcadas por origen, para saber siempre qué entró por la tienda y qué por WhatsApp</li>
+    </ul>
+    <div class="note" style="margin-top:.45rem">Por primera vez, la pregunta <b>«¿cuánto vendimos de Leonas esta semana?»</b> tiene una sola respuesta.</div>
+  </div>
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.4</span><h3>Manifiestos por función</h3></div>
+    <p class="sdesc">Lo que hoy es filtrar el Excel a mano y copiar renglón por renglón se vuelve un botón.</p>
+    <ul class="ticks">
+      <li>Lista armada automáticamente, agrupada por teatro y función</li>
+      <li>Formato optimizado para pegar en WhatsApp o imprimir</li>
+      <li>Incluye número de orden, nombre, cantidad, sección y asientos si ya están asignados</li>
+      <li>Generación bajo demanda o para la función completa del día</li>
+    </ul>
+  </div>
+
+  <div class="foot"><span><b>Fase 1</b> · Portal de operación</span><span>MT-2026-237 · 05</span></div>
+</section>
+
+<!-- ============ 6. FASE 1 — parte 2 ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">04</span> Fase 1 · Portal de operación</div>
+  <div class="rule"></div>
+
+
+  <div class="sub" style="margin-top:0">
+    <div class="stitle"><span class="sn">1.5</span><h3>Correos automáticos al cliente</h3></div>
+    <p class="sdesc">El template que hoy se redacta orden por orden, convertido en un botón.</p>
+    <ul class="ticks">
+      <li>Confirmación con número de orden, función, sección y asientos asignados</li>
+      <li>Datos del teatro: dirección, liga a Google Maps, estacionamiento y recomendaciones</li>
+      <li>Instrucciones de recolección en taquilla</li>
+      <li>Enviado desde el dominio propio de MyTicket, no desde Gmail — mejor entregabilidad y más confianza en un negocio donde el cliente ya llega con miedo al fraude</li>
+      <li>Registro de qué se envió, a quién y cuándo</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.6</span><h3>Catálogo operativo</h3></div>
+    <p class="sdesc">La información que hoy vive en la cabeza del equipo, por fin escrita.</p>
+    <ul class="ticks">
+      <li>Teatros: dirección, mapa, contacto de taquilla, horarios y notas para el cliente</li>
+      <li>Obras vinculadas a su teatro y su productor</li>
+      <li>Secciones y precios por obra</li>
+      <li>Funciones con fecha real y año, ordenables y filtrables</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.7</span><h3>Usuarios y accesos</h3></div>
+    <p class="sdesc">Se acaba el Sheet compartido por WhatsApp, con datos de clientes al alcance de cualquiera.</p>
+    <ul class="ticks">
+      <li>Cuentas individuales para cada persona del equipo</li>
+      <li>Registro de quién hizo cada cambio y cuándo</li>
+      <li>Datos personales de clientes bajo control de acceso, no en un archivo abierto</li>
+    </ul>
+  </div>
+
+  <div class="sub">
+    <div class="stitle"><span class="sn">1.8</span><h3>Acompañamiento incluido, sin costo</h3></div>
+    <ul class="ticks gold">
+      <li>Apoyo para transferir el dominio a nombre de MyTicket MX</li>
+      <li>Limpieza de colaboradores con acceso vivo en Shopify y creación de un rol de operador con permisos mínimos</li>
+      <li>Convención de nombres de variantes con fecha y año, para eliminar el problema de raíz</li>
+      <li>Capacitación al equipo operativo</li>
+    </ul>
+  </div>
+
+  <div class="dark-note" style="margin-top:.75rem">
+    <b>Resultado esperado.</b> El equipo pasa de transcribir a revisar. Los seis pasos manuales por orden se reducen a dos:
+    capturar los asientos que regresa la taquilla y confirmar el envío al cliente.
+  </div>
+  <div class="stripe" style="margin-top:.5rem">
+    <div class="box"><div class="k">Tiempo de entrega</div><div class="v">5 a 6 semanas</div></div>
+    <div class="box"><div class="k">Requisitos</div><div class="v">Accesos de Shopify y dominio</div></div>
+    <div class="box"><div class="k">Inversión</div><div class="v">$30,000 + IVA</div></div>
+  </div>
+
+  <div class="foot"><span><b>Fase 1</b> · Portal de operación</span><span>MT-2026-237 · 06</span></div>
+</section>
+
+<!-- ============ 7. FASE 2 ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">05</span> Fase 2 · Agente IA de ventas</div>
+  <div class="rule"></div>
+  <div class="phasehead">
+    <div><h2>Dejar de perder las ventas<br>de las 6 de la mañana</h2></div>
+    <div class="pricetag"><div class="l">Inversión</div><div class="v">$52,000</div></div>
+  </div>
+
+  <p class="lead" style="margin-top:.62rem">Hoy se pagan <strong>$187 USD mensuales</strong> por un chatbot que cobra por plan aunque el volumen sea bajo,
+  que hay que estar alimentando con documentos a mano y que contesta mal justo la pregunta más frecuente.
+  Mientras tanto, quien pregunta antes de las 10 de la mañana no recibe respuesta y se va a otro lado.</p>
+
+  <h3 style="margin-top:.95rem">Qué incluye</h3>
+  <div class="rule" style="width:34px;height:2px;margin:.3rem 0 .5rem"></div>
+  <ul class="ticks">
+    <li><strong>WhatsApp Cloud API</strong> con el número oficial de MyTicket</li>
+    <li><strong>Bandeja compartida:</strong> se acaba el «cada quien en su teléfono» y los mensajes que se pierden cuando se desvincula una sesión</li>
+    <li><strong>Agente conectado a la base de datos real de la Fase 1</strong> — sabe qué hay hoy, a qué hora, en qué secciones, a qué precio y cuánto queda. Sin documentos cargados a mano.</li>
+    <li><strong>Escalamiento a humano claro:</strong> en horario hábil pasa a una persona; fuera de horario atiende, informa y deja la venta lista para cerrar</li>
+    <li><strong>Captura de venta desde el chat:</strong> seleccionar función y sección, generar el link de pago o mandar las instrucciones de transferencia, sin salir del panel</li>
+    <li>Recepción de comprobantes por WhatsApp y asociación automática a la orden correspondiente</li>
+    <li>Envío automático de manifiestos a los chats de taquilla, según la política de cada obra</li>
+    <li>Toda conversación queda ligada a su orden — trazabilidad completa</li>
+  </ul>
+
+  <div class="quote" style="margin-top:.9rem">
+    Se conserva la atención humana, que es exactamente lo que diferencia a MyTicket de Ticketmaster.
+    El agente absorbe los <b>~900 de cada 1,000 mensajes</b> que son la misma pregunta repetida,
+    y las personas se dedican a los 100 que sí requieren criterio.
+  </div>
+
+  <div class="stripe" style="margin-top:.75rem">
+    <div class="box"><div class="k">Ahorro directo</div><div class="v">≈ $3,500 MXN / mes del chatbot actual</div></div>
+    <div class="box"><div class="k">Tiempo de entrega</div><div class="v">5 a 7 semanas</div></div>
+    <div class="box"><div class="k">Requisito</div><div class="v">Fase 1 entregada</div></div>
+  </div>
+  <p class="small muted" style="margin-top:.45rem">El trámite de aprobación ante Meta se inicia durante la Fase 1 para no perder tiempo.</p>
+
+  <div class="foot"><span><b>Fase 2</b> · Agente IA de ventas</span><span>MT-2026-237 · 07</span></div>
+</section>
+
+<!-- ============ 8. FASE 3 ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">06</span> Fase 3 · Plataforma propia</div>
+  <div class="rule"></div>
+  <div class="phasehead">
+    <div><h2>Dejar de pelearse con una herramienta<br>hecha para vender productos</h2></div>
+    <div class="pricetag"><div class="l">Inversión</div><div class="v">$60,000</div></div>
+  </div>
+
+  <p class="lead" style="margin-top:.62rem">Shopify modela camisetas: un producto con variantes. Una función de teatro es otra cosa —
+  tiene fecha, cupo, hora de corte y una política distinta según el productor.
+  <strong>Todo el trabajo manual de los lunes es consecuencia de esa diferencia.</strong></p>
+
+  <h3 style="margin-top:.9rem">Qué incluye</h3>
+  <div class="rule" style="width:34px;height:2px;margin:.3rem 0 .5rem"></div>
+  <ul class="ticks">
+    <li>Catálogo propio de obras, funciones y secciones, modeladas como lo que son</li>
+  </ul>
+
+  <div class="grid3" style="margin:.45rem 0 .5rem">
+    <div class="card"><h4>Asignación por venta</h4><p>Aviso inmediato a taquilla en cuanto entra la orden.</p></div>
+    <div class="card"><h4>Cupo con precorte</h4><p>Contador en vivo y corte automático al llenarse el cupo.</p></div>
+    <div class="card"><h4>Lista al corte</h4><p>Manifiesto programado y enviado antes de la función.</p></div>
+  </div>
+  <p class="small muted" style="margin:-.15rem 0 .5rem">Motor de cupos con las tres políticas de productor, ya no con criterio humano.</p>
+
+  <ul class="ticks">
+    <li>Corte automático de venta según la regla de cada teatro (las cuatro horas antes que hoy se hacen a mano)</li>
+    <li>Baja automática de funciones pasadas — se acaba el ritual de cada lunes, producto por producto</li>
+    <li>Conciliación de pagos: expiración de pendientes, liberación automática del cupo y avisos antes de que venza</li>
+    <li><strong>Portal de productores:</strong> acceso de solo lectura, en tiempo real, a las ventas de su propia obra. Sin topes de plan ni límites de órdenes.</li>
+    <li>Reporte de conciliación: boletos pedidos a taquilla contra vendidos contra entregados — el número que hoy nadie puede ver</li>
+    <li>Migración de datos históricos e integración completa con las Fases 1 y 2</li>
+  </ul>
+
+  <div class="dark-note" style="margin-top:.8rem">
+    <b>Por qué importa comercialmente.</b> El portal de productores no es solo una función interna.
+    Es el argumento para que un productor confíe su obra a MyTicket en lugar de a otra cuponera:
+    puede ver sus números cuando quiera, sin pedirle acceso a nadie.
+  </div>
+
+  <div class="stripe" style="margin-top:.55rem">
+    <div class="box"><div class="k">Tiempo de entrega</div><div class="v">10 a 12 semanas</div></div>
+    <div class="box"><div class="k">Transición</div><div class="v">Shopify puede quedarse como canal secundario</div></div>
+    <div class="box"><div class="k">Inversión</div><div class="v">$60,000 + IVA</div></div>
+  </div>
+  <p class="small muted" style="margin-top:.42rem">El papel de Shopify durante la transición se define al inicio de la fase.</p>
+
+  <div class="foot"><span><b>Fase 3</b> · Plataforma propia</span><span>MT-2026-237 · 08</span></div>
+</section>
+
+<!-- ============ 9. FASE 4 ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">07</span> Fase 4 · Boletera, primera etapa</div>
+  <div class="rule"></div>
+  <div class="phasehead">
+    <div><h2>El primer paso real hacia<br>dejar de ser cuponera</h2></div>
+    <div class="pricetag"><div class="l">Inversión</div><div class="v">$40,000</div></div>
+  </div>
+
+  <p class="lead" style="margin-top:.62rem">Hoy MyTicket vende boletos que emite alguien más. Esta fase es el primer tramo del camino contrario:
+  emitir boleto propio, con inventario propio y validación en la puerta — sin depender de que otro sistema confirme el lugar.</p>
+
+  <h3 style="margin-top:.9rem">Qué incluye</h3>
+  <div class="rule" style="width:34px;height:2px;margin:.3rem 0 .5rem"></div>
+  <ul class="ticks">
+    <li><strong>Boleto digital propio con código QR</strong>, emitido por MyTicket</li>
+    <li><strong>Validación en puerta desde aplicación móvil</strong> — las taquillas no tienen navegador, así que la validación va en el celular del responsable</li>
+    <li>Reserva con temporizador y liberación automática del lugar si no se completa el pago</li>
+    <li>Inventario propio por función y sección</li>
+    <li>Control de accesos y reporte de asistencia por evento</li>
+  </ul>
+
+  <h3 style="margin-top:.9rem">Módulos posteriores, cotizados por separado</h3>
+  <div class="rule" style="width:34px;height:2px;margin:.3rem 0 .5rem"></div>
+  <div class="grid3">
+    <div class="card"><h4>Mapa de asientos</h4><p>Selección interactiva de lugar por parte del cliente.</p></div>
+    <div class="card"><h4>Integración con terceros</h4><p>Conexión con sistemas de boletaje externos.</p></div>
+    <div class="card"><h4>Emisión para productores</h4><p>Que otros productores emitan a través de MyTicket.</p></div>
+  </div>
+
+  <div class="note" style="margin-top:.95rem">
+    <b>La condición honesta.</b> Esta fase no depende principalmente del software. Emitir boleto propio requiere que el teatro
+    acepte validar un código que no es suyo, o que el productor ceda inventario real. El desarrollo se hace en semanas;
+    el acuerdo comercial puede tomar meses.
+  </div>
+  <p class="lead" style="margin-top:.6rem">Por eso se recomienda arrancar esta fase cuando exista <strong>al menos un productor comprometido a ceder inventario</strong>.
+  Antes de eso, el sistema estaría listo y sin dónde usarse.</p>
+
+  <div class="stripe" style="margin-top:.7rem">
+    <div class="box"><div class="k">Tiempo de entrega</div><div class="v">8 a 10 semanas</div></div>
+    <div class="box"><div class="k">Condición para arrancar</div><div class="v">Un productor que ceda inventario</div></div>
+    <div class="box"><div class="k">Inversión</div><div class="v">$40,000 + IVA</div></div>
+  </div>
+
+  <div class="foot"><span><b>Fase 4</b> · Boletera, primera etapa</span><span>MT-2026-237 · 09</span></div>
+</section>
+
+<!-- ============ 10. RECURRENTE + CONDICIONES ============ -->
+<section class="page">
+  <div class="eyebrow"><span class="chip">08</span> Servicio recurrente y condiciones comerciales</div>
+  <div class="rule"></div>
+  <h2>Lo que cuesta mantenerlo<br>funcionando</h2>
+
+  <table style="margin-top:.85rem">
+    <thead><tr><th style="width:46%">Concepto</th><th class="r">Desde Fase 1</th><th class="r">Desde Fase 3</th></tr></thead>
+    <tbody>
+      <tr><td>Hosting, respaldos y disponibilidad</td><td class="r">$300 / mes</td><td class="r">$500 / mes</td></tr>
+      <tr><td>IA para la administración del agente</td><td class="r">—</td><td class="r">Según volumen (≈ $400 / mes)</td></tr>
+      <tr><td>Consumo de WhatsApp Cloud API (Meta)</td><td class="r">—</td><td class="r">Según volumen, facturado por Meta</td></tr>
+      <tr><td><strong>Se cancela:</strong> chatbot actual</td><td class="r" colspan="2" style="color:#1F7A4D;font-weight:600;white-space:nowrap">− $3,500 / mes</td></tr>
+    </tbody>
+  </table>
+  <p class="small muted" style="margin-top:.42rem">El servicio recurrente inicia al entrar en operación la Fase 1 e incluye monitoreo continuo, corrección de fallas,
+  respaldos diarios y cambios menores. Se contrata por periodos de 12 meses.</p>
+
+  <h3 style="margin-top:1rem">Forma de pago</h3>
+  <div class="rule" style="width:34px;height:2px;margin:.3rem 0 .5rem"></div>
+  <table>
+    <thead><tr><th style="width:34%">Fase</th><th>Esquema</th></tr></thead>
+    <tbody>
+      <tr><td><span class="fname">Fase 1</span></td><td>50% al inicio · 50% contra entrega</td></tr>
+      <tr><td><span class="fname">Fase 2</span></td><td>50% al inicio · 50% contra entrega</td></tr>
+      <tr><td><span class="fname">Fase 3</span></td><td>40% al inicio · 30% a la mitad · 30% contra entrega</td></tr>
+      <tr><td><span class="fname">Fase 4</span></td><td>50% al inicio · 50% contra entrega</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid2" style="margin-top:1rem;align-items:start">
+    <div>
+      <h4 style="margin-bottom:.3rem">Incluido en todas las fases</h4>
+      <ul class="ticks tight">
+        <li>Capacitación al equipo operativo</li>
+        <li>Documentación técnica y de usuario</li>
+        <li>30 días de garantía sobre fallas posteriores a la entrega</li>
+        <li>Código fuente y base de datos, propiedad de MyTicket MX</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="margin-bottom:.3rem">No incluido</h4>
+      <ul class="ticks tight" style="--c:var(--muted)">
+        <li>Costos de terceros: dominio, hosting durante el desarrollo, consumo de WhatsApp Cloud API y comisiones de pasarela</li>
+        <li>Rediseño gráfico de la tienda actual</li>
+        <li>Alcances marcados como módulos posteriores</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:.85rem">
+    <div class="card"><h4>Alcance</h4><p>Cada fase se cierra con entrega y aprobación antes de iniciar la siguiente. Cualquier requerimiento fuera del alcance descrito se cotiza por separado antes de ejecutarse.</p></div>
+    <div class="card"><h4>Vigencia</h4><p>Esta cotización tiene validez de 30 días naturales a partir de la fecha de emisión: 18 de agosto de 2026.</p></div>
+  </div>
+
+  <div class="foot"><span><b>MyTicket MX</b> · Condiciones comerciales</span><span>MT-2026-237 · 10</span></div>
+</section>
+
+<!-- ============ 11. ARRANQUE + RECOMENDACIÓN + CIERRE ============ -->
+<section class="page dark">
+  <div class="cover-glow g1" style="opacity:.4"></div>
+  <div class="cover-glow g2" style="opacity:.3"></div>
+  <div class="cover-inner">
+    <div class="eyebrow" style="color:#9A90B4"><span class="chip" style="background:var(--crimson);color:#fff">09</span> Para arrancar</div>
+    <div class="rule" style="background:var(--amber)"></div>
+    <h2 style="color:#fff;font-size:20pt">Lo que se necesita<br>de MyTicket</h2>
+
+    <div class="grid2" style="margin-top:.8rem;gap:.45rem .6rem">
+      <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)">
+        <h4 style="color:#fff">Confirmación y anticipo</h4><p style="color:#C3BAD6">Aprobación de la Fase 1 y su anticipo del 50%.</p></div>
+      <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)">
+        <h4 style="color:#fff">Accesos de Shopify</h4><p style="color:#C3BAD6">Credenciales y permisos de API de la tienda.</p></div>
+      <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)">
+        <h4 style="color:#fff">Lista de productores</h4><p style="color:#C3BAD6">Y la política que aplica a cada obra: asignación, cupo o lista al corte.</p></div>
+      <div class="card" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)">
+        <h4 style="color:#fff">Estatus del dominio</h4><p style="color:#C3BAD6">Y el contacto para gestionar su transferencia.</p></div>
+    </div>
+    <p class="small" style="color:#8E85A6;margin-top:.5rem">Los permisos adicionales de API se solicitan conforme avance cada fase; las credenciales base ya están generadas.</p>
+
+    <div style="margin-top:1.1rem;background:rgba(242,177,56,.1);border:1px solid rgba(242,177,56,.35);border-radius:12px;padding:.85rem 1rem">
+      <div style="font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:600;margin-bottom:.3rem">Recomendación</div>
+      <div class="close-title" style="font-size:19pt;margin-bottom:.45rem">Iniciar con la Fase 1</div>
+      <p style="color:#D6CFE6;font-size:10pt;line-height:1.5;margin-bottom:.45rem">En cuanto entra en operación, la captura manual desaparece, la operación queda documentada en un solo lugar
+      y el equipo recupera varias horas al día. Es la fase con mejor relación entre lo que cuesta y lo que libera,
+      y es la base técnica sobre la que corren las tres siguientes.</p>
+      <p style="color:#D6CFE6;font-size:10pt;line-height:1.5;margin:0">Las fases posteriores se deciden con el sistema ya operando y con datos reales sobre la mesa:
+      cuántas ventas se pierden fuera de horario, cuánto cupo se desperdicia, cuánto se paga en comisiones por órdenes que nunca se cobraron.
+      <strong style="color:var(--amber);font-weight:600">Hoy esas tres cifras son intuiciones. Después de la Fase 1, son números.</strong></p>
+    </div>
+
+    <div style="flex:1"></div>
+
+    <div style="display:flex;align-items:baseline;gap:.7rem;margin-bottom:1rem">
+      <div style="font-size:7.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:600;white-space:nowrap">Próximo paso</div>
+      <div style="font-size:12.6pt;line-height:1.35;color:#EFEBF5;font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:-.02em">
+        Con la confirmación y el anticipo, la Fase 1 arranca esta misma semana.</div>
+    </div>
+    <div class="perf" style="margin-bottom:.9rem"></div>
+
+    <div class="sign" style="border-top:none;padding-top:0">
+      <div>
+        <div class="brandmark" style="margin-bottom:.7rem"><span class="tk">MY TICKET</span><span style="color:#A79EBD;font-weight:500;font-size:10pt">MX</span></div>
+        <b style="display:block;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:13pt;letter-spacing:-.02em">Santiago Serrano</b>
+        <span style="color:#A79EBD;font-size:9.4pt">Desarrollo de plataformas</span>
+      </div>
+      <div style="text-align:right;color:#C9C1DC;font-size:10pt;line-height:1.5">
+        santiago@serranom.com<br>+52 55 1298 5667
+        <div style="color:#8E85A6;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;margin-top:.5rem">Cotización MT-2026-237 · 18 de agosto de 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

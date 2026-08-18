@@ -1,0 +1,11 @@
+{
+  "name": "cotizacion-myticket-mx",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs --png" },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.8",
+    "playwright-core": "^1.56.1"
+  }
+}
