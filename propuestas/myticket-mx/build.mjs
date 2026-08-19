@@ -20,9 +20,7 @@ const fonts = [
   face('Inter', f('inter', 'inter-latin-500-normal.woff2'), 500),
   face('Inter', f('inter', 'inter-latin-600-normal.woff2'), 600),
   face('Inter', f('inter', 'inter-latin-700-normal.woff2'), 700),
-  face('Source Serif 4', f('source-serif-4', 'source-serif-4-latin-400-normal.woff2'), 400),
-  face('Source Serif 4', f('source-serif-4', 'source-serif-4-latin-600-normal.woff2'), 600),
-  face('Source Serif 4', f('source-serif-4', 'source-serif-4-latin-700-normal.woff2'), 700),
+  face('Inter', f('inter', 'inter-latin-800-normal.woff2'), 800),
 ].join('\n');
 
 const html = fs.readFileSync(path.join(here, 'propuesta.html'), 'utf8').replace('/*FONTS*/', fonts);

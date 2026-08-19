@@ -1,0 +1,12 @@
+{
+  "name": "propuesta",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs propuesta.html --png"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "playwright-core": "^1.56.1"
+  }
+}

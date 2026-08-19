@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Cotización · {{PROYECTO}} para {{CLIENTE}}</title>
+<style>
+/*FONTS*/
+:root{
+  --paper:#FCFBF9;
+  --panel:#F4F2ED;
+  --panel-2:#EFEDE7;
+  --ink:#22262B;
+  --text:#414750;
+  --muted:#868C94;
+  --line:#E3E0D9;
+  --line-2:#CFCBC2;
+  --accent:#4E6B72;
+  --accent-soft:#E9EFEE;
+  --clay:#8E6B58;
+  --clay-soft:#F2ECE6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:var(--paper);color:var(--text);font-family:'Inter',Liberation Sans,sans-serif;font-size:9.9pt;line-height:1.58;letter-spacing:-.004em}
+@page{size:letter;margin:0}
+.page{width:8.5in;height:11in;position:relative;overflow:hidden;background:var(--paper);page-break-after:always;padding:.66in .78in .62in}
+.page:last-child{page-break-after:auto}
+
+h1,h2,h3,.serif{font-family:'Inter',Liberation Sans,sans-serif;font-weight:600}
+h2{font-size:19pt;line-height:1.22;font-weight:600;color:var(--ink);letter-spacing:-.028em}
+h3{font-size:11.6pt;line-height:1.32;font-weight:600;color:var(--ink);letter-spacing:-.018em}
+h4{font-size:9.9pt;font-weight:600;color:var(--ink);letter-spacing:-.004em}
+p{margin:0 0 .55em}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic}
+.lead{font-size:11.2pt;line-height:1.6;color:#3A4049}
+.small{font-size:8.4pt;line-height:1.5;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* cabecera y pie corridos */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:.75px solid var(--line);padding-bottom:.34rem;margin-bottom:1.05rem}
+.hdr b{font-weight:600;color:#6E747C}
+.ftr{position:absolute;left:.78in;right:.78in;bottom:.42in;display:flex;justify-content:space-between;font-size:7.2pt;letter-spacing:.12em;text-transform:uppercase;color:#A6ABB1;border-top:.75px solid var(--line);padding-top:.34rem}
+
+/* rótulo de sección */
+.label{display:flex;align-items:center;gap:.5rem;font-size:7.6pt;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+.label:before{content:'';width:16px;height:.75px;background:var(--accent);display:block}
+
+/* rejilla */
+.cols{display:grid;gap:.85rem 1.15rem}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:repeat(3,1fr)}
+.c-side{grid-template-columns:1.55fr 1fr}
+.rule{height:.75px;background:var(--line);margin:.85rem 0}
+.rule-b{height:.75px;background:var(--line-2)}
+
+/* listas */
+ul.items{list-style:none}
+ul.items li{position:relative;padding-left:.85rem;margin-bottom:.3rem;line-height:1.5}
+ul.items li:before{content:'';position:absolute;left:0;top:.62em;width:4px;height:.75px;background:var(--line-2)}
+ul.items.dense li{margin-bottom:.16rem;font-size:9.5pt}
+
+/* hallazgos: lista editorial numerada */
+.finding{display:grid;grid-template-columns:1.5rem 1fr;gap:.1rem .55rem;padding:.42rem 0;border-top:.75px solid var(--line)}
+.finding:last-child{border-bottom:.75px solid var(--line)}
+.finding .n{font-size:9.4pt;color:var(--accent);line-height:1.5;font-weight:600;letter-spacing:.02em}
+.finding h4{margin-bottom:.06rem}
+.finding p{font-size:9.3pt;line-height:1.5;margin:0;color:#4C525A}
+
+/* panel neutro */
+.panel{background:var(--panel);border-radius:3px;padding:.62rem .78rem}
+.panel.line{background:transparent;border:.75px solid var(--line)}
+.panel.warm{background:var(--clay-soft)}
+.panel.cool{background:var(--accent-soft)}
+.panel h4{margin-bottom:.2rem}
+.panel p{font-size:9.4pt;line-height:1.52;margin:0}
+
+.quote{border-left:1.5px solid var(--accent);padding:.15rem 0 .15rem .85rem;font-size:11.6pt;line-height:1.45;color:var(--ink);font-weight:500;letter-spacing:-.014em}
+.quote em{color:var(--accent);font-style:normal;font-weight:600}
+
+/* datos clave */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:.75px solid var(--line-2);border-bottom:.75px solid var(--line-2)}
+.facts>div{padding:.5rem .8rem .55rem;border-left:.75px solid var(--line)}
+.facts>div:first-child{border-left:none;padding-left:0}
+.facts .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.12rem}
+.facts .v{font-family:'Inter',sans-serif;font-size:11pt;font-weight:600;color:var(--ink);line-height:1.3;letter-spacing:-.018em}
+.facts .v small{font-family:'Inter',sans-serif;font-size:8.4pt;color:var(--muted);display:block;letter-spacing:0}
+
+/* tablas */
+table{width:100%;border-collapse:collapse;font-size:9.4pt}
+th{text-align:left;font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 .55rem .3rem 0;border-bottom:.75px solid var(--line-2)}
+th.r{text-align:right;padding-right:0}
+td{padding:.42rem .55rem .42rem 0;border-bottom:.75px solid var(--line);vertical-align:top;line-height:1.45}
+td.r{text-align:right;padding-right:0}
+td.r+td,th.r+th{padding-left:.7rem}
+td .nm{font-weight:600;color:var(--ink)}
+tr.sum td{border-bottom:none;border-top:.75px solid var(--line-2);font-size:10.6pt;font-weight:600;color:var(--ink);padding-top:.5rem;letter-spacing:-.014em}
+
+/* encabezado de fase */
+.phase{display:flex;align-items:flex-start;justify-content:space-between;gap:1.4rem}
+.phase .amount{flex:none;text-align:right;border-left:.75px solid var(--line-2);padding-left:.9rem}
+.phase .amount .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.phase .amount .v{font-family:'Inter',sans-serif;font-size:17.5pt;font-weight:600;color:var(--ink);line-height:1.18;letter-spacing:-.028em}
+.phase .amount .t{font-size:8.4pt;color:var(--accent);font-weight:600}
+
+svg{display:block;width:100%;height:auto}
+.figcap{font-size:7.6pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.42rem}
+.fignote{font-size:8.4pt;color:var(--muted);margin-top:.36rem;line-height:1.45}
+
+/* portada */
+.cover{display:flex;flex-direction:column;height:100%}
+.cover .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.75px solid var(--line-2);padding-bottom:.7rem}
+.wordmark{font-family:'Inter',sans-serif;font-size:12.4pt;font-weight:700;color:var(--ink);letter-spacing:-.022em}
+.wordmark span{color:var(--muted);font-weight:400}
+.cover h1{font-size:33pt;line-height:1.1;font-weight:600;color:var(--ink);letter-spacing:-.032em}
+.cover h1 em{font-style:normal;color:var(--accent)}
+.cover .deck{font-size:12pt;line-height:1.6;color:#4A5058;max-width:4.9in}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:.75px solid var(--line-2);padding-top:.7rem;gap:1rem}
+.meta .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.15rem}
+.meta .v{font-size:10pt;color:var(--ink);line-height:1.35}
+</style>
+</head>
+<body>
+
+<!-- =========================================================================
+     PLANTILLA. Cada <section class="page"> es una hoja carta completa.
+     No se pagina solo: el contenido de cada página se decide al escribirla.
+     Bloques disponibles: .cover .hdr .ftr .label h2 .lead .cols(.c2/.c3/.c-side)
+     .panel(.line/.cool/.warm) .quote ul.items(.dense) .finding .facts table
+     .phase/.amount .figcap svg .fignote .rule
+     ========================================================================= -->
+
+<!-- ===== 1 · PORTADA ===== -->
+<section class="page">
+  <div class="cover">
+    <div class="top">
+      <div class="wordmark">{{Cliente}} <span>{{Sufijo}}</span></div>
+      <div style="text-align:right;font-size:7.6pt;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;line-height:1.7">
+        Cotización {{FOLIO}}<br><span style="color:var(--accent)">{{Nombre del proyecto}}</span>
+      </div>
+    </div>
+
+    <div style="margin-top:1.35in">
+      <h1>{{Titular en tres líneas}}<br>que nombra el resultado,<br><em>no el entregable</em></h1>
+      <div style="width:56px;height:1.5px;background:var(--accent);margin:1.05rem 0 .95rem"></div>
+      <p class="deck">{{Dos frases: qué ya funciona y qué falta.}}</p>
+      <p class="deck" style="margin-top:.55rem">{{Una frase con la promesa de ritmo: cuántas fases y cuánto tardan.}}</p>
+    </div>
+
+    <div style="flex:1"></div>
+
+    <!-- índice de fases: repetir el bloque por cada fase -->
+    <div style="margin-bottom:1.4rem">
+      <div class="figcap" style="margin-bottom:.5rem">Contenido</div>
+      <div style="display:grid;grid-template-columns:repeat({{N}},1fr);gap:0 1rem;border-top:.75px solid var(--line)">
+        <div style="padding:.55rem .45rem .1rem 0">
+          <div style="font-size:7.6pt;letter-spacing:.16em;color:var(--accent);font-weight:600">FASE 1</div>
+          <div style="font-size:10pt;font-weight:600;color:var(--ink);line-height:1.3;letter-spacing:-.02em;margin:.12rem 0 .14rem">{{Nombre}}</div>
+          <div class="small">{{$00,000}} · {{1–2 semanas}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div><div class="k">Cliente</div><div class="v">{{Contacto}}<br>{{Empresa}}</div></div>
+      <div><div class="k">Preparado por</div><div class="v">{{Tu nombre}}<br>{{Tu oficio}}</div></div>
+      <div><div class="k">Fecha</div><div class="v">{{18 de agosto}}<br>{{de 2026}}</div></div>
+      <div><div class="k">Vigencia</div><div class="v">30 días<br>naturales</div></div>
+    </div>
+    <div style="border-top:.75px solid var(--line);margin-top:.9rem;padding-top:.55rem;display:flex;justify-content:space-between;font-size:9pt;color:var(--muted)">
+      <span>{{correo}}</span><span>{{teléfono}}</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2 · ENTENDIMIENTO (página con diagrama) ===== -->
+<section class="page">
+  <div class="hdr"><span><b>{{Cliente}}</b> · {{Proyecto}}</span><span>02 / {{TOTAL}}</span></div>
+
+  <div class="label">Entendimiento del proyecto</div>
+  <h2>{{Titular de dos líneas}}<br>{{que resume el diagnóstico}}</h2>
+
+  <div class="cols c-side" style="margin-top:.9rem">
+    <div>
+      <p class="lead">{{Lo que el cliente ya resolvió. Se nombra primero, siempre.}}</p>
+      <p class="lead">{{Lo que falta, en una frase concreta y contable.}}</p>
+    </div>
+    <div class="panel">
+      <h4>{{El techo actual}}</h4>
+      <p>{{La consecuencia del problema, dicha sin dramatizar.}}</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.1rem">
+    <div class="figcap">{{Título del diagrama}}</div>
+    <!-- SVG: ver reference/diagramas.md -->
+    <p class="fignote">{{Una o dos frases que explican lo que el diagrama no dice solo.}}</p>
+  </div>
+
+  <div class="facts" style="margin-top:1.05rem">
+    <div><div class="k">Hoy</div><div class="v">{{cifra}}<small>{{unidad}}</small></div></div>
+    <div><div class="k">Después</div><div class="v">{{cifra}}<small>{{unidad}}</small></div></div>
+    <div><div class="k">{{Tercera métrica}}</div><div class="v">{{cifra}}<small>{{unidad}}</small></div></div>
+  </div>
+
+  <div class="ftr"><span>Cotización {{FOLIO}}</span><span>{{Tu nombre}} · {{correo}}</span></div>
+</section>
+
+<!-- ===== 3 · DIAGNÓSTICO (lista editorial numerada) ===== -->
+<section class="page">
+  <div class="hdr"><span><b>{{Cliente}}</b> · {{Proyecto}}</span><span>03 / {{TOTAL}}</span></div>
+
+  <div class="label">Lo que encontramos en el diagnóstico</div>
+  <h2>{{N}} hallazgos que explican<br>{{el síntoma que el cliente sí ve}}</h2>
+  <p class="lead" style="margin-top:.8rem;max-width:6.1in">{{Por qué ninguno es culpa del equipo.}}</p>
+
+  <div style="margin-top:1rem">
+    <div class="finding">
+      <div class="n">01</div>
+      <div><h4>{{Hallazgo en una frase afirmativa}}</h4>
+      <p>{{Evidencia concreta, con el dato que lo prueba.}}</p></div>
+    </div>
+    <!-- repetir .finding: entre 5 y 7 caben en una página -->
+  </div>
+
+  <div class="cols c2" style="margin-top:1.05rem">
+    <div class="panel cool"><h4>Lo que ya funciona y no se toca</h4><p>{{...}}</p></div>
+    <div class="panel warm"><h4>Lo que hoy no se puede medir</h4><p>{{...}}</p></div>
+  </div>
+
+  <div class="ftr"><span>Cotización {{FOLIO}}</span><span>{{Tu nombre}} · {{correo}}</span></div>
+</section>
+
+<!-- ===== 4 · LA PROPUESTA (ruta + tabla de inversión) ===== -->
+<section class="page">
+  <div class="hdr"><span><b>{{Cliente}}</b> · {{Proyecto}}</span><span>04 / {{TOTAL}}</span></div>
+
+  <div class="label">La propuesta</div>
+  <h2>{{N}} fases cortas. Cada una funciona<br>por sí sola y prepara la siguiente.</h2>
+  <p class="lead" style="margin-top:.8rem;max-width:6.1in">{{Por qué no es un proyecto de todo o nada.}}</p>
+
+  <div style="margin-top:1.05rem">
+    <div class="figcap">Ruta en el tiempo, si se corren en secuencia</div>
+    <!-- SVG de barras por semana: ver reference/diagramas.md § Ruta en el tiempo -->
+    <p class="fignote">{{Nota sobre independencia de las fases y ritmo de entrega.}}</p>
+  </div>
+
+  <table style="margin-top:1.1rem">
+    <thead><tr><th style="width:25%">Fase</th><th>Qué resuelve</th><th class="r" style="width:14%">Inversión</th><th class="r" style="width:15%">Entrega</th></tr></thead>
+    <tbody>
+      <tr><td><span class="nm">1 · {{Nombre}}</span></td><td>{{Alcance en una línea}}</td><td class="r">{{$00,000}}</td><td class="r">{{1–2 semanas}}</td></tr>
+      <tr class="sum"><td>Ruta completa</td><td></td><td class="r">{{$000,000}}</td><td class="r" style="white-space:nowrap">{{9–13 semanas}}</td></tr>
+    </tbody>
+  </table>
+  <p class="small" style="margin-top:.45rem">Montos en pesos mexicanos, más IVA. Los tiempos corren a partir del anticipo de cada fase.</p>
+
+  <div class="ftr"><span>Cotización {{FOLIO}}</span><span>{{Tu nombre}} · {{correo}}</span></div>
+</section>
+
+<!-- ===== 5 · PÁGINA DE FASE ===== -->
+<section class="page">
+  <div class="hdr"><span><b>Fase 1</b> · {{Nombre}}</span><span>05 / {{TOTAL}}</span></div>
+
+  <div class="phase">
+    <div>
+      <div class="label">Fase 1</div>
+      <h2>{{Titular en dos líneas: el resultado,}}<br>{{no la tecnología}}</h2>
+    </div>
+    <div class="amount">
+      <div class="k">Inversión</div>
+      <div class="v">{{$30,000}}</div>
+      <div class="t">{{1 a 2 semanas}}</div>
+    </div>
+  </div>
+
+  <p class="lead" style="margin-top:.9rem;max-width:6.2in">{{Un párrafo con el costo actual del problema, con cifras.}}</p>
+
+  <div style="margin-top:1rem">
+    <div class="figcap">{{Cómo queda la operación}}</div>
+    <!-- SVG de arquitectura o de flujo -->
+  </div>
+
+  <div class="cols c2" style="margin-top:1.05rem">
+    <div>
+      <h3>Qué incluye</h3>
+      <ul class="items dense" style="margin-top:.3rem">
+        <li>{{Entregable en lenguaje del cliente}}</li>
+      </ul>
+    </div>
+    <div>
+      <h3>{{Por qué conviene}}</h3>
+      <p style="margin-top:.3rem">{{El argumento comercial, no el técnico.}}</p>
+      <div class="panel warm" style="margin-top:.6rem"><h4>{{Ahorro directo}}</h4><p>{{Cifra concreta.}}</p></div>
+    </div>
+  </div>
+
+  <div class="facts" style="margin-top:1.05rem">
+    <div><div class="k">Inversión</div><div class="v">{{$30,000}}<small>más IVA · 50% / 50%</small></div></div>
+    <div><div class="k">Entrega</div><div class="v">{{1 a 2 semanas}}<small>en entregas semanales</small></div></div>
+    <div><div class="k">Requisito previo</div><div class="v">{{Ninguno}}<small>{{matiz}}</small></div></div>
+  </div>
+
+  <div class="ftr"><span>Cotización {{FOLIO}}</span><span>Fase 1 · {{$30,000}} · {{1 a 2 semanas}}</span></div>
+</section>
+
+<!-- ===== N-1 · CONDICIONES COMERCIALES ===== -->
+<section class="page">
+  <div class="hdr"><span><b>{{Cliente}}</b> · Condiciones comerciales</span><span>10 / {{TOTAL}}</span></div>
+
+  <div class="label">Servicio recurrente</div>
+  <h2>Lo que cuesta mantenerlo<br>funcionando</h2>
+
+  <table style="margin-top:.9rem">
+    <thead><tr><th style="width:46%">Concepto</th><th class="r">{{Desde Fase 1}}</th><th class="r">{{Desde Fase 3}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{Hosting, respaldos y disponibilidad}}</td><td class="r">{{$300 / mes}}</td><td class="r">{{$500 / mes}}</td></tr>
+      <tr><td><strong>Se cancela:</strong> {{servicio actual}}</td><td class="r" colspan="2" style="white-space:nowrap;color:var(--accent);font-weight:600">− {{$3,500 / mes}}</td></tr>
+    </tbody>
+  </table>
+  <p class="small" style="margin-top:.42rem">{{Qué incluye el recurrente y cómo se contrata.}}</p>
+
+  <div class="rule"></div>
+
+  <div class="cols c-side" style="align-items:start">
+    <div>
+      <h3>Forma de pago</h3>
+      <table style="margin-top:.4rem"><tbody>
+        <tr><td style="width:30%"><span class="nm">Fase 1</span></td><td>50% al inicio · 50% contra entrega</td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel"><h4>Alcance y vigencia</h4><p>{{Regla de cierre de fase y validez de la cotización.}}</p></div>
+  </div>
+
+  <div class="cols c2" style="margin-top:1.05rem">
+    <div><h3>Incluido en todas las fases</h3><ul class="items dense" style="margin-top:.3rem"><li>{{...}}</li></ul></div>
+    <div><h3>No incluido</h3><ul class="items dense" style="margin-top:.3rem"><li>{{...}}</li></ul></div>
+  </div>
+
+  <div class="ftr"><span>Cotización {{FOLIO}}</span><span>{{Tu nombre}} · {{correo}}</span></div>
+</section>
+
+<!-- ===== N · CIERRE ===== -->
+<section class="page">
+  <div class="hdr"><span><b>{{Cliente}}</b> · Recomendación</span><span>{{N}} / {{TOTAL}}</span></div>
+
+  <div class="label">Recomendación</div>
+  <h2>{{Iniciar con la Fase 1}}</h2>
+
+  <div class="cols c-side" style="margin-top:.95rem;align-items:start">
+    <div>
+      <p class="lead">{{Por qué esa fase primero.}}</p>
+      <p class="lead">{{Qué se decide después y con qué datos.}}</p>
+      <div class="quote" style="margin-top:.85rem">{{Frase memorable, dos líneas}}<br><em>{{y su remate}}</em></div>
+    </div>
+    <div class="panel line">
+      <h4>La decisión en corto</h4>
+      <ul class="items dense" style="margin-top:.3rem">
+        <li><strong>{{$30,000}}</strong> más IVA, mitad al inicio</li>
+        <li><strong>{{1 a 2 semanas}}</strong> hasta operar</li>
+      </ul>
+      <div style="border-top:.75px solid var(--line);margin-top:.55rem;padding-top:.5rem">
+        <p class="small" style="color:var(--text)">{{Qué pasa si dice que sí hoy.}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="figcap">Resumen de la ruta</div>
+  <table>
+    <thead><tr><th style="width:26%">Fase</th><th class="r" style="width:16%">Inversión</th><th class="r" style="width:16%">Entrega</th><th>Cuándo conviene</th></tr></thead>
+    <tbody>
+      <tr><td><span class="nm">1 · {{Nombre}}</span></td><td class="r">{{$30,000}}</td><td class="r">{{1–2 sem.}}</td><td>{{Criterio de decisión}}</td></tr>
+    </tbody>
+  </table>
+
+  <div style="position:absolute;left:.78in;right:.78in;bottom:1.05in">
+    <div style="border-top:.75px solid var(--line-2);padding-top:.75rem;display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div class="wordmark" style="margin-bottom:.5rem">{{Cliente}} <span>{{Sufijo}}</span></div>
+        <div style="font-size:12pt;font-weight:600;color:var(--ink);letter-spacing:-.02em">{{Tu nombre}}</div>
+        <div class="small">{{Tu oficio}}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10pt;color:var(--ink);line-height:1.5">{{correo}}<br>{{teléfono}}</div>
+        <div class="small" style="margin-top:.35rem;letter-spacing:.1em;text-transform:uppercase">Cotización {{FOLIO}} · {{fecha}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
