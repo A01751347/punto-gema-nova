@@ -64,6 +64,20 @@ frase por página como máximo.
 - Ancho máximo de párrafo introductorio: `6.1in`–`6.4in`. Un `.lead` a todo lo ancho
   de la caja no se lee.
 
+## Variante: one pager horizontal
+
+Una sola hoja carta apaisada para comparativas, resúmenes ejecutivos o "esto contra
+aquello". Mismo sistema visual, tres cambios:
+
+- `@page{size:letter landscape}` y `.page{width:11in;height:8.5in;padding:.48in .62in .46in}`.
+- Se compila con `PAGE=landscape npm run build`.
+- La estructura que funciona: cabecera con título a la izquierda y metadatos a la derecha ·
+  tabla comparativa de tres columnas (dimensión / ellos / nosotros, con la nuestra sobre un
+  tinte `#F1F5F4`) · fila final `En una línea` que resume cada lado en una frase ·
+  diagrama de arquitectura con las dos vías apiladas · tira de cierre de tres datos.
+- El diagrama usa `viewBox="0 0 1400 H"` en vez de 1000: la caja de texto es más ancha.
+- No hay sitio para adornos: si no cabe, se recorta texto, nunca se baja el tipo.
+
 ## Componentes y cuándo usar cada uno
 
 | Componente | Para qué | Cuándo NO |

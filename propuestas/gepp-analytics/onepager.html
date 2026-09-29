@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<title>Comparativa · Dashboard de social analytics para GEPP</title>
+<style>
+/*FONTS*/
+:root{
+  --paper:#FCFBF9;
+  --panel:#F4F2ED;
+  --panel-2:#EFEDE7;
+  --ink:#22262B;
+  --text:#414750;
+  --muted:#868C94;
+  --line:#E3E0D9;
+  --line-2:#CFCBC2;
+  --accent:#4E6B72;
+  --accent-soft:#E9EFEE;
+  --clay:#8E6B58;
+  --clay-soft:#F2ECE6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:var(--paper);color:var(--text);font-family:'Inter',Liberation Sans,sans-serif;font-size:9.9pt;line-height:1.58;letter-spacing:-.004em}
+@page{size:letter landscape;margin:0}
+.page{width:11in;height:8.5in;position:relative;overflow:hidden;background:var(--paper);page-break-after:always;padding:.48in .62in .46in}
+.page:last-child{page-break-after:auto}
+
+h1,h2,h3,.serif{font-family:'Inter',Liberation Sans,sans-serif;font-weight:600}
+h2{font-size:19pt;line-height:1.22;font-weight:600;color:var(--ink);letter-spacing:-.028em}
+h3{font-size:11.6pt;line-height:1.32;font-weight:600;color:var(--ink);letter-spacing:-.018em}
+h4{font-size:9.9pt;font-weight:600;color:var(--ink);letter-spacing:-.004em}
+p{margin:0 0 .55em}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic}
+.lead{font-size:11.2pt;line-height:1.6;color:#3A4049}
+.small{font-size:8.4pt;line-height:1.5;color:var(--muted)}
+.muted{color:var(--muted)}
+
+/* cabecera y pie corridos */
+.hdr{display:flex;justify-content:space-between;align-items:baseline;font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-bottom:.75px solid var(--line);padding-bottom:.34rem;margin-bottom:1.05rem}
+.hdr b{font-weight:600;color:#6E747C}
+.ftr{position:absolute;left:.62in;right:.62in;bottom:.34in;display:flex;justify-content:space-between;font-size:7.2pt;letter-spacing:.12em;text-transform:uppercase;color:#A6ABB1;border-top:.75px solid var(--line);padding-top:.34rem}
+
+/* rótulo de sección */
+.label{display:flex;align-items:center;gap:.5rem;font-size:7.6pt;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+.label:before{content:'';width:16px;height:.75px;background:var(--accent);display:block}
+
+/* rejilla */
+.cols{display:grid;gap:.85rem 1.15rem}
+.c2{grid-template-columns:1fr 1fr}
+.c3{grid-template-columns:repeat(3,1fr)}
+.c-side{grid-template-columns:1.55fr 1fr}
+.rule{height:.75px;background:var(--line);margin:.85rem 0}
+.rule-b{height:.75px;background:var(--line-2)}
+
+/* listas */
+ul.items{list-style:none}
+ul.items li{position:relative;padding-left:.85rem;margin-bottom:.3rem;line-height:1.5}
+ul.items li:before{content:'';position:absolute;left:0;top:.62em;width:4px;height:.75px;background:var(--line-2)}
+ul.items.dense li{margin-bottom:.16rem;font-size:9.5pt}
+
+/* hallazgos: lista editorial numerada */
+.finding{display:grid;grid-template-columns:1.5rem 1fr;gap:.1rem .55rem;padding:.42rem 0;border-top:.75px solid var(--line)}
+.finding:last-child{border-bottom:.75px solid var(--line)}
+.finding .n{font-size:9.4pt;color:var(--accent);line-height:1.5;font-weight:600;letter-spacing:.02em}
+.finding h4{margin-bottom:.06rem}
+.finding p{font-size:9.3pt;line-height:1.5;margin:0;color:#4C525A}
+
+/* panel neutro */
+.panel{background:var(--panel);border-radius:3px;padding:.62rem .78rem}
+.panel.line{background:transparent;border:.75px solid var(--line)}
+.panel.warm{background:var(--clay-soft)}
+.panel.cool{background:var(--accent-soft)}
+.panel h4{margin-bottom:.2rem}
+.panel p{font-size:9.4pt;line-height:1.52;margin:0}
+
+.quote{border-left:1.5px solid var(--accent);padding:.15rem 0 .15rem .85rem;font-size:11.6pt;line-height:1.45;color:var(--ink);font-weight:500;letter-spacing:-.014em}
+.quote em{color:var(--accent);font-style:normal;font-weight:600}
+
+/* datos clave */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:.75px solid var(--line-2);border-bottom:.75px solid var(--line-2)}
+.facts>div{padding:.38rem .8rem .4rem;border-left:.75px solid var(--line)}
+.facts>div:first-child{border-left:none;padding-left:0}
+.facts .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.12rem}
+.facts .v{font-family:'Inter',sans-serif;font-size:10.2pt;font-weight:600;color:var(--ink);line-height:1.3;letter-spacing:-.018em}
+.facts .v small{font-family:'Inter',sans-serif;font-size:8.4pt;color:var(--muted);display:block;letter-spacing:0}
+
+/* tablas */
+table{width:100%;border-collapse:collapse;font-size:9.4pt}
+th{text-align:left;font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 .55rem .3rem 0;border-bottom:.75px solid var(--line-2)}
+th.r{text-align:right;padding-right:0}
+td{padding:.42rem .55rem .42rem 0;border-bottom:.75px solid var(--line);vertical-align:top;line-height:1.45}
+td.r{text-align:right;padding-right:0}
+td.r+td,th.r+th{padding-left:.7rem}
+td .nm{font-weight:600;color:var(--ink)}
+tr.sum td{border-bottom:none;border-top:.75px solid var(--line-2);font-size:10.6pt;font-weight:600;color:var(--ink);padding-top:.5rem;letter-spacing:-.014em}
+
+/* encabezado de fase */
+.phase{display:flex;align-items:flex-start;justify-content:space-between;gap:1.4rem}
+.phase .amount{flex:none;text-align:right;border-left:.75px solid var(--line-2);padding-left:.9rem}
+.phase .amount .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.phase .amount .v{font-family:'Inter',sans-serif;font-size:17.5pt;font-weight:600;color:var(--ink);line-height:1.18;letter-spacing:-.028em}
+.phase .amount .t{font-size:8.4pt;color:var(--accent);font-weight:600}
+
+svg{display:block;width:100%;height:auto}
+.figcap{font-size:7.6pt;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.42rem}
+.fignote{font-size:8.4pt;color:var(--muted);margin-top:.36rem;line-height:1.45}
+
+/* portada */
+.cover{display:flex;flex-direction:column;height:100%}
+.cover .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.75px solid var(--line-2);padding-bottom:.7rem}
+.wordmark{font-family:'Inter',sans-serif;font-size:12.4pt;font-weight:700;color:var(--ink);letter-spacing:-.022em}
+.wordmark span{color:var(--muted);font-weight:400}
+.cover h1{font-size:33pt;line-height:1.1;font-weight:600;color:var(--ink);letter-spacing:-.032em}
+.cover h1 em{font-style:normal;color:var(--accent)}
+.cover .deck{font-size:12pt;line-height:1.6;color:#4A5058;max-width:4.9in}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);border-top:.75px solid var(--line-2);padding-top:.7rem;gap:1rem}
+.meta .k{font-size:7.2pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.15rem}
+.meta .v{font-size:10pt;color:var(--ink);line-height:1.35}
+</style>
+
+<style>
+  :root{ --mine:#F1F5F4; }
+  .top{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;border-bottom:.75px solid var(--line-2);padding-bottom:.6rem;margin-bottom:.85rem}
+  .top h2{font-size:20pt}
+  .metaline{display:flex;gap:1.6rem;text-align:right;justify-content:flex-end}
+  .metaline .k{font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .metaline .v{font-size:9.4pt;color:var(--ink);line-height:1.35}
+  table.cmp{font-size:9.2pt}
+  table.cmp th{padding-bottom:.32rem}
+  table.cmp td{padding:.24rem .55rem .24rem 0;line-height:1.38}
+  table.cmp td.dim{font-weight:600;color:var(--ink);padding-left:0}
+  table.cmp td.mine{background:var(--mine);padding-left:.6rem;padding-right:.6rem;border-bottom-color:#DCE4E2}
+  table.cmp th.mine{background:var(--mine);padding:.2rem .6rem .3rem;color:var(--accent)}
+  table.cmp tr.sum td{font-size:10.2pt;font-weight:600;color:var(--ink);border-top:.75px solid var(--line-2);border-bottom:none;padding-top:.5rem;letter-spacing:-.014em}
+  table.cmp tr.sum td.mine{color:var(--accent)}
+  .flag{color:var(--clay);font-weight:600}
+</style>
+</head>
+<body>
+<section class="page">
+
+  <div class="top">
+    <div>
+      <div class="label">Comparativa técnica · Social analytics</div>
+      <h2>Dos maneras de construir el mismo tablero</h2>
+    </div>
+    <div class="metaline">
+      <div><div class="k">Para</div><div class="v">GEPP</div></div>
+      <div><div class="k">Preparado por</div><div class="v">Santiago Serrano</div></div>
+      <div><div class="k">Fecha</div><div class="v">29 de septiembre de 2026</div></div>
+    </div>
+  </div>
+
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th style="width:13%">&nbsp;</th>
+        <th style="width:39%">Open English · lo que existe hoy</th>
+        <th class="mine" style="width:46%">Propuesta para GEPP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="dim">De dónde salen los datos</td>
+        <td>MCP de Meta, a petición de Claude.</td>
+        <td class="mine">API de Meta y de TikTok, llamadas directamente con jobs programados. El MCP sirve para conversar, no para alimentar datos.</td>
+      </tr>
+      <tr>
+        <td class="dim">Imágenes y videos</td>
+        <td>Token pegado en Drive, video en espejo desde Drive.</td>
+        <td class="mine">El mismo usuario de sistema de Meta, con el token en un gestor de secretos. Videos y miniaturas en S3, GCS o Azure Blob, servidos por CDN.</td>
+      </tr>
+      <tr>
+        <td class="dim">Dónde se guarda</td>
+        <td>JSON y la base del artefacto, con tope de unos <span class="flag">17 MB</span>.</td>
+        <td class="mine">Postgres o un warehouse: sin tope y con historial completo.</td>
+      </tr>
+      <tr>
+        <td class="dim">Cuándo se actualiza</td>
+        <td>Los lunes a las 8 am, <span class="flag">si la computadora está prendida</span>.</td>
+        <td class="mine">Un job diario en la nube que además vuelve a traer los últimos 28 días, porque Meta ajusta sus números hacia atrás.</td>
+      </tr>
+      <tr>
+        <td class="dim">Acceso</td>
+        <td>Solo gente de la organización.</td>
+        <td class="mine">Una app web con login, roles y acceso por marca. GEPP entra con sus propias cuentas.</td>
+      </tr>
+      <tr>
+        <td class="dim">Plataformas</td>
+        <td>Solo Meta; TikTok sin probar.</td>
+        <td class="mine">Meta y TikTok desde el inicio, con un modelo de datos común. YouTube y DV360 se suman sin rehacer nada.</td>
+      </tr>
+      <tr>
+        <td class="dim">Qué hace Claude</td>
+        <td>Todo: los datos, la vista y el cerebro.</td>
+        <td class="mine">Una capa opcional que narra insights sobre números ya calculados.</td>
+      </tr>
+      <tr class="sum">
+        <td class="dim">En una línea</td>
+        <td>Una demo que funciona en la computadora de alguien.</td>
+        <td class="mine">Un producto que GEPP opera con sus propias cuentas.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:.7rem">
+    <div class="figcap">Arquitectura, lado a lado</div>
+    <svg viewBox="0 0 1400 314" role="img" aria-label="Arquitectura comparada: el flujo actual de Open English contra el flujo propuesto para GEPP">
+      <defs>
+        <marker id="arA" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6" fill="none" stroke="#CFCBC2" stroke-width="1"/>
+        </marker>
+        <marker id="arB" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6" fill="none" stroke="#BFBBB2" stroke-width="1"/>
+        </marker>
+      </defs>
+
+      <!-- ===== Open English ===== -->
+      <text x="0" y="11" font-family="Inter" font-size="13" font-weight="600" letter-spacing="2.2" fill="#868C94">OPEN ENGLISH · HOY</text>
+      <g font-family="Inter">
+        <rect x="0" y="22" width="228" height="56" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="14" y="44" font-size="16" font-weight="600" fill="#22262B">MCP de Meta</text>
+        <text x="14" y="64" font-size="13" fill="#868C94">a petición de Claude</text>
+
+        <rect x="258" y="22" width="228" height="56" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="272" y="44" font-size="16" font-weight="600" fill="#22262B">Claude</text>
+        <text x="272" y="64" font-size="13" fill="#868C94">trae, calcula y pinta</text>
+
+        <rect x="516" y="22" width="248" height="56" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="530" y="44" font-size="16" font-weight="600" fill="#22262B">Artefacto</text>
+        <text x="530" y="64" font-size="13" fill="#8E6B58">JSON + base de ~17 MB</text>
+
+        <rect x="794" y="22" width="228" height="56" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="808" y="44" font-size="16" font-weight="600" fill="#22262B">Vista</text>
+        <text x="808" y="64" font-size="13" fill="#868C94">solo la organización</text>
+
+        <rect x="1052" y="22" width="348" height="56" rx="3" fill="none" stroke="#CFCBC2" stroke-dasharray="3 3"/>
+        <text x="1066" y="44" font-size="16" font-weight="600" fill="#3E444C">Google Drive</text>
+        <text x="1066" y="64" font-size="13" fill="#8E6B58">token pegado · videos en espejo</text>
+      </g>
+      <g stroke="#CFCBC2" stroke-width="1" marker-end="url(#arA)" fill="none">
+        <path d="M228,50 L250,50"/><path d="M486,50 L508,50"/><path d="M764,50 L786,50"/>
+      </g>
+      <path d="M1052,50 L1030,50" stroke="#CFCBC2" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="0" y="102" font-family="Inter" font-size="14" fill="#8E6B58">Corre los lunes a las 8 am — y solo si esa computadora está prendida. Sin historial más allá del tope del artefacto.</text>
+
+      <line x1="0" y1="118" x2="1400" y2="118" stroke="#E3E0D9" stroke-width="1"/>
+
+      <!-- ===== Propuesta ===== -->
+      <text x="0" y="150" font-family="Inter" font-size="13" font-weight="600" letter-spacing="2.2" fill="#4E6B72">PROPUESTA PARA GEPP</text>
+      <g font-family="Inter">
+        <rect x="0" y="164" width="228" height="76" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="14" y="190" font-size="16" font-weight="600" fill="#22262B">API de Meta</text>
+        <text x="14" y="214" font-size="16" font-weight="600" fill="#22262B">API de TikTok</text>
+        <text x="14" y="233" font-size="13" fill="#868C94">llamadas directas</text>
+
+        <rect x="258" y="164" width="258" height="76" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="272" y="190" font-size="16" font-weight="600" fill="#22262B">Jobs diarios en la nube</text>
+        <text x="272" y="212" font-size="13" fill="#868C94">reprocesan los últimos 28 días:</text>
+        <text x="272" y="230" font-size="13" fill="#868C94">Meta ajusta sus números hacia atrás</text>
+
+        <rect x="546" y="164" width="238" height="76" rx="3" fill="#F4F2ED" stroke="#E3E0D9"/>
+        <text x="560" y="190" font-size="16" font-weight="600" fill="#22262B">Postgres o warehouse</text>
+        <text x="560" y="212" font-size="13" fill="#868C94">sin tope de tamaño,</text>
+        <text x="560" y="230" font-size="13" fill="#868C94">con historial completo</text>
+
+        <rect x="814" y="164" width="258" height="76" rx="3" fill="#E9EFEE" stroke="#4E6B72"/>
+        <text x="828" y="190" font-size="16" font-weight="600" fill="#22262B">App web de GEPP</text>
+        <text x="828" y="212" font-size="13" fill="#4E6B72">login, roles y acceso por marca,</text>
+        <text x="828" y="230" font-size="13" fill="#4E6B72">con sus propias cuentas</text>
+
+        <rect x="1102" y="164" width="298" height="76" rx="3" fill="none" stroke="#CFCBC2" stroke-dasharray="3 3"/>
+        <text x="1116" y="190" font-size="16" font-weight="600" fill="#3E444C">Claude, opcional</text>
+        <text x="1116" y="212" font-size="13" fill="#868C94">narra insights sobre números</text>
+        <text x="1116" y="230" font-size="13" fill="#868C94">que ya están calculados</text>
+
+        <rect x="258" y="262" width="258" height="46" rx="3" fill="none" stroke="#CFCBC2" stroke-dasharray="3 3"/>
+        <text x="272" y="282" font-size="14" font-weight="600" fill="#3E444C">Gestor de secretos</text>
+        <text x="272" y="300" font-size="13" fill="#868C94">token del usuario de sistema</text>
+
+        <rect x="546" y="262" width="238" height="46" rx="3" fill="none" stroke="#CFCBC2" stroke-dasharray="3 3"/>
+        <text x="560" y="282" font-size="14" font-weight="600" fill="#3E444C">S3 · GCS + CDN</text>
+        <text x="560" y="300" font-size="13" fill="#868C94">videos y miniaturas</text>
+      </g>
+      <g stroke="#BFBBB2" stroke-width="1" marker-end="url(#arB)" fill="none">
+        <path d="M228,202 L250,202"/><path d="M516,202 L538,202"/><path d="M784,202 L806,202"/>
+      </g>
+      <g stroke="#CFCBC2" stroke-width="1" stroke-dasharray="3 3">
+        <path d="M387,262 L387,240"/><path d="M665,262 L665,240"/><path d="M1102,202 L1080,202"/>
+      </g>
+    </svg>
+  </div>
+
+  <div style="margin-top:.55rem;border-top:.75px solid var(--line-2);padding-top:.42rem;display:flex;gap:1.6rem;font-size:9pt;line-height:1.4">
+    <div><span style="font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">Se elimina</span>
+      <span style="color:var(--ink)"> el tope de 17 MB y la dependencia de una computadora encendida</span></div>
+    <div><span style="font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">Se gana</span>
+      <span style="color:var(--ink)"> historial completo y TikTok desde el primer día</span></div>
+    <div><span style="font-size:7pt;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600">Quién opera</span>
+      <span style="color:var(--ink)"> GEPP, con sus propias cuentas</span></div>
+  </div>
+
+  <div class="ftr"><span>Santiago Serrano · santiago@serranom.com · +52 55 1298 5667</span><span>Comparativa técnica · 29 de septiembre de 2026</span></div>
+</section>
+
+</body>
+</html>

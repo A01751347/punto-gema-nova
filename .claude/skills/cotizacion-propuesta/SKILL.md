@@ -44,6 +44,7 @@ cp <skill>/assets/{build.mjs,package.json,plantilla.html} .
 mv plantilla.html propuesta.html
 npm install                 # @fontsource/inter + playwright-core
 npm run build               # PDF + PNGs en preview/
+PAGE=landscape npm run build  # one pager en hoja carta horizontal
 ```
 
 Chromium ya está instalado en este entorno (`/opt/pw-browsers/chromium-*/chrome-linux/chrome`);

@@ -1,6 +1,7 @@
 // Renderiza una propuesta HTML a PDF tamaño carta con Chromium.
 //
 //   node build.mjs [entrada.html] [--png] [--out archivo.pdf]
+//   PAGE=landscape node build.mjs onepager.html --png   (hoja carta horizontal)
 //
 // - Incrusta las tipografías como data URI (el PDF queda autocontenido).
 // - Ajusta la densidad de cada página para que llene la caja de texto sin invadir el pie.
@@ -36,8 +37,14 @@ const html = fs.readFileSync(SRC, 'utf8').replace('/*FONTS*/', fonts);
 const tmp = path.join(DIR, '.build.html');
 fs.writeFileSync(tmp, html);
 
+// Tamaño de hoja: carta vertical por defecto; horizontal con PAGE=landscape
+const LANDSCAPE = (process.env.PAGE || '').toLowerCase() === 'landscape';
+const PW = process.env.PAGE_W || (LANDSCAPE ? '11in' : '8.5in');
+const PH = process.env.PAGE_H || (LANDSCAPE ? '8.5in' : '11in');
+const px = (v) => Math.round(parseFloat(v) * 96);
+
 const browser = await chromium.launch({ executablePath: CHROME });
-const page = await browser.newPage({ viewport: { width: 816, height: 1056 }, deviceScaleFactor: 2 });
+const page = await browser.newPage({ viewport: { width: px(PW), height: px(PH) }, deviceScaleFactor: 2 });
 await page.goto('file://' + tmp, { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
 
@@ -86,7 +93,7 @@ console.log('holgura al pie:', gaps.map((g) => `${g.p}:${g.gap}`).join(' '));
 const bad = gaps.filter((g) => g.gap < 6);
 if (bad.length) console.log('AJUSTAR (recortar contenido en estas páginas):', JSON.stringify(bad));
 
-await page.pdf({ path: OUT, width: '8.5in', height: '11in', printBackground: true,
+await page.pdf({ path: OUT, width: PW, height: PH, printBackground: true,
                  margin: { top: 0, right: 0, bottom: 0, left: 0 } });
 
 if (argv.includes('--png')) {
